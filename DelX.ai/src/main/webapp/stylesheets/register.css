@@ -1,0 +1,157 @@
+body{
+    /* background: linear-gradient(190deg, #78a083, #1e5128); */
+    background: url('../resources/other/womenAI.png');
+    background-size: cover;
+  background-repeat: no-repeat;
+  background-color: black;
+}
+
+.nav img{
+    padding: 10px 20px;
+}
+
+.container {
+  height: 455px;
+  width: 365px;
+  background-color: rgba(255, 255, 255, 0.03);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 10px;
+  backdrop-filter: blur(3px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+  padding: 50px 35px;
+}
+
+form * {
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  outline: none;
+  border: none;
+}
+
+form h3 {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 42px;
+  text-align: center;
+  margin: 0 0 5px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  margin-bottom: 20px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+input,
+select {
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+  padding: 0 10px;
+  font-size: 14px;
+  font-weight: 300;
+  width: 160px;
+}
+
+select {
+  appearance: none;
+}
+
+select > option {
+  background: #000;
+}
+
+
+::placeholder {
+  color: #e1e1e1;
+}
+
+input:hover,
+select:hover {
+  outline: 2px solid #0001;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+  width: 70%;
+  background-color: #78a083;
+  color: #080710;
+  padding: 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #5f805e;
+}
+
+p {
+  text-align: center;
+}
+
+.error{
+  height: 10px;
+  font-size: 14px;
+  color: red;
+  font-weight: 700;
+}
+.success{
+  height: 10px;
+  font-size: 14px;
+  color: green;
+  font-weight: 700;
+}
+
+  
+  @media only screen and (max-width: 48em) {
+    body {
+      background: url('../resources/other/womenAIvr.png'); 
+      background-size: 100vh;
+      background-position: 50% 0;
+      background-repeat: no-repeat;
+    }
+
+    .container {
+        height: min-content;
+        top: 60%;
+        width: 250px;
+        padding: 15px 30px;
+    }
+
+    label {
+      display: none;
+    }
+
+    .row {
+      display: grid;
+      grid-template-rows: repeat(2, 1fr);
+      grid-template-columns: 0;
+      grid-gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    input,
+select {
+  width: 235px;
+}
+  }

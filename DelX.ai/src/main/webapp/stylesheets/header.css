@@ -1,0 +1,226 @@
+body {
+    margin: 0;
+    font-family: Helvetica, sans-serif;
+    text-decoration: none;
+    color: #fff;
+    /* background: linear-gradient(to left, #333, #333 50%, #eee 75%, #333 75%); */
+}
+
+a {
+    color: #fff;
+}
+
+/* header */
+
+.header {
+    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+    background-image: linear-gradient(to left top, #071e22, #032022, #012221, #00231f, #02251c);
+}
+
+.header ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header li a {
+    display: block;
+    padding: 20px 20px;
+    text-decoration: none;
+}
+
+
+.header .logo {
+    display: block;
+    float: left;
+    font-size: 2em;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+/* menu */
+
+.header .menu {
+    clear: both;
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
+}
+
+/* menu icon */
+
+.header .menu-icon {
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    padding: 28px 20px;
+    position: relative;
+    user-select: none;
+}
+
+.header .menu-icon .navicon {
+    background: #333;
+    display: block;
+    height: 2px;
+    position: relative;
+    transition: background 0.2s ease-out;
+    width: 18px;
+}
+
+.header .menu-icon .navicon:before,
+.header .menu-icon .navicon:after {
+    background: #333;
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    transition: all 0.2s ease-out;
+    width: 100%;
+}
+
+.header .menu-icon .navicon:before {
+    top: 5px;
+}
+
+.header .menu-icon .navicon:after {
+    top: -5px;
+}
+
+/* menu btn */
+
+.header .menu-btn {
+    display: none;
+}
+
+.header .menu-btn:checked ~ .menu {
+    max-height: 400px;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon {
+    background: transparent;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:before {
+    transform: rotate(-45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:after {
+    transform: rotate(45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+    top: 0;
+}
+
+main.body {
+    margin-top: 0;
+    position: absolute;
+    top: 10vh;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    height: 83.8%;
+    place-items: center;
+    padding: 20px 50px;
+    /* background: linear-gradient(to left top, #061a19, #001b1e, #001b23, #001b28, #001a2d, #001b2e, #001b2e, #001c2f, #001e2c, #002028, #052024, #0d2120); */
+    background-image: linear-gradient(to left top, #071e22, #032022, #012221, #00231f, #02251c);
+}
+
+.desc {
+    grid-column: 1;
+    letter-spacing: 1px;
+    margin-left: 50px;
+}
+
+.desc h2{
+    font-size: 1.3rem;
+}
+
+.desc h2::after,
+.desc h2::before {
+    content: "";
+    width: 1rem;
+    height: 2px;
+    background:rgba(0, 201, 167, 0.7);
+    display: inline-block;
+    margin: 7px 8px;
+}
+
+.desc p {
+    letter-spacing: 1px;
+    padding: 0 50px;
+    line-height: 1.5;
+}
+
+.btn {
+    border-radius: 15px;
+    margin: 10px 50px;
+    font-size: 16px;
+    font-weight: 600;
+    outline: none;
+    border: none;
+    border-color: transparent;
+    color: #fff;
+    background-color:rgba(164,248,122,1);
+    width: 109px;
+    cursor: pointer;
+}
+
+.btn-primary{
+    padding: 10px;
+}
+
+.btn-nav {
+    margin: auto;
+    padding: 7px;
+}
+
+.btn-in {
+    /* border: red 2px solid; */
+    background-color: transparent;
+    color: rgba(164,248,122,1);
+}
+
+.hero-img {
+    grid-column: 2;
+    /* height: 200px; /* Adjust height as needed */
+    /* width: 200px; Adjust width as needed */
+    /* background-color: gray; Placeholder color */
+}
+
+.hero-img img {
+    height: 140%;
+    width: 180%;
+    object-fit: cover;
+}
+
+/* 48em = 768px */
+
+@media (min-width: 48em) {
+    .header li {
+        float: left;
+    }
+    .header li a {
+        padding: 20px 30px;
+    }
+    .header .menu {
+        clear: none;
+        float: right;
+        max-height: none;
+    }
+    .header .menu-icon {
+        display: none;
+    }
+    .header ul {
+        flex-direction: row !important;
+    }
+
+    
+}
