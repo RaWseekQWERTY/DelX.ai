@@ -2,10 +2,14 @@
 <%@page import="model.UserModel"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 String contextPath = request.getContextPath();
 
 UserModel user = (UserModel) session.getAttribute("username");
+
+String errMsg = (String) request.getAttribute(StringUtils.MESSAGE_ERROR);
+String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
 
 if (user == null) {
 	session.setAttribute(StringUtils.MESSAGE_ERROR, "please login first");
@@ -41,9 +45,7 @@ if (user == null) {
 		<div id="sidebar-wrapper">
 			<ul id="sidebar_menu" class="sidebar-nav">
 				<li class="sidebar-brand"><a id="menu-toggle" href="#">Menu<span
-						id="main_icon" class="icon"><img
-							src="https://static.vecteezy.com/system/resources/previews/000/440/847/original/menu-vector-icon.jpg"
-							alt="logo" width="30px" height="30px"></span></a></li>
+						id="main_icon" class="icon"></span></a></li>
 			</ul>
 			<ul class="sidebar-nav" id="sidebar">
 				<li><a href="<%=contextPath%>/pages/admin/admin.jsp">Dash<span
@@ -59,14 +61,12 @@ if (user == null) {
 		<!-- Page content -->
 		<div id="page-content-wrapper">
 			<%
-			String errMsg = (String) request.getAttribute(StringUtils.MESSAGE_ERROR);
-			String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
 			if (successMsg != null) {
 			%>
 			<label> <input type="checkbox" class="alertCheckbox"
 				autocomplete="off" />
 				<div class="alert success">
-					<span class="alertClose">X</span> <span class="alertText">
+					<span class="alertClose">&times;</span> <span class="alertText">
 						<%
 						out.println(successMsg);
 						%><br class="clear" />
@@ -76,7 +76,22 @@ if (user == null) {
 			<%
 			}
 			%>
-
+			<%
+			if (errMsg != null) {
+			%>
+			<label> <input type="checkbox" class="alertCheckbox"
+				autocomplete="off" />
+				<div class="alert success">
+					<span class="alertClose">&times;</span> <span class="alertText">
+						<%
+						out.println(errMsg);
+						%><br class="clear" />
+					</span>
+				</div>
+			</label>
+			<%
+			}
+			%>
 
 
 			<div class="cards">
@@ -112,6 +127,15 @@ if (user == null) {
 					</div>
 					<div>
 						<span class="fas fa-shopping-bag"></span>
+					</div>
+				</div>
+				<div class="card-single">
+					<div>
+						<br> <span>ADD</span>
+					</div>
+
+					<div class="page-content inset">
+						<div class="row"></div>
 					</div>
 				</div>
 				<div class="card-single">

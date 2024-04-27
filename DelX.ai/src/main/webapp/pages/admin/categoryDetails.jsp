@@ -62,7 +62,7 @@ List<Category> categories = dbController.getAllCategories();
 						if (categories == null || categories.isEmpty()) {
 						%>
 						<tr>
-							<td colspan="3">No Categories added!Please, add a category </td>
+							<td colspan="4" style="font-size:16px;font-weight:500;">No Categories added!Please, add a category </td>
 						</tr>
 						<%
 						} else {

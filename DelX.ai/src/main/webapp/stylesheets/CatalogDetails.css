@@ -140,6 +140,7 @@ body {
 	line-height: 65px;
 	display: inline-block;
 }
+
 /*
 .bn60 {
 	background-color: #324960;
@@ -325,7 +326,7 @@ h2 {
 	border-radius: 3px;
 	cursor: pointer;
 	color: #fff;
-	margin-left: 113px;
+	margin-left: 102px;
 }
 
 .button {
@@ -340,6 +341,7 @@ h2 {
 	position: relative;
 	border: 3px solid #ffffff;
 	border-radius: 25px;
+	margin-top: 36px !important;
 }
 
 .overlay {
@@ -360,7 +362,7 @@ h2 {
 }
 
 .popup {
-	margin: 30px auto;
+	margin: 10px auto;
 	padding: 20px;
 	background: #fff;
 	border-radius: 5px;

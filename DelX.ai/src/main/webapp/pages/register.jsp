@@ -20,7 +20,7 @@ String contextPath = request.getContextPath();
 
 	</div>
 	<div class="container">
-		<form action="<%=contextPath%>/registeruser" method="post">
+		<form action="<%=contextPath + StringUtils.SERVLET_URL_REGISTER%>" method="post">
 
 			<h3>Sign Up</h3>
 

@@ -17,7 +17,7 @@ a {
 
 main.body {
 	margin-top: 0;
-	position: absolute;
+	position: relative !important;
 	top: 10vh;
 	display: grid;
 	grid-template-columns: 40% 60%;
@@ -36,7 +36,8 @@ main.body {
 }
 
 .desc h2 {
-	font-size: 1.3rem;
+	margin:26px 0;
+	font-size: 2.3rem;
 }
 
 .desc h2::after, .desc h2::before {
@@ -50,8 +51,9 @@ main.body {
 
 .desc p {
 	letter-spacing: 1px;
-	padding: 0 50px;
+	padding: 24px 30px;
 	line-height: 1.5;
+	font-size: larger;
 }
 
 .btn {
@@ -93,12 +95,75 @@ main.body {
 	object-fit: cover;
 }
 
+.features {
+	background: linear-gradient(to left bottom, #071e22, #032022, #012221, #00231f,
+		#02251c);
+	padding: 6.25rem 0 0;
+}
+
+.features .features-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 35px;
+	padding: 30px 60px 0;
+}
+
+.features .feature {
+	text-align: center;
+}
+
+@media ( min-width : 40em) {
+	.features .feature {
+		text-align: start;
+		flex: 1 0 calc(50% - 30px);
+	}
+}
+
+.section-heading {
+	padding: 20px 60px;
+	text-align: justify;
+}
+
+.features .feature-icon {
+	margin-bottom: 1.875rem;
+}
+
+.features .feature-title h3 {
+	font-size: 1.25rem;
+	margin-bottom: 1rem;
+}
+
+.features .feature-description p {
+	font-size: 0.875rem;
+}
+
+/* 48em = 768px */
+@media ( min-width : 48em) {
+	.header li {
+		float: left;
+	}
+	.header li a {
+		padding: 20px 30px;
+	}
+	.header .menu {
+		clear: none;
+		float: right;
+		max-height: none;
+	}
+	.header .menu-icon {
+		display: none;
+	}
+	.header ul {
+		flex-direction: row !important;
+	}
+}
+
 @media ( max-width :48em) {
 	main.body {
 		display: block !important;
 		background: url("../resources/other/BG-landing.png"),
 			linear-gradient(to left top, #071e22, #032022, #012221, #00231f, #02251c
-			)! important;
+			) ! important;
 		object-fit: cover;
 		background-repeat: no-repeat !important;
 		background-position: 28% 30% !important;
@@ -118,7 +183,7 @@ main.body {
 	.desc h2 {
 		padding-bottom: 50px !important;
 		text-align: center !important;
-		font-size: 24px !important;
+		font-size: 18px !important;
 		font-weight: 700 !important;
 	}
 	.desc h2::after, .desc h2::before {
@@ -127,9 +192,10 @@ main.body {
 	.desc p {
 		letter-spacing: 1px !important;
 		padding: 0 !important;
-		padding-top: 308px !important;
+		padding-top: 312px !important;
 		font-weight: 500 !important;
 		line-height: 1.5 !important;
 		color: #fff;
+		font-size: 0.875rem;
 	}
 }

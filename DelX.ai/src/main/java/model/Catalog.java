@@ -1,35 +1,39 @@
 package model;
 
+import javax.servlet.http.Part;
+import java.io.File;
+import utils.StringUtils;
+
 public class Catalog {
 
 	private int catalogID;
 	private String toolName;
 	private String toolDesc;
 	private String toolAuthor;
-	private String toolImg;
+	private String imageUrlFromPart;
 	private Category category;
 
 	public Catalog() {
 
 	}
 
-	public Catalog(int catalogID, String toolName, String toolDesc, String toolAuthor, String toolImg,
+	public Catalog(int catalogID, String toolName, String toolDesc, String toolAuthor, Part imgPart,
 			Category category) {
 		super();
 		this.catalogID = catalogID;
 		this.toolName = toolName;
 		this.toolDesc = toolDesc;
 		this.toolAuthor = toolAuthor;
-		this.toolImg = toolImg;
+		this.imageUrlFromPart = getImageUrl(imgPart);
 		this.category = category;
 	}
 
-	public Catalog(String toolName, String toolDesc, String toolAuthor, String toolImg, Category category) {
+	public Catalog(String toolName, String toolDesc, String toolAuthor, Part imgPart, Category category) {
 		super();
 		this.toolName = toolName;
 		this.toolDesc = toolDesc;
 		this.toolAuthor = toolAuthor;
-		this.toolImg = toolImg;
+		this.imageUrlFromPart = getImageUrl(imgPart);
 		this.category = category;
 	}
 
@@ -65,12 +69,36 @@ public class Catalog {
 		this.toolAuthor = toolAuthor;
 	}
 
-	public String getToolImg() {
-		return toolImg;
+	public String getImageUrlFromPart() {
+		return imageUrlFromPart;
 	}
 
-	public void setToolImg(String toolImg) {
-		this.toolImg = toolImg;
+	public void setImageUrlFromPart(Part part) {
+		this.imageUrlFromPart = getImageUrl(part);
+	}
+
+	public void setImageUrlFromDB(String imageUrl) {
+		this.imageUrlFromPart = imageUrl;
+	}
+
+	private String getImageUrl(Part part) {
+		String savePath = StringUtils.IMAGE_DIR_SAVE_PATH;
+		File fileSaveDir = new File(savePath);
+		String imageUrlFromPart = null;
+		if (!fileSaveDir.exists()) {
+			fileSaveDir.mkdir();
+		}
+		String contentDisp = part.getHeader("content-disposition");
+		String[] items = contentDisp.split(";");
+		for (String s : items) {
+			if (s.trim().startsWith("filename")) {
+				imageUrlFromPart = s.substring(s.indexOf("=") + 2, s.length() - 1);
+			}
+		}
+		if (imageUrlFromPart == null || imageUrlFromPart.isEmpty()) {
+			imageUrlFromPart = "defaultAI.jpg";
+		}
+		return imageUrlFromPart;
 	}
 
 	public Category getCategory() {
@@ -84,7 +112,7 @@ public class Catalog {
 	@Override
 	public String toString() {
 		return "Catalog [catalogID=" + catalogID + ", toolName=" + toolName + ", toolDesc=" + toolDesc + ", toolAuthor="
-				+ toolAuthor + ", toolImg=" + toolImg + ", category=" + category + "]";
+				+ toolAuthor + ", imageUrlFromPart=" + imageUrlFromPart + ", category=" + category + "]";
 	}
 
 }

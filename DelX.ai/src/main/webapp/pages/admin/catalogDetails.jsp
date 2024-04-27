@@ -1,10 +1,16 @@
+<%@page import="utils.StringUtils"%>
 <%@page import="controller.database.DBController"%>
+<%@page import="model.Catalog"%>
 <%@ page import="java.util.List"%>
 <%@ page import="model.Category"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%
 String contextPath = request.getContextPath();
+DBController dbController = new DBController();
+List<Catalog> toolList = dbController.getAllTools();
+request.setAttribute(StringUtils.LIST_TOOLS, toolList);
 %>
 <!DOCTYPE html>
 <html>
@@ -56,17 +62,42 @@ String contextPath = request.getContextPath();
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Content 1</td>
-							<td>Content 1</td>
-							<td>Content 1</td>
-							<td>Content 1</td>
-							<td>Content 1</td>
-							<td>Content 1</td>
-							<td><button>Edit</button>
-								<button>Delete</button></td>
-						</tr>
-					<tbody>
+
+						<c:choose>
+							<c:when test="${empty toolList}">
+								<tr>
+									<td colspan="7" style="font-size: 16px; font-weight: 400;">No
+										Ai tools found! Please, add a tool</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="tool" items="${toolList}">
+									<tr>
+										<td>${tool.catalogID}</td>
+										<td>${tool.toolName}</td>
+										<td>${tool.category.categoryName}</td>
+										<td>${tool.toolDesc}</td>
+										<td>${tool.toolAuthor}</td>
+										<td><img
+											src="${pageContext.request.contextPath}/resources/catalog/${tool.imageUrlFromPart}"
+											width="120px" height="120px" alt="picture"></td>
+										<td>
+											<button>Edit</button>
+											<form id="deleteForm-${tool.catalogID}" method="post"
+												action="<%=contextPath + StringUtils.SERVLET_URL_MODIFY_TOOL %>">
+												<input type="hidden" name="<%=StringUtils.DELETE_ID %>"
+													value="${tool.catalogID}" />
+												<button type="button"
+													onclick="confirmDelete('${tool.catalogID}', '${tool.toolName}')">Delete</button>
+
+											</form>
+										</td>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</tbody>
+
 				</table>
 			</div>
 			<div id="popup1" class="overlay">
@@ -75,17 +106,20 @@ String contextPath = request.getContextPath();
 					<a class="close" href="#">&times;</a>
 					<div class="content">
 						<div class="form_container">
-							<form name="form" action="<%=contextPath%>/addtool" method="post">
+							<form name="form" action="<%=contextPath%>/addtool" method="post"
+								enctype="multipart/form-data">
 								<input type="hidden" name="operations" value="addtools">
 								<div class="form_wrap form_grp">
 									<div class="form_item">
-										<label>Tool Name</label> <input type="text" required>
+										<label>Tool Name</label> <input type="text" name="toolName"
+											required>
 
 									</div>
 								</div>
 								<div class="form_wrap">
 									<div class="form_item">
-										<label>Tool Author</label> <input type="text" required>
+										<label>Tool Author</label> <input type="text"
+											name="toolAuthor" required>
 									</div>
 								</div>
 								<div class="form_wrap">
@@ -96,18 +130,22 @@ String contextPath = request.getContextPath();
 								</div>
 								<!-- Category -->
 								<%
-								DBController dbController = new DBController();
 								List<Category> categories = dbController.getAllCategories();
 								%>
 								<div class="form_wrap">
 									<div class="form_item">
 										<label>Tool Category:</label> <select name="catId" id="">
 											<%
+											if (categories == null || categories.isEmpty()) {
+											%>
+											<option value="none">none</option>
+											<%
+											} else {
 											for (Category cat : categories) {
 											%>
-											<option value="<%= cat.getCategoryID()%>"><%= cat.getCategoryName() %></option>
-
+											<option value="<%=cat.getCategoryID()%>"><%=cat.getCategoryName()%></option>
 											<%
+											}
 											}
 											%>
 										</select>
@@ -144,7 +182,13 @@ String contextPath = request.getContextPath();
 						wrapper.classList.add("active");
 					}
 				});
-		document.addEventListener('DOMContentLoaded', function() {
+		function confirmDelete(toolId, toolName) {
+			if (confirm("Are you sure you want to delete this Tool: "
+					+ toolName + "?")) {
+				document.getElementById("deleteForm-" + toolId).submit();
+			}
+		}
+		/*document.addEventListener('DOMContentLoaded', function() {
 			var startBtns = document.querySelectorAll('.start-btn');
 			var closeButton = document.querySelector('.fa-times');
 			var modalBox = document.querySelector('.modal-box');
@@ -164,7 +208,7 @@ String contextPath = request.getContextPath();
 
 			// Add click event listener to close button
 			closeButton.addEventListener('click', toggleModal);
-		});
+		});*/
 	</script>
 </body>
 </html>

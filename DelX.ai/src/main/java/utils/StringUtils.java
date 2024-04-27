@@ -1,5 +1,7 @@
 package utils;
 
+import java.io.File;
+
 public class StringUtils {
 	// Start: DB Connection
 	public static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
@@ -8,13 +10,30 @@ public class StringUtils {
 	public static final String LOCALHOST_PASSWORD = "";
 	// End: DB Connection
 
+	// Drive path
+	public static final String IMAGE_DIR = "xampp\\tomcat\\webapps\\images\\";
+	public static final String IMAGE_DIR_USER = "Users\\HP\\eclipse-workspace\\DelX.ai\\src\\main\\webapp\\resources\\catalog\\";
+	public static final String IMAGE_DIR_SAVE_PATH = "C:" + File.separator + IMAGE_DIR_USER;
+	// END driver path
 	// Start: Queries
-	public static final String QUERY_REGISTER_STUDENT = "INSERT INTO user_detail ("
+	public static final String QUERY_REGISTER_USER = "INSERT INTO user_detail ("
 			+ "firstName, lastName, user_name, dob, gmail, gender, userType, password, avatar) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	
-	public static final String QUERY_ADD_CATEGORY = "INSERT INTO category ("+"categoryTitle, categoryDesc)"+"VALUES(?,?)";
+
+	// catalog and category
+	public static final String QUERY_ADD_CATEGORY = "INSERT INTO category (" + "categoryTitle, categoryDesc)"
+			+ "VALUES(?,?)";
 	public static final String QUERY_GETALL_CATEGORY = "Select categoryID,categoryTitle,categoryDesc from category";
+	public static final String QUERY_GET_CATEGORY_BY_ID = "SELECT * FROM category WHERE categoryId = ?";
+	public static final String QUERY_ADD_TOOLS = "INSERT INTO catalog ("
+			+ "ToolName,ToolDesc,ToolAuthor,Toolimg,categoryID) " + "VALUES(?,?,?,?,?)";
+	public static final String QUERY_DELETE_TOOLS = "DELETE FROM catalog WHERE CatalogID = ?";
+	public static final String QUERY_UPDATE_TOOLS = "UPDATE catalog set ToolName=?,ToolDesc=?.ToolAuthor=?,Toolimg=?,categoryID=? "
+			+ "WHERE CatalogID=?";
+
+	// end catalog and category
+
+	public static final String QUERY_GETALL_TOOLS = "Select * from catalog";
 
 	public static final String QUERY_LOGIN_USER_CHECK = "SELECT * FROM user_detail WHERE user_name = ?";
 	public static final String QUERY_USERNAME_CHECK = "SELECT * FROM user_detail WHERE user_name = ?";
@@ -39,6 +58,8 @@ public class StringUtils {
 	public static final String SERVLET_URL_REGISTER = "/registeruser";
 	public static final String SERVLET_URL_LOGOUT = "/logout";
 	public static final String SERVLET_URL_ADD_TOOL = "/addtool";
+	public static final String SERVLET_URL_CATALOG = "/catalog";
+	public static final String SERVLET_URL_MODIFY_TOOL = "/modifytools";
 	// End: Servlet Route
 
 	// Start: Validation Messages
@@ -63,14 +84,14 @@ public class StringUtils {
 	public static final String MESSAGE_SUCCESS = "successMessage";
 	public static final String MESSAGE_ERROR = "errorMessage";
 	// End: Validation Messages
-	
-	
+
 	public static final String PAGE_URL_HEADER = "/pages/header.jsp";
 	public static final String URL_HOME = "/home.jsp";
 	public static final String PAGE_URL_LOGIN = "/pages/login.jsp";
 	public static final String PAGE_URL_REGISTER = "/pages/register.jsp";
 	public static final String PAGE_URL_PROFILE = "/pages/profile.jsp";
 	public static final String PAGE_URL_ADMIN_DASH = "/pages/admin/admin.jsp";
+	public static final String PAGE_URL_ADMIN_CATALOG = "/pages/admin/catalogDetails.jsp";
 
 	// Start: Normal Text
 	public static final String SUCCESS = "success";
@@ -79,7 +100,11 @@ public class StringUtils {
 	public static final String JSESSIONID = "JSESSIONID";
 	public static final String LOGIN = "Login";
 	public static final String LOGOUT = "Logout";
-	public static final String STUDENT_MODEL = "studentModel";
+	public static final String SLASH = "/";
+	public static final String DELETE_ID = "deleteId";
+	public static final String UPDATE_ID = "updateId";
 	// End: Normal Text
+
+	public static final String LIST_TOOLS = "toolList";
 
 }

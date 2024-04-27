@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import model.Catalog;
 import model.Category;
 import model.LoginModel;
 import model.PasswordEncryptionWithAes;
@@ -45,10 +46,12 @@ public class DBController {
 	 * @throws SQLException           if a database access error occurs.
 	 * @throws ClassNotFoundException if the JDBC driver class is not found.
 	 */
+
+	// Create operations
 	public int registerUser(UserModel user) {
 		try {
 			// Prepare a statement using the predefined query for student registration
-			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_REGISTER_STUDENT);
+			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_REGISTER_USER);
 			// Set the student information in the prepared statement
 			stmt.setString(1, user.getFirstName());
 			stmt.setString(2, user.getLastName());
@@ -64,10 +67,10 @@ public class DBController {
 			int result = stmt.executeUpdate();
 			// Check if the update was successful (i.e., at least one row affected)
 			if (result > 0) {
-				System.out.println("success");
+
 				return 1;// Registration successful
 			} else {
-				System.out.println("failed");
+
 				return 0; // Registration failed (no rows affected)
 
 			}
@@ -116,6 +119,35 @@ public class DBController {
 		}
 	}
 
+	public int addTools(Catalog tools) {
+		try {
+			// Prepare a statement using the predefined query for insterting tool details
+			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_ADD_TOOLS);
+
+			// set tool information in prepare statement
+			stmt.setString(1, tools.getToolName());
+			stmt.setString(2, tools.getToolAuthor());
+			stmt.setString(3, tools.getToolDesc());
+			stmt.setString(4, tools.getImageUrlFromPart());
+			stmt.setInt(5, tools.getCategory().getCategoryID());
+			// Execute the update statement and store the number of affected rows
+			int result = stmt.executeUpdate();
+			// Check if the update was successful (i.e., at least one row affected)
+			if (result > 0) {
+				return 1; // Registration successful
+			} else {
+				return 0; // Registration failed (no rows affected)
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	// End Create operations
+
+	// READ operations
 	public int getUserLoginInfo(LoginModel loginModel) {
 		// Try-catch block to handle potential SQL or ClassNotFound exceptions
 		try {
@@ -279,6 +311,102 @@ public class DBController {
 			return null;
 		}
 	}
-	
-	
+
+	public ArrayList<Catalog> getAllTools() {
+		ArrayList<Catalog> toolsList = null;
+		try {
+			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_GETALL_TOOLS);
+			ResultSet result = stmt.executeQuery();
+
+			toolsList = new ArrayList<Catalog>();
+
+			while (result.next()) {
+				Catalog tools = new Catalog();
+				tools.setCatalogID(result.getInt(1));
+				tools.setToolName(result.getString(2));
+				tools.setToolDesc(result.getString(3));
+				tools.setToolAuthor(result.getString(4));
+				tools.setImageUrlFromDB(result.getString("Toolimg"));
+				// get category information
+				int catId = result.getInt("categoryID");
+				Category category = getCategoryById(catId);
+
+				// set category object
+				tools.setCategory(category);
+				toolsList.add(tools);
+			}
+			return toolsList;
+		} catch (SQLException | ClassNotFoundException ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+
+	public Category getCategoryById(int categoryID) {
+		Category cat = null;
+		try {
+			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_GET_CATEGORY_BY_ID);
+			stmt.setInt(1, categoryID);
+			ResultSet result = stmt.executeQuery();
+
+			if (result.next()) {
+				// Retrieve category details from the result set
+				int categoryId = result.getInt("categoryId");
+				String categoryName = result.getString("categoryTitle");
+				String categoryDesc = result.getString("categoryDesc");
+
+				// creating category object
+				cat = new Category();
+				cat.setCategoryID(categoryId);
+				cat.setCategoryName(categoryName);
+				cat.setCategoryDesc(categoryDesc);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cat;
+	}
+
+	// END READ operations
+
+	// Update Operations
+	public boolean updateTool(Catalog tool) {
+		boolean result = false;
+		try {
+			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_UPDATE_TOOLS);
+			stmt.setString(1, tool.getToolName());
+			stmt.setString(2, tool.getToolDesc());
+			stmt.setString(3, tool.getToolAuthor());
+			stmt.setString(4, tool.getImageUrlFromPart());
+			stmt.setInt(5, tool.getCategory().getCategoryID());
+			stmt.setInt(5, tool.getCatalogID());
+			
+			int executeResult = stmt.executeUpdate();
+			if(executeResult==1) {
+				result=true;
+			}
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return result;
+		}
+	}
+
+	// END Update operations
+
+	// DELETE operations
+	public int deleteTool(int toolID) {
+		try {
+			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_DELETE_TOOLS);
+			stmt.setInt(1, toolID);
+			return stmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	// END Delete operations
+
 }
