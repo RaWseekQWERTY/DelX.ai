@@ -29,6 +29,7 @@ main.body {
 	/* gap: 5rem; */
 	/* justify-content: center; */
 	align-items: center !important;
+	padding-bottom: 39px;
 }
 
 .heading {
@@ -61,6 +62,7 @@ main.body {
 	height: 50px;
 	border: 2px solid #fff;
 	background-color: transparent;
+	color: white;
 }
 
 .btn {
@@ -80,7 +82,7 @@ main.body {
 }
 
 .categories {
-	width: 20%;
+	width: 29%;
 	display: flex;
 	gap: 50px;
 	overflow-y: hidden;
@@ -104,7 +106,9 @@ main.body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	flex-direction: column;
+	flex-wrap: wrap;
+	gap: 3rem;
+	width: 80%;
 }
 
 .main-product h1 {
@@ -114,7 +118,7 @@ main.body {
 .product-container {
 	display: flex;
 	flex-wrap: wrap;
-	width: 70%;
+	width: 39%;
 	justify-content: center;
 	align-items: center;
 	gap: 50px;
@@ -140,32 +144,12 @@ main.body {
 	width: 130px;
 }
 
-@media ( min-width : 48em) {
-	.header li {
-		float: left;
-	}
-	.main.body{
-	padding: 20px 0 !important;
-	}
-	.header li a {
-		padding: 20px 30px;
-	}
-	.header .menu {
-		clear: none;
-		float: right;
-		max-height: none;
-	}
-	.header .menu-icon {
-		display: none;
-	}
-	.header ul {
-		flex-direction: row !important;
-	}
-}
-
 @media ( max-width : 48em) {
 	.search {
 		flex-direction: column;
+	}
+	.main.body {
+		padding: 20px 0 !important;
 	}
 	.search-box {
 		width: 300px;
@@ -176,6 +160,9 @@ main.body {
 	}
 	.categories {
 		width: 60%;
+	}
+	.main-product {
+		flex-direction: column !important;
 	}
 	.description {
 		width: 90%;

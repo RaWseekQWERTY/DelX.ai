@@ -30,6 +30,7 @@ public class StringUtils {
 	public static final String QUERY_GET_CATEGORY_BY_ID = "SELECT * FROM category WHERE categoryId = ?";
 
 	public static final String QUERY_GET_CATALOG_BY_ID = "SELECT * FROM catalog WHERE CatalogID = ?";
+	public static final String QUERY_GET_CATALOG_BY_CategoryID = "SELECT * FROM catalog WHERE categoryID = ?";
 	public static final String QUERY_ADD_TOOLS = "INSERT INTO catalog ("
 			+ "ToolName,ToolDesc,ToolAuthor,Toolimg,categoryID) " + "VALUES(?,?,?,?,?)";
 	public static final String QUERY_DELETE_TOOLS = "DELETE FROM catalog WHERE CatalogID = ?";
@@ -67,6 +68,7 @@ public class StringUtils {
 	public static final String SERVLET_URL_MODIFY_TOOL = "/modifytools";
 	public static final String SERVLET_URL_MODIFY_USER = "/modifyuser";
 	public static final String SERVLET_URL_UPDATE_TOOL = "/updatetool";
+	public static final String SERVLET_URL_USER_CATALOG = "/cataloguser";
 	// End: Servlet Route
 
 	// Start: Validation Messages
@@ -116,5 +118,6 @@ public class StringUtils {
 
 	public static final String LIST_TOOLS = "toolList";
 	public static final String LIST_USERS = "userList";
+	public static final String LIST_CATEGORY = "categoryList";
 
 }

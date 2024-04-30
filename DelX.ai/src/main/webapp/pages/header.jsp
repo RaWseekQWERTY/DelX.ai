@@ -41,7 +41,13 @@ if (user != null) {
 			class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
 		<ul class="menu">
 			<li><a href="<%=contextPath + StringUtils.URL_HOME%>">Home</a></li>
-			<li><a href="<%=contextPath + StringUtils.PAGE_URL_CATALOG%>">Catalog</a></li>
+
+
+			<li><a href="#"
+				onclick="document.getElementById('catalogForm').submit(); return false;">Catalog</a>
+				<form id="catalogForm"
+					action="${pageContext.request.contextPath}${StringUtils.SERVLET_URL_USER_CATALOG}"
+					method="get" style="display: none;"></form></li>
 			<!-- <li><a href="#careers">Careers</a></li>
 			<li><a href="#contact">Contact</a></li> -->
 			<%

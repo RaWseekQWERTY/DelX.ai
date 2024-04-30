@@ -2,6 +2,7 @@ package controller.servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -41,11 +42,14 @@ public class ToolsAddServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		ArrayList<Catalog> tools = dbController.getAllTools();
-//		request.setAttribute(StringUtils.LIST_TOOLS, tools);
-//		System.out.println("Tool List size: " + tools.size());
-		// response.sendRedirect(request.getContextPath() +
-		// StringUtils.PAGE_URL_ADMIN_CATALOG);
+		/*
+		 * // ArrayList<Catalog> tools = dbController.getAllTools(); // List<Category>
+		 * categories = dbController.getAllCategories(); //
+		 * request.setAttribute("categories", categories); //
+		 * request.setAttribute(StringUtils.LIST_TOOLS, tools); //
+		 * request.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_CATALOG).forward(
+		 * request, response); // System.out.println("Tool List size: " + tools.size());
+		 */
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 

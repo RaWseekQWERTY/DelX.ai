@@ -1,3 +1,4 @@
+<%@page import="javax.naming.ldap.PagedResultsResponseControl"%>
 <%@page import="utils.StringUtils"%>
 <%@page import="model.UserModel"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -50,9 +51,14 @@ if (user == null) {
 			<ul class="sidebar-nav" id="sidebar">
 				<li><a href="<%=contextPath%>/pages/admin/admin.jsp">Dash<span
 						class="dash"></span></a></li>
-				<li><a href="<%=contextPath%>/pages/admin/catalogDetails.jsp">Catalog<span
-						class="catalog"></span></a></li>
-				<li><a href="<%=contextPath%>/pages/admin/userDetails.jsp">Users<span class="user"></span></a></li>
+				<li>
+					<form action="<%=contextPath + StringUtils.SERVLET_URL_ADD_TOOL %>" method="get">
+						<a href="<%=contextPath%>/pages/admin/catalogDetails.jsp">Catalog<span
+							class="catalog"></span></a>
+					</form>
+				</li>
+				<li><a href="<%=contextPath%>/pages/admin/userDetails.jsp">Users<span
+						class="user"></span></a></li>
 				<li><a href="<%=contextPath%>/pages/admin/categoryDetails.jsp">Category<span
 						class="cat"></span></a></li>
 			</ul>

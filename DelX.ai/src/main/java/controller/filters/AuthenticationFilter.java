@@ -33,16 +33,13 @@ public class AuthenticationFilter implements Filter {
 		// Get the requested URI
 		String uri = req.getRequestURI();
 
-		// Allow access to static resources (CSS) and the index page without checking
-		// login
 		if (uri.endsWith(".css") || uri.endsWith(".png") || uri.endsWith(".jpg")) {
 			chain.doFilter(request, response);
 			return;
 		}
-
-		// Allow access to the catalog servlet without authentication
-//		if (uri.endsWith(StringUtils.SERVLET_URL_CATALOG)) {
-//			chain.doFilter(request, response);
+//		if (uri.endsWith(StringUtils.PAGE_URL_CATALOG) || uri.endsWith("/")) {
+//			request.getRequestDispatcher(StringUtils.SERVLET_URL_USER_CATALOG).forward(request, response);
+////	        res.sendRedirect(req.getContextPath() + StringUtils.SERVLET_URL_HOME);
 //			return;
 //		}
 

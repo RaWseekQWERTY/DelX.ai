@@ -8,9 +8,6 @@
 	pageEncoding="ISO-8859-1"%>
 <%
 String contextPath = request.getContextPath();
-DBController dbController = new DBController();
-List<Catalog> toolList = dbController.getAllTools();
-request.setAttribute(StringUtils.LIST_TOOLS, toolList);
 %>
 <!DOCTYPE html>
 <html>
@@ -34,175 +31,55 @@ request.setAttribute(StringUtils.LIST_TOOLS, toolList);
 			<input type="text" placeholder="Chatgpt-3.5" class="search-box" />
 			<button class="btn btn-primary">Search</button>
 		</form>
+
+
 		<div class="categories">
 			<p class="category-item">
-				<a href="#featured"> Featured</a>
+				<a href="#" onclick="submitForm('all')">All</a>
 			</p>
-			<p class="category-item">
-				<a href="#writing">Writing</a>
-			</p>
-			<p class="category-item">
-				<a href="#chatbots">ChatBots</a>
-			</p>
-			<p class="category-item">
-				<a href="#programming">Programming</a>
-			</p>
+			<c:forEach var="cat" items="${categoryList}">
+				<p class="category-item">
+					<a href="#" onclick="submitForm(${cat.categoryID})">${cat.categoryName}</a>
+				</p>
+			</c:forEach>
 		</div>
-
+		<h1>${categoryName}</h1>
 		<div class="main-product" id="featured">
-			<h1>Featured</h1>
-			<div class="product-container">
-				<div class="product">
-					<img src="./resources/other/logo.png" alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].
-							Generates Functional Multipage Websites [in BETA]. Generates
-							Functional Multipage Websites [in BETA]. Generates Functional
-							Multipage Websites [in BETA]. Generates Functional Multipage
-							Websites [in BETA]. Generates Functional Multipage Websites [in
-							BETA].</p>
-					</section>
+
+			<c:forEach var="tool" items="${toolList}">
+				<div class="product-container">
+					<div class="product">
+						<img
+							src="${pageContext.request.contextPath}/resources/catalog/${tool.imageUrlFromPart}"
+							alt="" width="150px" height="150px" />
+						<section class="produt-detail">
+							<h4>${tool.toolName}</h4>
+							<p>${tool.toolDesc}</p>
+							<p>${tool.category.categoryName}</p>
+							<p>${tool.toolAuthor}</p>
+						</section>
+					</div>
 				</div>
-				<div class="product">
-					<img src="./resources/other/logo.png" alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].</p>
-					</section>
-				</div>
-				<div class="product">
-					<img src="./resources/other/logo.png" alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].</p>
-					</section>
-				</div>
-				<div class="product">
-					<img src="./resources/other/logo.png" alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].</p>
-					</section>
-				</div>
-			</div>
-		</div>
-		<div class="main-product" id="writing">
-			<h1>Writing</h1>
-			<div class="product-container">
-				<div class="product">
-					<img src="./resources/other/logo.png" alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].</p>
-					</section>
-				</div>
-				<div class="product">
-					<img src="./resources/other/logo.png" alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].</p>
-					</section>
-				</div>
-				<div class="product">
-					<img src="./resources/other/logo.png" alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].</p>
-					</section>
-				</div>
-				<div class="product">
-					<img src="./resources/other/logo.png" alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].</p>
-					</section>
-				</div>
-			</div>
-		</div>
-		<div class="main-product" id="chatbots">
-			<h1>ChatBots</h1>
-			<div class="product-container">
-				<div class="product">
-					<img src="./resources/other/logo.png" alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].</p>
-					</section>
-				</div>
-				<div class="product">
-					<img src="./resources/other/logo.png" alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].</p>
-					</section>
-				</div>
-				<div class="product">
-					<img src="./resources/other/logo.png"alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].</p>
-					</section>
-				</div>
-				<div class="product">
-					<img src="./resources/other/logo.png" alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].</p>
-					</section>
-				</div>
-			</div>
-		</div>
-		<div class="main-product" id="programming">
-			<h1>Programming</h1>
-			<div class="product-container">
-				<div class="product">
-					<img src="./resources/other/logo.png" alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].</p>
-					</section>
-				</div>
-				<div class="product">
-					<img src="./resources/other/logo.png" alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].</p>
-					</section>
-				</div>
-				<div class="product">
-					<img src="./resources/other/logo.png" alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].</p>
-					</section>
-				</div>
-				<div class="product">
-					<img src="./resources/other/logo.png" alt="" width="150px"
-						height="150px" />
-					<section class="produt-detail">
-						<h4>Instant Website</h4>
-						<p>Generates Functional Multipage Websites [in BETA].</p>
-					</section>
-				</div>
-			</div>
+
+			</c:forEach>
+
 		</div>
 	</main>
-
+	<script>
+    function submitForm(id) {
+        var form = document.createElement('form');
+        form.method = 'post';
+        form.action = '<%=contextPath + StringUtils.SERVLET_URL_USER_CATALOG%>';
+        
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'id';
+        input.value = id;
+        
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
 </body>
 </html>

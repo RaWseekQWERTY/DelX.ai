@@ -396,6 +396,34 @@ public class DBController {
 		return cat;
 	}
 
+	public ArrayList<Catalog> getToolsByCategoryId(int id) {
+		ArrayList<Catalog> catalogList = new ArrayList<>();
+		try {
+			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_GET_CATALOG_BY_CategoryID);
+			stmt.setInt(1, id);
+
+			ResultSet resultSet = stmt.executeQuery();
+			while (resultSet.next()) {
+				Catalog catalog = new Catalog();
+				catalog.setCatalogID(resultSet.getInt("catalogID"));
+				catalog.setToolName(resultSet.getString("toolName"));
+				catalog.setToolDesc(resultSet.getString("toolDesc"));
+				catalog.setToolAuthor(resultSet.getString("toolAuthor"));
+				catalog.setImageUrlFromDB(resultSet.getString(5));
+
+				Category category = new Category();
+				category.setCategoryID(resultSet.getInt("categoryID"));
+				catalog.setCategory(category);
+
+				catalogList.add(catalog);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return catalogList;
+	}
+
 	public Catalog getCatalogById(int catalogID) {
 		Catalog tool = null;
 		try {
