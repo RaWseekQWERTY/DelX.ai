@@ -61,7 +61,8 @@ public class DBController {
 			stmt.setString(6, user.getGender());
 			stmt.setString(7, user.getUserType());
 			stmt.setString(8, PasswordEncryptionWithAes.encrypt(user.getUsername(), user.getPassword()));
-			stmt.setString(9, user.getAvatar());
+			stmt.setString(9, user.getImageUrlFromPart());
+			// stmt.setString(9, user.getAvatar());
 
 			// Execute the update statement and store the number of affected rows
 			int result = stmt.executeUpdate();
@@ -208,6 +209,10 @@ public class DBController {
 			resultSet = statement.executeQuery();
 
 			if (resultSet.next()) {
+				String userDb = resultSet.getString(StringUtils.USER_NAME);
+				String encryptedPwd = resultSet.getString(StringUtils.PASSWORD);
+
+				String decryptedPwd = PasswordEncryptionWithAes.decrypt(encryptedPwd, userDb);
 				user = new UserModel();
 				user.setUserID(resultSet.getInt("userID"));
 				user.setFirstName(resultSet.getString("firstName"));
@@ -217,32 +222,21 @@ public class DBController {
 				user.setEmail(resultSet.getString("gmail"));
 				user.setGender(resultSet.getString("gender"));
 				user.setUserType(resultSet.getString("userType"));
-				user.setPassword(resultSet.getString("password"));
-				user.setAvatar(resultSet.getString("avatar"));
+				user.setPassword(decryptedPwd);
+				user.setImageUrlFromDB(resultSet.getString("avatar"));
+				// user.setAvatar(resultSet.getString("avatar"));
 			}
 
 		} catch (SQLException | ClassNotFoundException ex) {
 			ex.printStackTrace();
-		} finally {
-			try {
-				if (resultSet != null)
-					resultSet.close();
-				if (statement != null)
-					statement.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
 		}
-
 		return user;
 	}
 
 	public Boolean checkUsernameIfExists(String username) {
-		// TODO: Implement logic to check if the provided username exists in the
+
 		// database
-		// This method should likely query the database using DBController and return
+		// This method should query the database using DBController and return
 		// true if the username exists, false otherwise.
 		try {
 			// Prepare a statement using the predefined query for login check
@@ -289,6 +283,40 @@ public class DBController {
 			// Return -2 to indicate an internal error
 			return false;
 		}
+	}
+
+	public ArrayList<UserModel> getAllUsers() {
+		try {
+			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_GETALL_USERS);
+			ResultSet result = stmt.executeQuery();
+
+			ArrayList<UserModel> user = new ArrayList<UserModel>();
+
+			while (result.next()) {
+				String userDb = result.getString(StringUtils.USER_NAME);
+				String encryptedPwd = result.getString(StringUtils.PASSWORD);
+
+				String decryptedPwd = PasswordEncryptionWithAes.decrypt(encryptedPwd, userDb);
+
+				UserModel users = new UserModel();
+				users.setUserID(result.getInt(1));
+				users.setFirstName(result.getString(2));
+				users.setLastName(result.getString(3));
+				users.setUsername(result.getString(4));
+				users.setDob(result.getDate(5).toLocalDate());
+				users.setEmail(result.getString(6));
+				users.setGender(result.getString(7));
+				users.setUserType(result.getString(8));
+				users.setPassword(encryptedPwd);
+				users.setImageUrlFromDB(result.getString("avatar"));
+				user.add(users);
+			}
+			return user;
+		} catch (SQLException | ClassNotFoundException ex) {
+			ex.printStackTrace();
+			return null;
+		}
+
 	}
 
 	public ArrayList<Category> getAllCategories() {
@@ -368,6 +396,32 @@ public class DBController {
 		return cat;
 	}
 
+	public Catalog getCatalogById(int catalogID) {
+		Catalog tool = null;
+		try {
+			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_GET_CATALOG_BY_ID);
+			stmt.setInt(1, catalogID);
+			ResultSet result = stmt.executeQuery();
+			if (result.next()) {
+				tool = new Catalog();
+				tool.setCatalogID(result.getInt(1));
+				tool.setToolName(result.getString(2));
+				tool.setToolDesc(result.getString(3));
+				tool.setToolAuthor(result.getString(4));
+				tool.setImageUrlFromDB(result.getString(5));
+				int catId = result.getInt("categoryID");
+				Category category = getCategoryById(catId);
+
+				// set category object
+				tool.setCategory(category);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tool;
+	}
 	// END READ operations
 
 	// Update Operations
@@ -380,11 +434,11 @@ public class DBController {
 			stmt.setString(3, tool.getToolAuthor());
 			stmt.setString(4, tool.getImageUrlFromPart());
 			stmt.setInt(5, tool.getCategory().getCategoryID());
-			stmt.setInt(5, tool.getCatalogID());
-			
+			stmt.setInt(6, tool.getCatalogID());
+
 			int executeResult = stmt.executeUpdate();
-			if(executeResult==1) {
-				result=true;
+			if (executeResult == 1) {
+				result = true;
 			}
 			return result;
 		} catch (Exception e) {

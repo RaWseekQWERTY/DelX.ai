@@ -19,8 +19,8 @@ String successParam = request.getParameter(StringUtils.SUCCESS);
 <body>
 	<div class="nav">
 		<a href="<%=contextPath + StringUtils.URL_HOME%>" class="logo"> <img
-			src="../resources/other/logo.png" alt="logo" width="50px"
-			height="50px"></a>
+			src="${pageContext.request.contextPath}/resources/other/logo.png"
+			alt="logo" width="50px" height="50px"></a>
 
 	</div>
 	<div class="container">

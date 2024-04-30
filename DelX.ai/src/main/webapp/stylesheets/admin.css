@@ -350,6 +350,12 @@ body.light .card-header button:hover {
 	color: rgb(0, 255, 64);
 }
 
+.error {
+	background-color: #FDF7DF;
+	border: 1px solid #FEEC6F;
+	color: rgb(255, 0, 0);
+}
+
 @media only screen and (max-width:768px) {
 	.cards {
 		grid-template-columns: 1fr;

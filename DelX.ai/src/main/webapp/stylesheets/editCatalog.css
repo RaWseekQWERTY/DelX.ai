@@ -1,0 +1,149 @@
+* {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+
+body {
+	font-family: Helvetica;
+	-webkit-font-smoothing: antialiased;
+	background-color: #355e3b;
+}
+
+.form_container {
+	background: #fff;
+	padding: 30px;
+	margin-top: 0px;
+	border-radius: 3px;
+}
+
+.form_container .form_item {
+	margin-bottom: 25px;
+}
+
+.form_container .form_wrap.form_grp {
+	display: flex;
+}
+
+.form_container .form_wrap.form_grp .form_item {
+	width: 50%;
+}
+
+.form_container .form_wrap.form_grp .form_item:first-child {
+	margin-right: 4%;
+}
+
+.form_container .form_item label {
+	display: block;
+	margin-bottom: 3px;
+}
+
+.form_container .form_item input, .form_container .form_item select {
+	width: 30%;
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #dadce0;
+	border-radius: 3px;
+}
+
+.form_container .btn input[type="submit"] {
+	background: #6271f0;
+	border: 1px solid #6271f0;
+	padding: 10px;
+	width: 30vw;
+	border-radius: 3px;
+	cursor: pointer;
+	color: #fff;
+	margin-left: 102px;
+}
+
+.button {
+	font-family: lato, sans-serif;
+	font-weight: bold;
+	font-size: 1em;
+	letter-spacing: 0.1em;
+	text-decoration: none;
+	color: #ffffff;
+	display: inline-block;
+	padding: 10px 40px 10px 40px;
+	position: relative;
+	border: 3px solid #ffffff;
+	border-radius: 25px;
+	margin-top: 36px !important;
+}
+
+.overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.7);
+	transition: opacity 500ms;
+	visibility: hidden;
+	opacity: 0;
+}
+
+.overlay:target {
+	visibility: visible;
+	opacity: 1;
+}
+
+.popup {
+	margin: 10px auto;
+	padding: 20px;
+	background: #fff;
+	border-radius: 5px;
+	width: 50%;
+	position: relative;
+	transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+	margin-top: 0;
+	color: #333;
+	font-family: Tahoma, Arial, sans-serif;
+}
+
+.popup .close {
+	position: absolute;
+	top: 20px;
+	right: 30px;
+	transition: all 200ms;
+	font-size: 30px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #333;
+}
+
+.popup .close:hover {
+	color: #06D85F;
+}
+
+.popup .content {
+	max-height: 30%;
+	overflow: auto;
+}
+
+@media ( min-width : 393px) {
+	.center, .start-btn {
+		left: 62%;
+	}
+	.form_container {
+		padding: 10px;
+		margin-top: 3px;
+	}
+	.modal-box.show-modal {
+		width: 65vw;
+		right: 20%
+	}
+	.form_container .form_item input, .form_container .form_item select {
+		width: 45vw;
+		font-size: 12px;
+	}
+	textarea {
+		resize: none;
+		width: -webkit-fill-available;
+	}
+}

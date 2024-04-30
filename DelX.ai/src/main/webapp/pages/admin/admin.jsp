@@ -52,7 +52,7 @@ if (user == null) {
 						class="dash"></span></a></li>
 				<li><a href="<%=contextPath%>/pages/admin/catalogDetails.jsp">Catalog<span
 						class="catalog"></span></a></li>
-				<li><a>Users<span class="user"></span></a></li>
+				<li><a href="<%=contextPath%>/pages/admin/userDetails.jsp">Users<span class="user"></span></a></li>
 				<li><a href="<%=contextPath%>/pages/admin/categoryDetails.jsp">Category<span
 						class="cat"></span></a></li>
 			</ul>
@@ -81,7 +81,7 @@ if (user == null) {
 			%>
 			<label> <input type="checkbox" class="alertCheckbox"
 				autocomplete="off" />
-				<div class="alert success">
+				<div class="alert error">
 					<span class="alertClose">&times;</span> <span class="alertText">
 						<%
 						out.println(errMsg);

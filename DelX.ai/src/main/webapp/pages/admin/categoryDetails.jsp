@@ -37,7 +37,8 @@ List<Category> categories = dbController.getAllCategories();
 						class="dash"></span></a></li>
 				<li><a href="<%=contextPath%>/pages/admin/catalogDetails.jsp">Catalog<span
 						class="catalog"></span></a></li>
-				<li><a>Users<span class="user"></span></a></li>
+				<li><a href="<%=contextPath%>/pages/admin/userDetails.jsp">Users<span
+						class="user"></span></a></li>
 				<li><a href="<%=contextPath%>/pages/admin/categoryDetails.jsp">Category<span
 						class="cat"></span></a></li>
 			</ul>
@@ -62,7 +63,8 @@ List<Category> categories = dbController.getAllCategories();
 						if (categories == null || categories.isEmpty()) {
 						%>
 						<tr>
-							<td colspan="4" style="font-size:16px;font-weight:500;">No Categories added!Please, add a category </td>
+							<td colspan="4" style="font-size: 16px; font-weight: 500;">No
+								Categories added!Please, add a category</td>
 						</tr>
 						<%
 						} else {

@@ -44,8 +44,9 @@ public class ToolsAddServlet extends HttpServlet {
 //		ArrayList<Catalog> tools = dbController.getAllTools();
 //		request.setAttribute(StringUtils.LIST_TOOLS, tools);
 //		System.out.println("Tool List size: " + tools.size());
-		response.sendRedirect(request.getContextPath() + StringUtils.PAGE_URL_ADMIN_CATALOG);
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		// response.sendRedirect(request.getContextPath() +
+		// StringUtils.PAGE_URL_ADMIN_CATALOG);
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -92,7 +93,6 @@ public class ToolsAddServlet extends HttpServlet {
 			int categoryID = Integer.parseInt(categoryIdString);
 			// get category by id
 			Category category = dbController.getCategoryById(categoryID);
-			System.out.println("Category object: " + category);
 			if (category == null) {
 				request.setAttribute(StringUtils.MESSAGE_ERROR, "Please add a category first.");
 				request.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_DASH).forward(request, response);
@@ -106,7 +106,7 @@ public class ToolsAddServlet extends HttpServlet {
 			if (fileName != null && !fileName.isEmpty()) { // Check if fileName is not null
 				imagePart.write(savePath + fileName);
 			}
-			System.out.println(tools);
+			System.out.println("catalog_Added:" + tools);
 			int result = dbController.addTools(tools);
 
 			if (result >= 1) {

@@ -2,10 +2,16 @@ package model;
 
 import javax.servlet.http.Part;
 import java.io.File;
+import java.io.Serializable;
+
 import utils.StringUtils;
 
-public class Catalog {
+public class Catalog implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int catalogID;
 	private String toolName;
 	private String toolDesc;

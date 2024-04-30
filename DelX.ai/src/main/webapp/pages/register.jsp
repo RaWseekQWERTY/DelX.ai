@@ -15,12 +15,13 @@ String contextPath = request.getContextPath();
 <body>
 	<div class="nav">
 		<a href="<%=contextPath + StringUtils.URL_HOME%>" class="logo"> <img
-			src="../resources/other/logo.png" alt="logo" width="50px"
-			height="50px"></a>
+			src="${pageContext.request.contextPath}/resources/other/logo.png"
+			alt="logo" width="50px" height="50px"></a>
 
 	</div>
 	<div class="container">
-		<form action="<%=contextPath + StringUtils.SERVLET_URL_REGISTER%>" method="post">
+		<form action="<%=contextPath + StringUtils.SERVLET_URL_REGISTER%>"
+			method="post" enctype="multipart/form-data">
 
 			<h3>Sign Up</h3>
 
@@ -71,6 +72,11 @@ String contextPath = request.getContextPath();
 						type="password" placeholder="Confirm Password"
 						id="confirmPassword" name="conformPass" required>
 				</div>
+				<div class="picture" style="display: none;">
+					<input type="file" name="pic"
+						accept="image/png, image/gif, image/jpeg">
+				</div>
+
 			</div>
 			<p>
 				Already have an account? <a

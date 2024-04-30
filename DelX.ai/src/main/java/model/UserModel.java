@@ -1,10 +1,15 @@
 package model;
 
+import java.io.File;
 import java.io.Serializable;
+import javax.servlet.http.Part;
+
+import utils.StringUtils;
+
 import java.time.LocalDate;
 
 public class UserModel implements Serializable {
-	private static final long serialVersionUID =1;
+	private static final long serialVersionUID = 1;
 	private int userID;
 	private String firstName;
 	private String lastName;
@@ -14,14 +19,14 @@ public class UserModel implements Serializable {
 	private String gender;
 	private String userType;
 	private String password;
-	private String avatar;
+	private String imageUrlFromPart;
 
 	public UserModel() {
 		super();
 	}
 
 	public UserModel(int userID, String firstName, String lastName, String username, LocalDate dob, String email,
-			String gender, String userType, String password, String avatar) {
+			String gender, String userType, String password, Part imgPart) {
 		super();
 		this.userID = userID;
 		this.firstName = firstName;
@@ -32,12 +37,12 @@ public class UserModel implements Serializable {
 		this.gender = gender;
 		this.userType = userType;
 		this.password = password;
-		this.avatar = avatar;
+		this.imageUrlFromPart = getImageUrl(imgPart);
 
 	}
 
 	public UserModel(String firstName, String lastName, String username, LocalDate dob, String email, String gender,
-			String userType, String password, String avatar) {
+			String userType, String password, Part imgPart) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -47,30 +52,10 @@ public class UserModel implements Serializable {
 		this.gender = gender;
 		this.userType = userType;
 		this.password = password;
-		this.avatar = avatar;
+		this.imageUrlFromPart = getImageUrl(imgPart);
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public int getUserID() {
 		return userID;
 	}
@@ -135,14 +120,6 @@ public class UserModel implements Serializable {
 		this.password = password;
 	}
 
-	public String getAvatar() {
-		return avatar;
-	}
-
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
-
 	public String getGender() {
 		return gender;
 	}
@@ -151,11 +128,36 @@ public class UserModel implements Serializable {
 		this.gender = gender;
 	}
 
-	@Override
-	public String toString() {
-		return "UserModel [userID=" + userID + ", firstName=" + firstName + ", lastName=" + lastName + ", username="
-				+ username + ", dob=" + dob + ", email=" + email + ", gender=" + gender + ", userType=" + userType
-				+ ", password=" + password + ", avatar=" + avatar + "]";
+	public String getImageUrlFromPart() {
+		return imageUrlFromPart;
+	}
+
+	public void setImageUrlFromPart(Part part) {
+		this.imageUrlFromPart = getImageUrl(part);
+	}
+
+	public void setImageUrlFromDB(String imageUrl) {
+		this.imageUrlFromPart = imageUrl;
+	}
+
+	private String getImageUrl(Part part) {
+		String savePath = StringUtils.IMAGE_DIR_SAVE_PATH_USER;
+		File fileSaveDir = new File(savePath);
+		String imageUrlFromPart = null;
+		if (!fileSaveDir.exists()) {
+			fileSaveDir.mkdir();
+		}
+		String contentDisp = part.getHeader("content-disposition");
+		String[] items = contentDisp.split(";");
+		for (String s : items) {
+			if (s.trim().startsWith("filename")) {
+				imageUrlFromPart = s.substring(s.indexOf("=") + 2, s.length() - 1);
+			}
+		}
+		if (imageUrlFromPart == null || imageUrlFromPart.isEmpty()) {
+			imageUrlFromPart = "defaultAV.jpg";
+		}
+		return imageUrlFromPart;
 	}
 
 }

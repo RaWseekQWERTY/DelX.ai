@@ -308,6 +308,7 @@ h2 {
 .form_container .form_item label {
 	display: block;
 	margin-bottom: 3px;
+	text-align: left !important;
 }
 
 .form_container .form_item input, .form_container .form_item select {
@@ -395,6 +396,62 @@ h2 {
 .popup .content {
 	max-height: 30%;
 	overflow: auto;
+}
+
+/*Alert popup*/
+.alert {
+	position: relative;
+	top: 10;
+	left: 0;
+	width: auto;
+	height: auto;
+	padding: 10px;
+	margin: 10px;
+	line-height: 1.8;
+	border-radius: 5px;
+	cursor: hand;
+	cursor: pointer;
+	font-family: sans-serif;
+	font-weight: 400;
+}
+
+.alertCheckbox {
+	display: none;
+}
+
+:checked+.alert {
+	display: none;
+}
+
+.alertText {
+	display: table;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 16px;
+}
+
+.alertClose {
+	float: right;
+	padding-top: 5px;
+	font-size: 10px;
+}
+
+.clear {
+	clear: both;
+}
+
+.success {
+	background-color: #FDF7DF;
+	border: 1px solid #FEEC6F;
+	color: rgb(0, 255, 64);
+	width: 47vw;
+}
+
+.error {
+	background-color: #FDF7DF;
+	border: 1px solid #FEEC6F;
+	color: rgb(255, 0, 0);
+	width: 47vw;
 }
 
 @media ( min-width : 393px) {

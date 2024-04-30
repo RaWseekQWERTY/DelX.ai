@@ -75,7 +75,7 @@ public class LoginServlet extends HttpServlet {
 			if (user != null) {
 				// Login successful
 				HttpSession userSession = request.getSession();
-				userSession.setAttribute("username", user);
+				userSession.setAttribute(StringUtils.USERNAME, user);
 				userSession.setAttribute("userType", user.getUserType()); // Set user type in session
 				userSession.setMaxInactiveInterval(30 * 30);
 				Cookie userCookie = new Cookie("user", userName);

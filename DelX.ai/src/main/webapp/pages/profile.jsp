@@ -7,7 +7,7 @@
 <%
 String contextPath = request.getContextPath();
 HttpSession userSession = request.getSession();
-userSession.getAttribute("username");
+userSession.getAttribute(StringUtils.USERNAME);
 %>
 <!DOCTYPE html>
 <html>
@@ -26,8 +26,8 @@ userSession.getAttribute("username");
 		<section class="profile">
 			<div class="avatar">
 				<img
-					src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
-					alt="" width="50px" height="50px" />
+					src="${pageContext.request.contextPath}/resources/user/${username.imageUrlFromPart}"
+					alt="" width="80px" height="80px" />
 				<!-- <button>Edit Profile</button> -->
 			</div>
 			<div class="info">
@@ -62,7 +62,8 @@ userSession.getAttribute("username");
 			</div>
 		</section>
 		<section class="subscription">
-			<form>
+			<form action="<%=contextPath + StringUtils.SERVLET_URL_MODIFY_USER%>"
+				method="post" enctype="multipart/form-data">
 				<h3>Edit Profile</h3>
 				<div class="profile-pic">
 					<label class="-label" for="file"> <span

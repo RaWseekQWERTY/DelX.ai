@@ -16,6 +16,8 @@ body {
 
 a {
 	color: #fff;
+	background-image: linear-gradient(to left top, #071e22, #032022, #012221, #00231f, #02251c
+		) !important;
 }
 
 main.body {
@@ -25,6 +27,7 @@ main.body {
 	display: grid;
 	grid-template-columns: 10% 60%;
 	width: 100vw;
+	height: 89vh;
 	background-image: linear-gradient(to left top, #071e22, #032022, #012221, #00231f, #02251c
 		);
 }
@@ -259,6 +262,7 @@ button:hover {
 	.profile {
 		grid-row: 1;
 		grid-column: span 2;
+			background-color: rgba(255, 255, 255, 0.03) !important;
 		background-color: #5f805e;
 		display: flex;
 		justify-content: center;

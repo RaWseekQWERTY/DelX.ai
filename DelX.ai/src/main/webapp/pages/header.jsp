@@ -1,5 +1,6 @@
 <%@page import="utils.StringUtils"%>
 <%@page import="model.UserModel"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%
@@ -16,7 +17,7 @@ if (user != null) {
 	if (attribute != null) {
 		currentUser = attribute.toString();
 	} else {
-		// Handle the case when no user is logged in
+
 		currentUser = null;
 	}
 }
@@ -34,15 +35,15 @@ if (user != null) {
 <body>
 	<header class="header">
 		<a href="<%=contextPath + StringUtils.URL_HOME%>" class="logo"> <img
-			src="./resources/other/logo.png" alt="logo" width="50px"
-			height="50px">
+			src="${pageContext.request.contextPath}/resources/other/logo.png"
+			alt="logo" width="50px" height="50px">
 		</a> <input class="menu-btn" type="checkbox" id="menu-btn" /> <label
 			class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
 		<ul class="menu">
-			<li><a href="#work">Our Work</a></li>
-			<li><a href="#about">About</a></li>
-			<li><a href="#careers">Careers</a></li>
-			<li><a href="#contact">Contact</a></li>
+			<li><a href="<%=contextPath + StringUtils.URL_HOME%>">Home</a></li>
+			<li><a href="<%=contextPath + StringUtils.PAGE_URL_CATALOG%>">Catalog</a></li>
+			<!-- <li><a href="#careers">Careers</a></li>
+			<li><a href="#contact">Contact</a></li> -->
 			<%
 			if (currentUser != null) {
 			%>

@@ -12,23 +12,28 @@ public class StringUtils {
 
 	// Drive path
 	public static final String IMAGE_DIR = "xampp\\tomcat\\webapps\\images\\";
-	public static final String IMAGE_DIR_USER = "Users\\HP\\eclipse-workspace\\DelX.ai\\src\\main\\webapp\\resources\\catalog\\";
-	public static final String IMAGE_DIR_SAVE_PATH = "C:" + File.separator + IMAGE_DIR_USER;
+	public static final String IMAGE_DIR_CATALOG = "Users\\HP\\eclipse-workspace\\DelX.ai\\src\\main\\webapp\\resources\\catalog\\";
+	public static final String IMAGE_DIR_SAVE_PATH = "C:" + File.separator + IMAGE_DIR_CATALOG;
+	public static final String IMAGE_DIR_USER = "Users\\HP\\eclipse-workspace\\DelX.ai\\src\\main\\webapp\\resources\\user\\";
+	public static final String IMAGE_DIR_SAVE_PATH_USER = "C:" + File.separator + IMAGE_DIR_USER;
 	// END driver path
 	// Start: Queries
 	public static final String QUERY_REGISTER_USER = "INSERT INTO user_detail ("
 			+ "firstName, lastName, user_name, dob, gmail, gender, userType, password, avatar) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	public static final String QUERY_GETALL_USERS = "SELECT * FROM user_detail";
 
 	// catalog and category
 	public static final String QUERY_ADD_CATEGORY = "INSERT INTO category (" + "categoryTitle, categoryDesc)"
 			+ "VALUES(?,?)";
 	public static final String QUERY_GETALL_CATEGORY = "Select categoryID,categoryTitle,categoryDesc from category";
 	public static final String QUERY_GET_CATEGORY_BY_ID = "SELECT * FROM category WHERE categoryId = ?";
+
+	public static final String QUERY_GET_CATALOG_BY_ID = "SELECT * FROM catalog WHERE CatalogID = ?";
 	public static final String QUERY_ADD_TOOLS = "INSERT INTO catalog ("
 			+ "ToolName,ToolDesc,ToolAuthor,Toolimg,categoryID) " + "VALUES(?,?,?,?,?)";
 	public static final String QUERY_DELETE_TOOLS = "DELETE FROM catalog WHERE CatalogID = ?";
-	public static final String QUERY_UPDATE_TOOLS = "UPDATE catalog set ToolName=?,ToolDesc=?.ToolAuthor=?,Toolimg=?,categoryID=? "
+	public static final String QUERY_UPDATE_TOOLS = "UPDATE catalog set ToolName=?,ToolDesc=?,ToolAuthor=?,Toolimg=?,categoryID=? "
 			+ "WHERE CatalogID=?";
 
 	// end catalog and category
@@ -60,6 +65,8 @@ public class StringUtils {
 	public static final String SERVLET_URL_ADD_TOOL = "/addtool";
 	public static final String SERVLET_URL_CATALOG = "/catalog";
 	public static final String SERVLET_URL_MODIFY_TOOL = "/modifytools";
+	public static final String SERVLET_URL_MODIFY_USER = "/modifyuser";
+	public static final String SERVLET_URL_UPDATE_TOOL = "/updatetool";
 	// End: Servlet Route
 
 	// Start: Validation Messages
@@ -88,10 +95,12 @@ public class StringUtils {
 	public static final String PAGE_URL_HEADER = "/pages/header.jsp";
 	public static final String URL_HOME = "/home.jsp";
 	public static final String PAGE_URL_LOGIN = "/pages/login.jsp";
+	public static final String PAGE_URL_CATALOG = "/pages/cataloguser.jsp";
 	public static final String PAGE_URL_REGISTER = "/pages/register.jsp";
 	public static final String PAGE_URL_PROFILE = "/pages/profile.jsp";
 	public static final String PAGE_URL_ADMIN_DASH = "/pages/admin/admin.jsp";
 	public static final String PAGE_URL_ADMIN_CATALOG = "/pages/admin/catalogDetails.jsp";
+	public static final String PAGE_URL_ADMIN_CATALOG_EDIT = "/pages/admin/editCatalog.jsp";
 
 	// Start: Normal Text
 	public static final String SUCCESS = "success";
@@ -106,5 +115,6 @@ public class StringUtils {
 	// End: Normal Text
 
 	public static final String LIST_TOOLS = "toolList";
+	public static final String LIST_USERS = "userList";
 
 }
