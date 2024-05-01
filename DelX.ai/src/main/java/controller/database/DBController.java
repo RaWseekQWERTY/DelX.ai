@@ -319,6 +319,42 @@ public class DBController {
 
 	}
 
+	public ArrayList<UserModel> getUserBySearch(String searchval) {
+		try {
+			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_GET_USER_BY_SEARCH);
+			stmt.setString(1, "%" + searchval + "%");
+			stmt.setString(2, "%" + searchval + "%");
+			stmt.setString(3, "%" + searchval + "%");
+			ResultSet result = stmt.executeQuery();
+
+			ArrayList<UserModel> user = new ArrayList<UserModel>();
+
+			while (result.next()) {
+				String userDb = result.getString(StringUtils.USER_NAME);
+				String encryptedPwd = result.getString(StringUtils.PASSWORD);
+
+				String decryptedPwd = PasswordEncryptionWithAes.decrypt(encryptedPwd, userDb);
+
+				UserModel users = new UserModel();
+				users.setUserID(result.getInt(1));
+				users.setFirstName(result.getString(2));
+				users.setLastName(result.getString(3));
+				users.setUsername(result.getString(4));
+				users.setDob(result.getDate(5).toLocalDate());
+				users.setEmail(result.getString(6));
+				users.setGender(result.getString(7));
+				users.setUserType(result.getString(8));
+				users.setPassword(encryptedPwd);
+				users.setImageUrlFromDB(result.getString("avatar"));
+				user.add(users);
+			}
+			return user;
+		} catch (SQLException | ClassNotFoundException ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+
 	public ArrayList<Category> getAllCategories() {
 		try {
 			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_GETALL_CATEGORY);
@@ -475,6 +511,28 @@ public class DBController {
 		}
 	}
 
+	public boolean updateUser(UserModel user) {
+		boolean result = false;
+		try {
+			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_UPDATE_USER);
+			stmt.setString(1, user.getFirstName());
+			stmt.setString(2, user.getLastName());
+			stmt.setString(3, user.getUsername());
+			stmt.setString(4, user.getGender());
+			stmt.setString(5, user.getImageUrlFromPart());
+			stmt.setInt(6, user.getUserID());
+
+			int executeResult = stmt.executeUpdate();
+			if (executeResult == 1) {
+				result = true;
+			}
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return result;
+		}
+	}
+
 	// END Update operations
 
 	// DELETE operations
@@ -482,6 +540,18 @@ public class DBController {
 		try {
 			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_DELETE_TOOLS);
 			stmt.setInt(1, toolID);
+			return stmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	public int deleteUser(int userID) {
+		try {
+			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_DELETE_USER);
+			stmt.setInt(1, userID);
 			return stmt.executeUpdate();
 
 		} catch (Exception e) {

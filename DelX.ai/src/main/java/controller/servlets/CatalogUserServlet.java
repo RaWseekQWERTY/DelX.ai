@@ -1,6 +1,7 @@
 package controller.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -36,12 +37,30 @@ public class CatalogUserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Catalog> toolList = dbController.getAllTools();
-		request.setAttribute(StringUtils.LIST_TOOLS, toolList);
+		/*
+		 * List<Catalog> toolList = dbController.getAllTools();
+		 * request.setAttribute(StringUtils.LIST_TOOLS, toolList); List<Category>
+		 * categories = dbController.getAllCategories();
+		 * request.setAttribute(StringUtils.LIST_CATEGORY, categories);
+		 * request.getRequestDispatcher(StringUtils.PAGE_URL_CATALOG).forward(request,
+		 * response);
+		 * response.getWriter().append("Served at: ").append(request.getContextPath());
+		 */
 		List<Category> categories = dbController.getAllCategories();
 		request.setAttribute(StringUtils.LIST_CATEGORY, categories);
+
+		ArrayList<Category> categoryList = dbController.getAllCategories();
+
+		for (Category category : categoryList) {
+			// Fetch catalogs for each category
+			ArrayList<Catalog> catalogs = dbController.getToolsByCategoryId(category.getCategoryID());
+			// Set the fetched catalogs to the category
+			category.setCatalogs(catalogs);
+		}
+
+		request.setAttribute(StringUtils.LIST_CATEGORY, categoryList);
 		request.getRequestDispatcher(StringUtils.PAGE_URL_CATALOG).forward(request, response);
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
 	}
 
 	/**
@@ -65,13 +84,12 @@ public class CatalogUserServlet extends HttpServlet {
 		request.setAttribute("categoryName", categoryName);
 
 		// Fetch the appropriate tool list based on the id parameter
-		if (id != null) {
-			if (id.equals("all")) {
-				toolList = dbController.getAllTools();
-			} else {
-				toolList = dbController.getToolsByCategoryId(Integer.parseInt(id));
-			}
-		}
+		/*
+		 * if (id != null) { if (id.equals("all")) { toolList =
+		 * dbController.getAllTools(); } else { toolList =
+		 * dbController.getToolsByCategoryId(Integer.parseInt(id)); } }
+		 */
+		toolList = dbController.getToolsByCategoryId(Integer.parseInt(id));
 
 		request.setAttribute("toolList", toolList);
 		request.setAttribute("categoryList", categoryList);

@@ -164,12 +164,21 @@ body {
 	#wrapper {
 		padding-left: 70px;
 		transition: all .4s ease 0s;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
 	}
 	#sidebar-wrapper {
 		left: 70px;
+		position: static !important;
 	}
 	#wrapper.active {
 		padding-left: 150px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
 	}
 	#wrapper.active #sidebar-wrapper {
 		left: 150px;
@@ -345,6 +354,28 @@ h2 {
 	margin-top: 36px !important;
 }
 
+.edit-btn, .actionbtn {
+	background-color: #4fc3a1;
+	border-radius: 8px;
+	border-style: none;
+	box-sizing: border-box;
+	color: #FFFFFF;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 20px;
+	margin: 3px 0;
+	outline: none;
+	padding: 8px 19px;
+	text-align: center;
+	text-decoration: none;
+}
+
+.actionbtn {
+	margin-top: 9px;
+	background-color: #324960;
+}
+
 .overlay {
 	position: fixed;
 	top: 0;
@@ -481,7 +512,16 @@ h2 {
 		width: 70%;
 	}
 	.popup {
-		width: 70%;
+		width: 80% !important;
+	}
+	.form-container {
+		padding: 0 !important;
+	}
+	.form_container .form_item input, .form_container .form_item select {
+		width: 100% !important;
+	}
+	textarea {
+		width: 89% !important;
 	}
 }
 /* Responsive */
@@ -489,6 +529,9 @@ h2 {
 	.fl-table {
 		display: block;
 		width: 100%;
+	}
+	.table-wrapper {
+		margin: 0 !important;
 	}
 	.table-wrapper:before {
 		content: "Scroll horizontally >";

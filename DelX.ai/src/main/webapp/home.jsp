@@ -94,5 +94,6 @@ String contextPath = request.getContextPath();
 			</div>
 		</div>
 	</section>
+	<jsp:include page="<%=StringUtils.PAGE_URL_FOOTER%>" />
 </body>
 </html>

@@ -22,6 +22,10 @@ public class StringUtils {
 			+ "firstName, lastName, user_name, dob, gmail, gender, userType, password, avatar) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String QUERY_GETALL_USERS = "SELECT * FROM user_detail";
+	public static final String QUERY_UPDATE_USER = "UPDATE user_detail set firstName=?,lastName=?,user_name=?,gender=?, avatar=?"
+			+ "WHERE userID=?";
+	public static final String QUERY_DELETE_USER = "DELETE FROM user_detail WHERE userID = ?";
+	public static final String QUERY_GET_USER_BY_SEARCH = "SELECT * FROM user_detail where firstName like ? or lastName like ? or user_name like ?";
 
 	// catalog and category
 	public static final String QUERY_ADD_CATEGORY = "INSERT INTO category (" + "categoryTitle, categoryDesc)"
@@ -69,6 +73,7 @@ public class StringUtils {
 	public static final String SERVLET_URL_MODIFY_USER = "/modifyuser";
 	public static final String SERVLET_URL_UPDATE_TOOL = "/updatetool";
 	public static final String SERVLET_URL_USER_CATALOG = "/cataloguser";
+	public static final String SERVLET_URL_USER_SEARCH = "/searchuser";
 	// End: Servlet Route
 
 	// Start: Validation Messages
@@ -95,6 +100,7 @@ public class StringUtils {
 	// End: Validation Messages
 
 	public static final String PAGE_URL_HEADER = "/pages/header.jsp";
+	public static final String PAGE_URL_FOOTER = "/pages/footer.jsp";
 	public static final String URL_HOME = "/home.jsp";
 	public static final String PAGE_URL_LOGIN = "/pages/login.jsp";
 	public static final String PAGE_URL_CATALOG = "/pages/cataloguser.jsp";
@@ -103,6 +109,8 @@ public class StringUtils {
 	public static final String PAGE_URL_ADMIN_DASH = "/pages/admin/admin.jsp";
 	public static final String PAGE_URL_ADMIN_CATALOG = "/pages/admin/catalogDetails.jsp";
 	public static final String PAGE_URL_ADMIN_CATALOG_EDIT = "/pages/admin/editCatalog.jsp";
+	public static final String PAGE_URL_SEARCH_USER = "/pages/admin/searchuser.jsp";
+	public static final String PAGE_URL_USER_DETAILS = "/pages/admin/userDetails.jsp";
 
 	// Start: Normal Text
 	public static final String SUCCESS = "success";

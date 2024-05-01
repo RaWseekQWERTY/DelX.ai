@@ -27,6 +27,7 @@ main.body {
 	/* background: linear-gradient(to left top, #061a19, #001b1e, #001b23, #001b28, #001a2d, #001b2e, #001b2e, #001c2f, #001e2c, #002028, #052024, #0d2120); */
 	background: linear-gradient(to left top, #071e22, #032022, #012221, #00231f, #02251c
 		);
+		padding-bottom: 39px;
 }
 
 .desc {
@@ -98,14 +99,14 @@ main.body {
 .features {
 	background: linear-gradient(to left bottom, #071e22, #032022, #012221, #00231f,
 		#02251c);
-	padding: 6.25rem 0 0;
+	padding: 6.25rem 0 49px;
 }
 
 .features .features-grid {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 35px;
-	padding: 30px 60px 0;
+	padding: 30px 119px 0;
 }
 
 .features .feature {
@@ -120,7 +121,7 @@ main.body {
 }
 
 .section-heading {
-	padding: 20px 60px;
+	padding: 20px 119px;
 	text-align: justify;
 }
 

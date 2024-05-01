@@ -2,17 +2,25 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
-public class Category implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private int categoryID;
-	private String categoryTitle;
-	private String categoryDesc;
-	private ArrayList<Catalog> catalogs = new ArrayList<Catalog>();
+	
+	public class Category implements Serializable {
+		private static final long serialVersionUID = 1L;
+		private int categoryID;
+		private String categoryTitle;
+		private String categoryDesc;
+		private ArrayList<Catalog> catalogs = new ArrayList<Catalog>();
 
 	public Category() {
 		
 
+	}
+
+	public ArrayList<Catalog> getCatalogs() {
+		return catalogs;
+	}
+
+	public void setCatalogs(ArrayList<Catalog> catalogs) {
+		this.catalogs = catalogs;
 	}
 
 	public Category(int categoryID, String categoryName, String categoryDesc) {

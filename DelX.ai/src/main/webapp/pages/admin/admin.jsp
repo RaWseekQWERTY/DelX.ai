@@ -52,12 +52,14 @@ if (user == null) {
 				<li><a href="<%=contextPath%>/pages/admin/admin.jsp">Dash<span
 						class="dash"></span></a></li>
 				<li>
-					<form action="<%=contextPath + StringUtils.SERVLET_URL_ADD_TOOL %>" method="get">
-						<a href="<%=contextPath%>/pages/admin/catalogDetails.jsp">Catalog<span
+					<form action="<%=contextPath + StringUtils.SERVLET_URL_ADD_TOOL%>"
+						method="get">
+						<a href="<%=contextPath + StringUtils.PAGE_URL_ADMIN_CATALOG%>">Catalog<span
 							class="catalog"></span></a>
 					</form>
 				</li>
-				<li><a href="<%=contextPath%>/pages/admin/userDetails.jsp">Users<span
+				<li><a
+					href="<%=contextPath + StringUtils.PAGE_URL_USER_DETAILS%>">Users<span
 						class="user"></span></a></li>
 				<li><a href="<%=contextPath%>/pages/admin/categoryDetails.jsp">Category<span
 						class="cat"></span></a></li>

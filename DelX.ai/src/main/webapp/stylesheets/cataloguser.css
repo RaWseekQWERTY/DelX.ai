@@ -21,7 +21,7 @@ main.body {
 	position: absolute !important;
 	top: 9vh !important;
 	width: 100vw !important;
-	height: max-content !important;
+	height: max-content;
 	background-image: linear-gradient(to left top, #071e22, #032022, #012221, #00231f, #02251c
 		);
 	display: flex !important;
@@ -75,6 +75,18 @@ main.body {
 	border-color: transparent;
 	color: #fff;
 	background-color: rgba(0, 201, 167, 0.7);
+}
+
+.maintance-container {
+	width: 100vw;
+	height: 39vh;
+	margin-left: 21em;
+	margin-bottom: 5em;
+}
+
+.maintance-container img {
+	width: 265px;
+	height: 300px;
 }
 
 .btn-primary {
@@ -150,10 +162,21 @@ main.body {
 	}
 	.main.body {
 		padding: 20px 0 !important;
+		height: 100vh !important;
 	}
 	.search-box {
 		width: 300px;
 		height: 45px;
+	}
+	.maintance-container {
+		margin: 0;
+		width: 63vw;
+		height: 32vh;
+	}
+	.maintance-container img {
+		width: 189px;
+		height: 189px;
+		max-width: fit-content;
 	}
 	.btn-primary {
 		padding: 15px;

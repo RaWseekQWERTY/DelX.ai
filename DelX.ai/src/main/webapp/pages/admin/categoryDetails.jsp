@@ -28,9 +28,7 @@ List<Category> categories = dbController.getAllCategories();
 		<div id="sidebar-wrapper">
 			<ul id="sidebar_menu" class="sidebar-nav">
 				<li class="sidebar-brand"><a id="menu-toggle" href="#">Menu<span
-						id="main_icon" class="icon"><img
-							src="https://static.vecteezy.com/system/resources/previews/000/440/847/original/menu-vector-icon.jpg"
-							alt="logo" width="30px" height="30px"></span></a></li>
+						id="main_icon" class="icon"></span></a></li>
 			</ul>
 			<ul class="sidebar-nav" id="sidebar">
 				<li><a href="<%=contextPath%>/pages/admin/admin.jsp">Dash<span

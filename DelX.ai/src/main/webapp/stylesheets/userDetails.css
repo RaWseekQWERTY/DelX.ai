@@ -167,9 +167,14 @@ body {
 	}
 	#sidebar-wrapper {
 		left: 70px;
+		position: static !important;
 	}
 	#wrapper.active {
 		padding-left: 150px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;;
 	}
 	#wrapper.active #sidebar-wrapper {
 		left: 150px;
@@ -345,6 +350,28 @@ h2 {
 	margin-top: 36px !important;
 }
 
+.edit-btn, .actionbtn {
+	background-color: #4fc3a1;
+	border-radius: 8px;
+	border-style: none;
+	box-sizing: border-box;
+	color: #FFFFFF;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 20px;
+	margin: 3px 0;
+	outline: none;
+	padding: 8px 19px;
+	text-align: center;
+	text-decoration: none;
+}
+
+.actionbtn {
+	margin-top: 9px;
+	background-color: #324960;
+}
+
 .overlay {
 	position: fixed;
 	top: 0;
@@ -454,33 +481,6 @@ h2 {
 	width: 47vw;
 }
 
-/*Search Box and btn*/
-.box {
-	margin-top:49px;
-	top:30%;
-	width: 315px;
-	height: 39px;
-	background-color: white;
-	border-radius: 30px;
-	display: flex;
-	align-items: center;
-	padding: 20px;
-}
-
-.box>i {
-	font-size: 19px;
-	color: #777;
-}
-
-.box>input {
-	flex: 1;
-	height: 40px;
-	border: none;
-	outline: none;
-	font-size: 18px;
-	padding-left: 10px;
-}
-
 @media ( min-width : 393px) {
 	.center, .start-btn {
 		left: 62%;
@@ -502,14 +502,22 @@ h2 {
 		width: -webkit-fill-available;
 	}
 }
-
 /*popup media query*/
 @media screen and (max-width: 700px) {
 	.box {
 		width: 70%;
 	}
 	.popup {
-		width: 70%;
+		width: 80% !important;
+	}
+	.form-container {
+		padding: 0 !important;
+	}
+	.form_container .form_item input, .form_container .form_item select {
+		width: 100% !important;
+	}
+	textarea {
+		width: 89% !important;
 	}
 }
 /* Responsive */
@@ -517,6 +525,9 @@ h2 {
 	.fl-table {
 		display: block;
 		width: 100%;
+	}
+	.table-wrapper {
+		margin: 0 !important;
 	}
 	.table-wrapper:before {
 		content: "Scroll horizontally >";

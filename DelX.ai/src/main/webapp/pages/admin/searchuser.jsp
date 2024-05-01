@@ -11,9 +11,6 @@
 String contextPath = request.getContextPath();
 String errMsg = (String) request.getAttribute(StringUtils.MESSAGE_ERROR);
 String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
-DBController dbController = new DBController();
-List<UserModel> user = dbController.getAllUsers();
-request.setAttribute(StringUtils.LIST_USERS, user);
 %>
 <!DOCTYPE html>
 <html>
@@ -31,7 +28,7 @@ request.setAttribute(StringUtils.LIST_USERS, user);
 	<div id="wrapper" class="active">
 
 		<!-- Sidebar -->
-
+		<!-- Sidebar -->
 		<div id="sidebar-wrapper">
 			<ul id="sidebar_menu" class="sidebar-nav">
 				<li class="sidebar-brand"><a id="menu-toggle" href="#">Menu<span
@@ -101,18 +98,6 @@ request.setAttribute(StringUtils.LIST_USERS, user);
 						</button>
 					</div>
 				</form>
-
-				<%-- <form class="search"
-					action="<%=contextPath + StringUtils.SERVLET_URL_USER_SEARCH%>"
-					method="post">
-					<input type="text" name="searchValue">
-					<button type="submit">
-						<i class="fa fa-search"> <!--  Some content -->
-						</i>
-					</button>
-
-				</form> --%>
-
 				<div class="table-wrapper">
 					<h3 style="color: white;">Tools Details:</h3>
 					<table class="fl-table">
@@ -131,6 +116,12 @@ request.setAttribute(StringUtils.LIST_USERS, user);
 							</tr>
 						</thead>
 						<tbody>
+							<c:if test="${empty userList }">
+								<tr>
+									<td colspan="9" style="font-weight: bold;font-size: 19px;">404: User doesn't exist</td>
+								</tr>
+
+							</c:if>
 							<c:if test="${not empty userList}">
 								<c:forEach var="user" items="${userList}">
 									<tr>

@@ -34,9 +34,11 @@ userSession.getAttribute(StringUtils.USERNAME);
 				<p class="side_profile">
 					<i class="fa-regular fa-user"></i>${username.username}</p>
 				<p class="side_profile">
-					<i class="fa-light fa-calendar-days"></i>${username.dob}
+					<i class="fa-regular fa-clock"></i>${username.dob}
 				</p>
-				<p class="side_profile">My Subscriptions</p>
+				<p class="side_profile">
+					<i class="fa-regular fa-envelope"></i> ${username.email}
+				</p>
 			</div>
 			<div class="article">
 				<h3>Recent Articles</h3>
@@ -62,8 +64,11 @@ userSession.getAttribute(StringUtils.USERNAME);
 			</div>
 		</section>
 		<section class="subscription">
-			<form action="<%=contextPath + StringUtils.SERVLET_URL_MODIFY_USER%>"
+			<form name="form"
+				action="<%=contextPath + StringUtils.SERVLET_URL_MODIFY_USER%>"
 				method="post" enctype="multipart/form-data">
+				<input type="hidden" name="<%=StringUtils.UPDATE_ID%>"
+					value="${username.userID }">
 				<h3>Edit Profile</h3>
 				<div class="profile-pic">
 					<label class="-label" for="file"> <span
@@ -71,9 +76,9 @@ userSession.getAttribute(StringUtils.USERNAME);
 							src="<%=contextPath%>/resources/other/camera.png" alt=""
 							width="50px" height="50px" /></span>
 					</label> <input id="file" type="file" onchange="loadFile(event)"
-						accept="image/png, image/gif, image/jpeg" /> <img
+						accept="image/png, image/gif, image/jpeg" name="pic" /> <img
 						src="https://cdn.pixabay.com/photo/2017/08/06/21/01/louvre-2596278_960_720.jpg"
-						id="output" width="200" class="fr-img" />
+						name="pic" id="output" width="200" class="fr-img" />
 				</div>
 
 				<div class="row">
@@ -83,17 +88,18 @@ userSession.getAttribute(StringUtils.USERNAME);
 					</div>
 					<div class="col">
 						<label for="lastName">Last Name</label> <input type="text"
-							value="${username.lastName}" id="lastName" />
+							value="${username.lastName}" id="lastName" name="lastName" />
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="col">
 						<label for="username">Username</label> <input type="text"
-							value="${username.username}" id="username" />
+							value="${username.username}" id="username" name="username" />
 					</div>
 					<div class="col">
-						<label for="gender">Gender</label> <select id="gender">
+						<label for="gender">Gender</label> <select id="gender"
+							name="gender">
 							<option value="male">Male</option>
 							<option value="female">Female</option>
 							<option value="other">Other</option>
@@ -102,10 +108,20 @@ userSession.getAttribute(StringUtils.USERNAME);
 				</div>
 
 				<div class="button-container">
-					<button class="btn-left">Save Changes</button>
-					<button class="btn-left">Delete Account</button>
+					<button class="btn-left" type="submit">Save Changes</button>
+
 				</div>
 			</form>
+			<form class="delform" id="deleteForm-${username.userID}"
+				action="<%=contextPath + StringUtils.SERVLET_URL_MODIFY_USER%>"
+				method="post">
+				<input type="hidden" name=<%=StringUtils.DELETE_ID %>
+					value="${username.userID }">
+				<button type="button" class="btn-left"
+					onclick="confirmDelete('${username.userID }', '${username.username}')">Delete
+					Account</button>
+			</form>
+
 		</section>
 	</main>
 	<script type="text/javascript">
@@ -113,6 +129,12 @@ userSession.getAttribute(StringUtils.USERNAME);
 			var image = document.getElementById("output");
 			image.src = URL.createObjectURL(event.target.files[0]);
 		};
+		function confirmDelete(userId, userName) {
+			if (confirm("Are you sure you want to delete your account: "
+					+ userName + "?")) {
+				document.getElementById("deleteForm-" + userId).submit();
+			}
+		}
 	</script>
 
 </body>
