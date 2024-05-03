@@ -55,14 +55,16 @@ public class ModifyUserServlet extends HttpServlet {
 
 		String updateId = request.getParameter(StringUtils.UPDATE_ID);
 		String deleteId = request.getParameter(StringUtils.DELETE_ID);
-		System.out.println(updateId);
-		System.out.println(deleteId);
+		String username = request.getParameter(StringUtils.USERNAME);
 
 		if (updateId != null && !updateId.isEmpty()) {
 			doPut(request, response);
 		}
 		if (deleteId != null && !deleteId.isEmpty()) {
 			doDelete(request, response);
+		}
+		if (username != null && !username.isEmpty()) {
+			resetPassword(request, response);
 		}
 
 	}
@@ -145,6 +147,27 @@ public class ModifyUserServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void resetPassword(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+			System.out.println("calling resetPass");
+			String username = req.getParameter(StringUtils.USERNAME);
+			String password = req.getParameter(StringUtils.PASSWORD);
+			String retypepassword = req.getParameter(StringUtils.RETYPE_PASSWORD);
+
+			boolean usernameExists = dbController.checkUsernameIfExists(username);
+			if (!usernameExists) {
+				req.setAttribute(StringUtils.MESSAGE_ERROR, "Username couldn't be found");
+				req.getRequestDispatcher(StringUtils.PAGE_URL_FORGOT_PASS).forward(req, resp);
+				return; // Stop processing the request
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

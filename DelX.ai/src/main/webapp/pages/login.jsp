@@ -29,7 +29,7 @@ String successParam = request.getParameter(StringUtils.SUCCESS);
 			<h3>Login</h3>
 
 			<label for="username">Username</label> <input type="text"
-				placeholder="Email or Phone" id="username" name="username"
+				placeholder="username" id="username" name="username"
 				value="<%if (username != null && !username.isBlank()) {
 	out.println(username);
 }%>"
@@ -54,7 +54,8 @@ String successParam = request.getParameter(StringUtils.SUCCESS);
 				Don't have an account? <a
 					href="<%=contextPath + StringUtils.PAGE_URL_REGISTER%>">Signup</a>
 			</p>
-			<a href="#" class="forgot">Forgot Password</a>
+			<a href="<%=contextPath + StringUtils.PAGE_URL_PASSWORD%>"
+				class="forgot">Forgot Password</a>
 
 
 			<button>Log In</button>

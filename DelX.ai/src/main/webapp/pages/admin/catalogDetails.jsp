@@ -322,7 +322,7 @@ List<Category> categories = dbController.getAllCategories();
 						</div>
 					</div>
 				</div>
-
+</div>
 
 
 			</div>
@@ -345,27 +345,6 @@ List<Category> categories = dbController.getAllCategories();
 					document.getElementById("deleteForm-" + toolId).submit();
 				}
 			}
-			/*document.addEventListener('DOMContentLoaded', function() {
-				var startBtns = document.querySelectorAll('.start-btn');
-				var closeButton = document.querySelector('.fa-times');
-				var modalBox = document.querySelector('.modal-box');
-
-				// Function to toggle modal visibility
-				function toggleModal() {
-					modalBox.classList.toggle("show-modal");
-					for (var i = 0; i < startBtns.length; i++) {
-						startBtns[i].classList.toggle("show-modal");
-					}
-				}
-
-				// Add click event listeners to start buttons
-				startBtns.forEach(function(startBtn) {
-					startBtn.addEventListener('click', toggleModal);
-				});
-
-				// Add click event listener to close button
-				closeButton.addEventListener('click', toggleModal);
-			});*/
 		</script>
 </body>
 </html>

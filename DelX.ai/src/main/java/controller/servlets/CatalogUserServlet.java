@@ -48,6 +48,12 @@ public class CatalogUserServlet extends HttpServlet {
 		 */
 		List<Category> categories = dbController.getAllCategories();
 		request.setAttribute(StringUtils.LIST_CATEGORY, categories);
+		// Check if the category list is empty
+		if (categories.isEmpty()) {
+			// Redirect to the catalog page URL
+			response.sendRedirect(StringUtils.PAGE_URL_CATALOG);
+			return; // Ensure the method exits after redirection
+		}
 
 		ArrayList<Category> categoryList = dbController.getAllCategories();
 

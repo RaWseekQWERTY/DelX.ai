@@ -20,7 +20,6 @@ List<Category> categories = dbController.getAllCategories();
 	href="<%=contextPath%>/stylesheets/category.css" />
 </head>
 <body>
-
 	<div id="wrapper" class="active">
 
 		<!-- Sidebar -->
@@ -44,78 +43,86 @@ List<Category> categories = dbController.getAllCategories();
 
 		<!-- Page content -->
 		<div id="page-content-wrapper">
-			<br> <br> <a class="button" href="#popup1">ADD</a>
-			<div class="table-wrapper">
-				<h3 style="color: white;">Category Details:</h3>
-				<table class="fl-table">
-					<thead>
-						<tr>
-							<th>CategoryID</th>
-							<th>CategoryName</th>
-							<th>CategoryDesc</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<%
-						if (categories == null || categories.isEmpty()) {
-						%>
-						<tr>
-							<td colspan="4" style="font-size: 16px; font-weight: 500;">No
-								Categories added!Please, add a category</td>
-						</tr>
-						<%
-						} else {
-						%>
-						<%
-						for (Category cat : categories) {
-						%>
-						<tr>
-							<td><%=cat.getCategoryID()%></td>
-							<td><%=cat.getCategoryName()%></td>
-							<td><%=cat.getCategoryDesc()%></td>
-						</tr>
-						<%
-						}
-						%>
-						<%
-						}
-						%>
-					</tbody>
-				</table>
+			<!-- Page content -->
+			<div id="page-content-wrapper">
+				<br> <br> <a class="button" href="#popup1">ADD</a>
+
+				<div class="table-wrapper">
+					<h3 style="color: white;">Category Details:</h3>
+					<table class="fl-table">
+						<thead>
+							<tr>
+								<th>CategoryID</th>
+								<th>CategoryName</th>
+								<th>CategoryDesc</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							if (categories == null || categories.isEmpty()) {
+							%>
+							<tr>
+								<td colspan="4" style="font-size: 16px; font-weight: 500;">No
+									Categories added!Please, add a category</td>
+							</tr>
+							<%
+							} else {
+							%>
+							<%
+							for (Category cat : categories) {
+							%>
+							<tr>
+								<td><%=cat.getCategoryID()%></td>
+								<td><%=cat.getCategoryName()%></td>
+								<td><%=cat.getCategoryDesc()%></td>
+							</tr>
+							<%
+							}
+							%>
+							<%
+							}
+							%>
+						</tbody>
+					</table>
+				</div>
+
 			</div>
+			<div id="popup1" class="overlay">
+				<div class="popup">
+					<h2>Add a new Category</h2>
+					<a class="close" href="#">&times;</a>
+					<div class="content">
+						<div class="form_container">
+							<form name="form" action="<%=contextPath%>/addtool" method="post">
+								<input type="hidden" name="operations" value="addcategory">
+								<div class="form_wrap form_grp">
+									<div class="form_item">
+										<label>CategoryName:</label> <input type="text"
+											name="catTitle" required>
 
-		</div>
-	</div>
-	<div id="popup1" class="overlay">
-		<div class="popup">
-			<h2>Add a new Category</h2>
-			<a class="close" href="#">&times;</a>
-			<div class="content">
-				<div class="form_container">
-					<form name="form" action="<%=contextPath%>/addtool" method="post">
-						<input type="hidden" name="operations" value="addcategory">
-						<div class="form_wrap form_grp">
-							<div class="form_item">
-								<label>CategoryName:</label> <input type="text" name="catTitle"
-									required>
-
-							</div>
+									</div>
+								</div>
+								<div class="form_wrap">
+									<div class="form_item">
+										<label>CategoryDescription</label>
+										<textarea name="desc" rows="4" cols="30" style="resize: none;"></textarea>
+									</div>
+								</div>
+								<div class="btn">
+									<input type="submit" value="Add Category">
+								</div>
+							</form>
 						</div>
-						<div class="form_wrap">
-							<div class="form_item">
-								<label>CategoryDescription</label>
-								<textarea name="desc" rows="4" cols="30" style="resize: none;"></textarea>
-							</div>
-						</div>
-						<div class="btn">
-							<input type="submit" value="Add Category">
-						</div>
-					</form>
+					</div>
 				</div>
 			</div>
+
+
+
 		</div>
 	</div>
+
 	<script>
 		document.getElementById("menu-toggle").addEventListener("click",
 				function(e) {
@@ -127,6 +134,12 @@ List<Category> categories = dbController.getAllCategories();
 						wrapper.classList.add("active");
 					}
 				});
+		function confirmDelete(toolId, toolName) {
+			if (confirm("Are you sure you want to delete this Tool: "
+					+ toolName + "?")) {
+				document.getElementById("deleteForm-" + toolId).submit();
+			}
+		}
 	</script>
 </body>
 </html>

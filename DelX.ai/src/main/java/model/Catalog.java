@@ -102,7 +102,7 @@ public class Catalog implements Serializable {
 			}
 		}
 		if (imageUrlFromPart == null || imageUrlFromPart.isEmpty()) {
-			imageUrlFromPart = "defaultAI.jpg";
+			imageUrlFromPart = "defaultAI2.jpg";
 		}
 		return imageUrlFromPart;
 	}

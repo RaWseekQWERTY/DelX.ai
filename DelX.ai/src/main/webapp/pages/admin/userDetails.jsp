@@ -31,13 +31,11 @@ request.setAttribute(StringUtils.LIST_USERS, user);
 	<div id="wrapper" class="active">
 
 		<!-- Sidebar -->
-
+		<!-- Sidebar -->
 		<div id="sidebar-wrapper">
 			<ul id="sidebar_menu" class="sidebar-nav">
 				<li class="sidebar-brand"><a id="menu-toggle" href="#">Menu<span
-						id="main_icon" class="icon"><img
-							src="https://static.vecteezy.com/system/resources/previews/000/440/847/original/menu-vector-icon.jpg"
-							alt="logo" width="30px" height="30px"></span></a></li>
+						id="main_icon" class="icon"></span></a></li>
 			</ul>
 			<ul class="sidebar-nav" id="sidebar">
 				<li><a href="<%=contextPath%>/pages/admin/admin.jsp">Dash<span
@@ -55,38 +53,6 @@ request.setAttribute(StringUtils.LIST_USERS, user);
 		<div id="page-content-wrapper">
 			<!-- Page content -->
 			<div id="page-content-wrapper">
-				<%
-				if (successMsg != null) {
-				%>
-				<label> <input type="checkbox" class="alertCheckbox"
-					autocomplete="off" />
-					<div class="alert success">
-						<span class="alertClose">&times;</span> <span class="alertText">
-							<%
-							out.println(successMsg);
-							%><br class="clear" />
-						</span>
-					</div>
-				</label>
-				<%
-				}
-				%>
-				<%
-				if (errMsg != null) {
-				%>
-				<label> <input type="checkbox" class="alertCheckbox"
-					autocomplete="off" />
-					<div class="alert error">
-						<span class="alertClose">&times;</span> <span class="alertText">
-							<%
-							out.println(errMsg);
-							%><br class="clear" />
-						</span>
-					</div>
-				</label>
-				<%
-				}
-				%>
 				<form
 					action="<%=contextPath + StringUtils.SERVLET_URL_USER_SEARCH%>"
 					method="post">
@@ -96,22 +62,10 @@ request.setAttribute(StringUtils.LIST_USERS, user);
 
 						<button type="submit">
 							<i class="fa fa-search"> <!--  Some content -->
-							</i>
-
+							</i> Search
 						</button>
 					</div>
 				</form>
-
-				<%-- <form class="search"
-					action="<%=contextPath + StringUtils.SERVLET_URL_USER_SEARCH%>"
-					method="post">
-					<input type="text" name="searchValue">
-					<button type="submit">
-						<i class="fa fa-search"> <!--  Some content -->
-						</i>
-					</button>
-
-				</form> --%>
 
 				<div class="table-wrapper">
 					<h3 style="color: white;">Tools Details:</h3>
@@ -145,8 +99,35 @@ request.setAttribute(StringUtils.LIST_USERS, user);
 											src="${pageContext.request.contextPath}/resources/user/${user.imageUrlFromPart}"
 											width="120px" height="120px" alt="picture"></td>
 										<td>${user.userType}</td>
-										<td>Change</td>
+										<td><a href="#popup1?id=${user.userID }"> Change </a></td>
 									</tr>
+									<div id="popup1?id=${user.userID}" class="overlay">
+										<div class="popup">
+											<h2>Change Role</h2>
+											<a class="close" href="#">&times;</a>
+											<div class="content">
+												<div class="form_container">
+													<form name="form" action="<%=contextPath%>/addtool"
+														method="post" enctype="multipart/form-data">
+														<input type="hidden" name="operations" value="addtools">
+
+														<div class="form_wrap">
+															<div class="form_item">
+																<label>User Role:</label> <select name="role" id="">
+																	<option value="normal">normal</option>
+																	<option value="admin">admin</option>
+																</select>
+															</div>
+														</div>
+
+														<div class="btn">
+															<input type="submit" value="Save Changes">
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
 								</c:forEach>
 							</c:if>
 
@@ -154,35 +135,10 @@ request.setAttribute(StringUtils.LIST_USERS, user);
 
 					</table>
 				</div>
-				<div id="popup1" class="overlay">
-					<div class="popup">
-						<h2>Change User Type</h2>
-						<a class="close" href="#">&times;</a>
-						<div class="content">
-							<div class="form_container">
-								<form name="form" action="<%=contextPath%>/modifyuser"
-									method="post" enctype="multipart/form-data">
-									<input type="hidden" name="operations" value="addtools">
-									<div class="form_wrap">
-										<div class="form_item">
-											<label>Tool Category:</label> <select name="userType" id="">
-												<option value="admin">admin</option>
-												<option value="normal">normal</option>
-
-											</select>
-										</div>
-									</div>
-									<div class="btn">
-										<input type="submit" value="Save Changes">
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-
 
 			</div>
+
+
 		</div>
 	</div>
 
@@ -197,27 +153,12 @@ request.setAttribute(StringUtils.LIST_USERS, user);
 						wrapper.classList.add("active");
 					}
 				});
-		/*document.addEventListener('DOMContentLoaded', function() {
-			var startBtns = document.querySelectorAll('.start-btn');
-			var closeButton = document.querySelector('.fa-times');
-			var modalBox = document.querySelector('.modal-box');
-
-			// Function to toggle modal visibility
-			function toggleModal() {
-				modalBox.classList.toggle("show-modal");
-				for (var i = 0; i < startBtns.length; i++) {
-					startBtns[i].classList.toggle("show-modal");
-				}
+		function confirmDelete(toolId, toolName) {
+			if (confirm("Are you sure you want to delete this Tool: "
+					+ toolName + "?")) {
+				document.getElementById("deleteForm-" + toolId).submit();
 			}
-
-			// Add click event listeners to start buttons
-			startBtns.forEach(function(startBtn) {
-				startBtn.addEventListener('click', toggleModal);
-			});
-
-			// Add click event listener to close button
-			closeButton.addEventListener('click', toggleModal);
-		});*/
+		}
 	</script>
 </body>
 </html>

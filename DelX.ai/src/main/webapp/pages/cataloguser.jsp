@@ -37,6 +37,12 @@ String contextPath = request.getContextPath();
 
 
 		<div class="categories">
+			<c:if test="${empty categoryList }">
+				<div class="maintance-container">
+					<img alt="" src="<%=contextPath%>/resources/other/UnderMain.svg">
+				</div>
+
+			</c:if>
 			<c:forEach var="cat" items="${categoryList}">
 				<p class="category-item">
 					<a href="#${cat.categoryName}">${cat.categoryName}</a>
@@ -47,8 +53,7 @@ String contextPath = request.getContextPath();
 		<div class="main-product" id="featured">
 			<c:if test="${empty categoryList }">
 				<div class="maintance-container">
-					<img alt="" src="<%=contextPath%>/resources/other/UnderMain.svg"
-						>
+					<img alt="" src="<%=contextPath%>/resources/other/UnderMain.svg">
 				</div>
 
 			</c:if>
@@ -58,18 +63,20 @@ String contextPath = request.getContextPath();
 
 				<c:forEach var="tool" items="${cat.catalogs}">
 					<div class="product-container">
-						<div class="product">
-							<img
-								src="${pageContext.request.contextPath}/resources/catalog/${tool.imageUrlFromPart}"
-								alt="" width="150px" height="150px" />
-							<section class="product-detail">
-								<h4>${tool.toolName}</h4>
-								<p>${tool.toolDesc}</p>
-								<p>${tool.category.categoryName}</p>
-								<!-- You can display the category title here -->
-								<p>${tool.toolAuthor}</p>
-							</section>
-						</div>
+						<a>
+							<div class="product">
+								<img
+									src="${pageContext.request.contextPath}/resources/catalog/${tool.imageUrlFromPart}"
+									alt="" width="150px" height="150px" />
+								<section class="product-detail">
+									<h4>${tool.toolName}</h4>
+									<p>${tool.toolDesc}</p>
+									<p>${tool.category.categoryName}</p>
+									<!-- You can display the category title here -->
+									<p>${tool.toolAuthor}</p>
+								</section>
+							</div>
+						</a>
 					</div>
 				</c:forEach>
 			</c:forEach>
@@ -101,8 +108,8 @@ String contextPath = request.getContextPath();
 			</c:forEach>
 
 		</div> --%>
-<jsp:include page="<%=StringUtils.PAGE_URL_FOOTER%>" />
+		<jsp:include page="<%=StringUtils.PAGE_URL_FOOTER%>" />
 	</main>
-	
+
 </body>
 </html>

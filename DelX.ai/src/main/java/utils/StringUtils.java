@@ -105,12 +105,14 @@ public class StringUtils {
 	public static final String PAGE_URL_LOGIN = "/pages/login.jsp";
 	public static final String PAGE_URL_CATALOG = "/pages/cataloguser.jsp";
 	public static final String PAGE_URL_REGISTER = "/pages/register.jsp";
+	public static final String PAGE_URL_PASSWORD = "/pages/forgotPassword.jsp";
 	public static final String PAGE_URL_PROFILE = "/pages/profile.jsp";
 	public static final String PAGE_URL_ADMIN_DASH = "/pages/admin/admin.jsp";
 	public static final String PAGE_URL_ADMIN_CATALOG = "/pages/admin/catalogDetails.jsp";
 	public static final String PAGE_URL_ADMIN_CATALOG_EDIT = "/pages/admin/editCatalog.jsp";
 	public static final String PAGE_URL_SEARCH_USER = "/pages/admin/searchuser.jsp";
 	public static final String PAGE_URL_USER_DETAILS = "/pages/admin/userDetails.jsp";
+	public static final String PAGE_URL_FORGOT_PASS = "/pages/forgotPassword.jsp";
 
 	// Start: Normal Text
 	public static final String SUCCESS = "success";

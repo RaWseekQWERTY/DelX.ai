@@ -139,16 +139,7 @@ if (user == null) {
 				</div>
 				<div class="card-single">
 					<div>
-						<br> <span>ADD</span>
-					</div>
-
-					<div class="page-content inset">
-						<div class="row"></div>
-					</div>
-				</div>
-				<div class="card-single">
-					<div>
-						<br> <span>ADD</span>
+						<br> <span>Logout</span>
 					</div>
 
 					<div class="page-content inset">

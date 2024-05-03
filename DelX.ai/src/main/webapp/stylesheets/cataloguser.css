@@ -119,7 +119,7 @@ main.body {
 	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
-	gap: 3rem;
+	gap: 9rem;
 	width: 80%;
 }
 
@@ -141,7 +141,19 @@ main.body {
 	height: 150px;
 	width: 400px;
 	gap: 15px;
-	background-color: red;
+	background: #012221;
+	backdrop-filter: blur(16px);
+	border-radius: 5px;
+	box-shadow: 0 0 9px rgb(51, 101, 26);
+	overflow: hidden;
+	filter: brightness(120%);
+	transition: all 400ms;
+	overflow: hidden;
+}
+
+.product:hover {
+	transform: scale(1.04);
+	border-radius: 25px;
 }
 
 .product-detail {
@@ -186,6 +198,7 @@ main.body {
 	}
 	.main-product {
 		flex-direction: column !important;
+		gap: 3px !important;
 	}
 	.description {
 		width: 90%;

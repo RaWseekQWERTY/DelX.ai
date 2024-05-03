@@ -30,6 +30,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>src/main/webapp/resources/catalog/defaultAI2.jpg</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/java%20CW/Pages/defaultAI.jpg</locationURI>
+		</link>
+		<link>
 			<name>src/main/webapp/resources/other/BG-landing.png</name>
 			<type>1</type>
 			<location>C:/Users/HP/Downloads/java CW/delx/assets/BG-landing.png</location>
@@ -43,6 +48,11 @@
 			<name>src/main/webapp/resources/other/logo.png</name>
 			<type>1</type>
 			<location>C:/Users/HP/Downloads/java CW/delx/assets/Group_1.png</location>
+		</link>
+		<link>
+			<name>src/main/webapp/resources/user/defaultAV.jpg</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/defaultAV.jpg</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
