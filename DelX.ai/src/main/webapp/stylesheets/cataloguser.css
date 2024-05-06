@@ -168,6 +168,105 @@ main.body {
 	width: 130px;
 }
 
+/*Popup css*/
+.overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.7);
+	transition: opacity 500ms;
+	visibility: hidden;
+	opacity: 0;
+	z-index: 1000;
+}
+
+.overlay:target {
+	visibility: visible;
+	opacity: 1;
+}
+
+.popup {
+	margin: 99px auto;
+	padding: 20px;
+	border-radius: 5px;
+	width: 30%;
+	position: relative;
+	transition: all 1s ease-in-out;
+	text-align: center;
+	background: rgba(255, 255, 255, 0.2);
+	backdrop-filter: blur(10px); /* Adjust the blur radius as needed */
+	-webkit-backdrop-filter: blur(50px);
+	color: #fff;
+}
+
+.content .content-img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	padding: 7px 0;
+}
+
+.product-desc {
+	padding: 5px 30px;
+	text-align: justify;
+}
+
+.stats {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+	padding: 15px 0;
+}
+
+.vl {
+	border-left: 2px solid #ccc;
+	height: 70px;
+}
+
+.subscribe {
+	padding: 15px;
+	border-radius: 10px;
+	background-color: #06D85F;
+	outline: none;
+	border: none;
+	font-size: 18px;
+	font-weight: 600;
+	width: 100%;
+}
+.subscribe:hover{
+	cursor: pointer;
+	
+}
+
+.popup h2 {
+	margin-top: 0;
+	color: #fff;
+	font-family: Tahoma, Arial, sans-serif;
+}
+
+.popup .close {
+	position: absolute;
+	top: 20px;
+	right: 30px;
+	transition: all 200ms;
+	font-size: 30px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #333;
+}
+
+.popup .close:hover {
+	color: #06D85F;
+}
+
+.popup .content {
+	max-height: 30%;
+	overflow: auto;
+}
+/*main container query*/
 @media ( max-width : 48em) {
 	.search {
 		flex-direction: column;

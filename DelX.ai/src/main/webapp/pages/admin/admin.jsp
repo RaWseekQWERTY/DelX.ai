@@ -137,15 +137,25 @@ if (user == null) {
 						<span class="fas fa-shopping-bag"></span>
 					</div>
 				</div>
-				<div class="card-single">
-					<div>
-						<br> <span>Logout</span>
+				<form action="<%=contextPath + StringUtils.SERVLET_URL_LOGOUT%>"
+					method="post">
+					<div class="card-single">
+						<div>
+							<br>
+							<button title="logout"
+								style="border: none; background-color: transparent;">
+								<i class="fa-solid fa-right-from-bracket fa-2xl"></i>
+							</button>
+						</div>
+
+						<div class="page-content inset">
+							<div class="row"></div>
+						</div>
 					</div>
 
-					<div class="page-content inset">
-						<div class="row"></div>
-					</div>
-				</div>
+
+				</form>
+
 			</div>
 		</div>
 	</div>

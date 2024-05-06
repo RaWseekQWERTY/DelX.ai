@@ -30,8 +30,11 @@ String contextPath = request.getContextPath();
 				ChatGPT that combine instructions, extra knowledge, and any
 				combination of skills.</p>
 		</div>
-		<form class="search">
-			<input type="text" placeholder="Chatgpt-3.5" class="search-box" />
+		<form class="search"
+			action="<%=contextPath + StringUtils.SERVLET_URL_CATALOG_SEARCH%>"
+			method="post">
+			<input type="text" placeholder="Chatgpt-3.5" class="search-box"
+				name="${StringUtils.SEARCH}" />
 			<button class="btn btn-primary">Search</button>
 		</form>
 
@@ -63,20 +66,53 @@ String contextPath = request.getContextPath();
 
 				<c:forEach var="tool" items="${cat.catalogs}">
 					<div class="product-container">
-						<a>
+						<a href="#popup1?name=${tool.toolName}">
 							<div class="product">
 								<img
 									src="${pageContext.request.contextPath}/resources/catalog/${tool.imageUrlFromPart}"
 									alt="" width="150px" height="150px" />
 								<section class="product-detail">
 									<h4>${tool.toolName}</h4>
-									<p>${tool.toolDesc}</p>
 									<p>${tool.category.categoryName}</p>
-									<!-- You can display the category title here -->
 									<p>${tool.toolAuthor}</p>
 								</section>
 							</div>
 						</a>
+					</div>
+					<div id="popup1?name=${tool.toolName}" class="overlay">
+						<div class="popup">
+							<a class="close" href="#">&times;</a>
+
+							<div class="content">
+								<img
+									src="${pageContext.request.contextPath}/resources/catalog/${tool.imageUrlFromPart}"
+									alt="" class="content-img" width="100px" height="100px">
+								<h2>${tool.toolName}</h2>
+								<div class="author">
+									<h4>By :- ${tool.toolAuthor}</h4>
+								</div>
+								<div class="product-desc">${tool.toolDesc}</div>
+
+								<div class="stats">
+									<section class="rating">
+										<h3>4.1</h3>
+										<p>Ratings (1K+)</p>
+									</section>
+									<div class="vl"></div>
+									<section>
+										<h3>#${tool.catalogID}</h3>
+										<p>${tool.category.categoryName}</p>
+									</section>
+									<div class="vl"></div>
+									<section>
+										<h3>200k+</h3>
+										<p>Conversations</p>
+									</section>
+								</div>
+							</div>
+
+							<button class="subscribe">Subscribe</button>
+						</div>
 					</div>
 				</c:forEach>
 			</c:forEach>

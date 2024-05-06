@@ -51,6 +51,39 @@ request.setAttribute(StringUtils.LIST_USERS, user);
 
 		<!-- Page content -->
 		<div id="page-content-wrapper">
+			<%
+			if (successMsg != null) {
+			%>
+			<label> <input type="checkbox" class="alertCheckbox"
+				autocomplete="off" />
+				<div class="alert success">
+					<span class="alertClose">&times;</span> <span class="alertText">
+						<%
+						out.println(successMsg);
+						%><br class="clear" />
+					</span>
+				</div>
+			</label>
+			<%
+			}
+			%>
+			<%
+			if (errMsg != null) {
+			%>
+			<label> <input type="checkbox" class="alertCheckbox"
+				autocomplete="off" />
+				<div class="alert error">
+					<span class="alertClose">&times;</span> <span class="alertText">
+						<%
+						out.println(errMsg);
+						%><br class="clear" />
+					</span>
+				</div>
+			</label>
+			<%
+			}
+			%>
+
 			<!-- Page content -->
 			<div id="page-content-wrapper">
 				<form
@@ -107,9 +140,11 @@ request.setAttribute(StringUtils.LIST_USERS, user);
 											<a class="close" href="#">&times;</a>
 											<div class="content">
 												<div class="form_container">
-													<form name="form" action="<%=contextPath%>/addtool"
+													<form name="form"
+														action="<%=contextPath + StringUtils.SERVLET_URL_MODIFY_USER%>"
 														method="post" enctype="multipart/form-data">
-														<input type="hidden" name="operations" value="addtools">
+														<input type="hidden" name="${StringUtils.USERID}"
+															value="${user.userID}">
 
 														<div class="form_wrap">
 															<div class="form_item">

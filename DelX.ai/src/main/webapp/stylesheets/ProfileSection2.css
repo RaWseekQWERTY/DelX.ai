@@ -6,8 +6,8 @@
 body {
 	margin: 0;
 	font-family: Helvetica, sans-serif;
-	width: 100vh;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	text-decoration: none;
 	color: #fff;
 	overflow-x: hidden;
@@ -83,7 +83,7 @@ form {
 	top: 50%;
 	left: 50%;
 	border-radius: 10px;
-	padding: 8px 35px;
+	padding: 26px 35px;
 }
 
 form * {
@@ -99,7 +99,7 @@ form h3 {
 	font-weight: 700;
 	line-height: 42px;
 	text-align: center;
-	margin: 7px 0 10px;
+	margin: 0 0 5px;
 }
 
 .row {
@@ -159,9 +159,24 @@ input:hover, select:hover {
 	cursor: pointer;
 }
 
-button:hover {
-	background-color: #5f805e;
+button {
+    display: block;
+    margin: 0 auto;
+    width: 70%;
+    background-color: #78a083;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
 }
+
+button:hover {
+    background-color: #5f805e;
+}
+
+
 
 /* change profile */
 .profile-pic {
@@ -227,18 +242,6 @@ button:hover {
 	width: 269px;
 }
 
-.btn {
-	border-radius: 15px;
-	margin: 10px 50px;
-	font-size: 16px;
-	font-weight: 600;
-	outline: none;
-	border: none;
-	border-color: transparent;
-	color: #fff;
-	background-color: rgba(0, 201, 167, 0.7);
-}
-
 .btn-primary {
 	padding: 10px;
 }
@@ -253,62 +256,6 @@ button:hover {
 	background-color: transparent;
 }
 
-/*Alert popup*/
-.alert {
-	position: relative;
-	top: 10;
-	left: 0;
-	width: auto;
-	height: auto;
-	padding: 10px;
-	margin: 10px;
-	line-height: 1.8;
-	border-radius: 5px;
-	cursor: hand;
-	cursor: pointer;
-	font-family: sans-serif;
-	font-weight: 400;
-}
-
-.alertCheckbox {
-	display: none;
-}
-
-:checked+.alert {
-	display: none;
-}
-
-.alertText {
-	display: table;
-	margin: 0 auto;
-	text-align: center;
-	font-size: 16px;
-}
-
-.alertClose {
-	float: right;
-	padding-top: 5px;
-	font-size: 10px;
-}
-
-.clear {
-	clear: both;
-}
-
-.success {
-	background-color: #FDF7DF;
-	border: 1px solid #FEEC6F;
-	color: rgb(0, 255, 64);
-	width: 47vw;
-}
-
-.error {
-	background-color: #FDF7DF;
-	border: 1px solid #FEEC6F;
-	color: rgb(255, 0, 0);
-	width: 47vw;
-}
-
 @media ( max-width : 960px) {
 	main.body {
 		display: grid;
@@ -318,8 +265,8 @@ button:hover {
 		height: min-content !important;
 		padding: 20px 0;
 	}
-	.btn-left {
-		width: 169%;
+	.btn-left{
+	width: 169%;
 	}
 	.profile {
 		grid-row: 1;
@@ -393,3 +340,73 @@ button:hover {
 		font-size: 15px;
 	}
 }
+
+/* Dropdown */
+
+  .content {
+    width: 80%;
+    padding: 0;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+  summary {
+    font-size: 1.25rem;
+    font-weight: 600;
+    background-color: #5f805e;
+    color: #333;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    outline: none;
+    border-radius: 0.25rem;
+    text-align: left;
+    cursor: pointer;
+    position: relative;
+  }
+  details > summary::after {
+    position: absolute;
+    content: "+";
+    right: 20px;
+  }
+  details[open] > summary::after {
+    position: absolute;
+    content: "-";
+    right: 20px;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details[open] summary ~ * {
+    animation: sweep 0.5 ease-in-out;
+  }
+  @keyframes sweep {
+    0% {
+      opacity: 0;
+      margin-top: -10px;
+    }
+    100% {
+      opacity: 1;
+      margin-top: 0px;
+    }
+  }
+
+  .edit-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    margin: 0;
+    padding: 10px 0;
+  }
+
+  .edit-form button{
+    width: max-content;
+    padding: 15px 15px;
+  }
+
+  .edit-form input{
+    width: 70%;
+    padding: 5px 15px;
+    border-radius: 10px;
+  }

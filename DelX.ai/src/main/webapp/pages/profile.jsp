@@ -8,6 +8,8 @@
 String contextPath = request.getContextPath();
 HttpSession userSession = request.getSession();
 userSession.getAttribute(StringUtils.USERNAME);
+String errMsg = (String) request.getAttribute(StringUtils.MESSAGE_ERROR);
+String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
 %>
 <!DOCTYPE html>
 <html>
@@ -47,7 +49,8 @@ userSession.getAttribute(StringUtils.USERNAME);
 					alt="" width="170px" height="170px" />
 			</div>
 			<div class="profile-navs">
-				<a href="#" title="security"> <i class="fa-solid fa-gear fa-2xl"></i>
+				<a href="<%=contextPath + StringUtils.PAGE_URL_PROFILE_SECTION2%>"
+					title="security"> <i class="fa-solid fa-gear fa-2xl"></i>
 				</a>
 				<form action="<%=contextPath + StringUtils.SERVLET_URL_LOGOUT%>"
 					method="post">
@@ -64,6 +67,39 @@ userSession.getAttribute(StringUtils.USERNAME);
 			</div>
 		</section>
 		<section class="subscription">
+			<%
+			if (successMsg != null) {
+			%>
+			<label> <input type="checkbox" class="alertCheckbox"
+				autocomplete="off" />
+				<div class="alert success">
+					<span class="alertClose">&times;</span> <span class="alertText">
+						<%
+						out.println(successMsg);
+						%><br class="clear" />
+					</span>
+				</div>
+			</label>
+			<%
+			}
+			%>
+			<%
+			if (errMsg != null) {
+			%>
+			<label> <input type="checkbox" class="alertCheckbox"
+				autocomplete="off" />
+				<div class="alert error">
+					<span class="alertClose">&times;</span> <span class="alertText">
+						<%
+						out.println(errMsg);
+						%><br class="clear" />
+					</span>
+				</div>
+			</label>
+			<%
+			}
+			%>
+
 			<form name="form"
 				action="<%=contextPath + StringUtils.SERVLET_URL_MODIFY_USER%>"
 				method="post" enctype="multipart/form-data">

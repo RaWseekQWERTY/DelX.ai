@@ -303,6 +303,7 @@ body.light .card-header button:hover {
 	transform: translatey(2px);
 }
 
+/*ALERT*/
 .alert {
 	position: relative;
 	top: 10;

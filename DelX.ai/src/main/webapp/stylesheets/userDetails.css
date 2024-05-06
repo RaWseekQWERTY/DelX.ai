@@ -141,6 +141,35 @@ body {
 	display: inline-block;
 }
 
+.box {
+	margin-top: 29px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.box input {
+	border-radius: 9px;
+	height: 29px;
+}
+
+.box button {
+	background-color: #4fc3a1;
+	color: #ffffff;
+	font-size: 1.3em;
+	font-weight: 600;
+	position: relative;
+	float: right;
+	outline: none;
+	border-radius: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	height: 30px;
+	width: 90px;
+	margin-right: 70px;
+}
 /*
 .bn60 {
 	background-color: #324960;

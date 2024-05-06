@@ -196,17 +196,12 @@ public class DBController {
 	}
 
 	public UserModel getUserByUsername(String username) {
-		Connection connection = null;
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
 		UserModel user = null;
-
 		try {
-			connection = getConnection();
-			String query = "SELECT * FROM user_detail WHERE user_name = ?";
-			statement = connection.prepareStatement(query);
+			PreparedStatement statement = getConnection().prepareStatement(StringUtils.QUERY_USER_BY_USERNAME);
+
 			statement.setString(1, username);
-			resultSet = statement.executeQuery();
+			ResultSet resultSet = statement.executeQuery();
 
 			if (resultSet.next()) {
 				String userDb = resultSet.getString(StringUtils.USER_NAME);
@@ -222,7 +217,7 @@ public class DBController {
 				user.setEmail(resultSet.getString("gmail"));
 				user.setGender(resultSet.getString("gender"));
 				user.setUserType(resultSet.getString("userType"));
-				user.setPassword(decryptedPwd);
+				user.setPassword(encryptedPwd);
 				user.setImageUrlFromDB(resultSet.getString("avatar"));
 				// user.setAvatar(resultSet.getString("avatar"));
 			}
@@ -349,6 +344,38 @@ public class DBController {
 				user.add(users);
 			}
 			return user;
+		} catch (SQLException | ClassNotFoundException ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+
+	public ArrayList<Catalog> getCatalogBySearch(String searchval) {
+		try {
+			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_GET_CATALOG_BY_SEARCH);
+			stmt.setString(1, "%" + searchval + "%");
+			stmt.setString(2, "%" + searchval + "%");
+			ResultSet result = stmt.executeQuery();
+
+			ArrayList<Catalog> toolList = new ArrayList<Catalog>();
+
+			while (result.next()) {
+
+				Catalog tools = new Catalog();
+				tools.setCatalogID(result.getInt(1));
+				tools.setToolName(result.getString(2));
+				tools.setToolDesc(result.getString(3));
+				tools.setToolAuthor(result.getString(4));
+				tools.setImageUrlFromDB(result.getString("Toolimg"));
+				// get category information
+				int catId = result.getInt("categoryID");
+				Category category = getCategoryById(catId);
+
+				// set category object
+				tools.setCategory(category);
+				toolList.add(tools);
+			}
+			return toolList;
 		} catch (SQLException | ClassNotFoundException ex) {
 			ex.printStackTrace();
 			return null;
@@ -522,6 +549,55 @@ public class DBController {
 			stmt.setString(5, user.getImageUrlFromPart());
 			stmt.setInt(6, user.getUserID());
 
+			int executeResult = stmt.executeUpdate();
+			if (executeResult == 1) {
+				result = true;
+			}
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return result;
+		}
+	}
+
+	public int updateUserPassword(String username, String newPassword) {
+		try {
+			// Prepare a statement for updating the password
+			PreparedStatement stmt = getConnection()
+					.prepareStatement(StringUtils.QUERY_UPDATE_USERPASSWORD_BY_USERNAME);
+
+			// Encrypt the new password
+			String encryptedPassword = PasswordEncryptionWithAes.encrypt(username, newPassword);
+
+			// Set parameters in the prepared statement
+			stmt.setString(1, encryptedPassword);
+			stmt.setString(2, username);
+
+			// Execute the update
+			int updatedRows = stmt.executeUpdate();
+
+			// Check if the password was updated successfully
+			if (updatedRows > 0) {
+				// Password updated successfully, return 1
+				return 1;
+			} else {
+				// Password update failed, return 0
+				return 0;
+			}
+		} catch (SQLException | ClassNotFoundException ex) {
+			// Print the stack trace for debugging purposes
+			ex.printStackTrace();
+			// Return -1 to indicate an error
+			return -1;
+		}
+	}
+
+	public boolean updateUserRole(UserModel user) {
+		boolean result = false;
+		try {
+			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_UPDATE_USERROLE);
+			stmt.setString(1, user.getUserType());
+			stmt.setInt(2, user.getUserID());
 			int executeResult = stmt.executeUpdate();
 			if (executeResult == 1) {
 				result = true;

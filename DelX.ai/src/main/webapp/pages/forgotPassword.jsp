@@ -54,7 +54,7 @@ String contextPath = request.getContextPath();
 			<div class="label-container">
 				<label for="username">Username</label> <input type="text"
 					placeholder="username" id="username"
-					name="<%=StringUtils.USERNAME%>" required> <label
+					name="userName" required> <label
 					for="password">New Password</label><i
 					class="toggle-password fa fa-eye-slash"></i> <input type="password"
 					placeholder="Password" id="password"

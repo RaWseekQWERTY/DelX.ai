@@ -91,11 +91,7 @@ String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
 						<i class="fa-brands fa-searching"></i> <input type="text"
 							name="searchValue">
 
-						<button type="submit">
-							<i class="fa fa-search"> <!--  Some content -->
-							</i>
-
-						</button>
+						<button type="submit">Search</button>
 					</div>
 				</form>
 				<div class="table-wrapper">
@@ -118,7 +114,8 @@ String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
 						<tbody>
 							<c:if test="${empty userList }">
 								<tr>
-									<td colspan="9" style="font-weight: bold;font-size: 19px;">404: User doesn't exist</td>
+									<td colspan="9" style="font-weight: bold; font-size: 19px;">404:
+										User doesn't exist</td>
 								</tr>
 
 							</c:if>

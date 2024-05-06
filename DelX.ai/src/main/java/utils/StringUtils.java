@@ -22,11 +22,14 @@ public class StringUtils {
 			+ "firstName, lastName, user_name, dob, gmail, gender, userType, password, avatar) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String QUERY_GETALL_USERS = "SELECT * FROM user_detail";
+	public static final String QUERY_USER_BY_USERNAME = "SELECT * FROM user_detail WHERE user_name = ?";
 	public static final String QUERY_UPDATE_USER = "UPDATE user_detail set firstName=?,lastName=?,user_name=?,gender=?, avatar=?"
 			+ "WHERE userID=?";
+	public static final String QUERY_UPDATE_USERROLE = "UPDATE user_detail set userType=? WHERE userID=?";
+
 	public static final String QUERY_DELETE_USER = "DELETE FROM user_detail WHERE userID = ?";
 	public static final String QUERY_GET_USER_BY_SEARCH = "SELECT * FROM user_detail where firstName like ? or lastName like ? or user_name like ?";
-
+	public static final String QUERY_UPDATE_USERPASSWORD_BY_USERNAME = "UPDATE user_detail SET password=? WHERE user_name=?";
 	// catalog and category
 	public static final String QUERY_ADD_CATEGORY = "INSERT INTO category (" + "categoryTitle, categoryDesc)"
 			+ "VALUES(?,?)";
@@ -40,6 +43,7 @@ public class StringUtils {
 	public static final String QUERY_DELETE_TOOLS = "DELETE FROM catalog WHERE CatalogID = ?";
 	public static final String QUERY_UPDATE_TOOLS = "UPDATE catalog set ToolName=?,ToolDesc=?,ToolAuthor=?,Toolimg=?,categoryID=? "
 			+ "WHERE CatalogID=?";
+	public static final String QUERY_GET_CATALOG_BY_SEARCH = "SELECT * FROM catalog where ToolName like ? or ToolAuthor like ?";
 
 	// end catalog and category
 
@@ -53,6 +57,7 @@ public class StringUtils {
 	// End: Queries
 	// Start: Parameter names
 	public static final String USERNAME = "username";
+	public static final String USERID = "userID";
 	public static final String USER_NAME = "user_name";
 	public static final String FIRST_NAME = "firstName";
 	public static final String LAST_NAME = "lastName";
@@ -61,6 +66,8 @@ public class StringUtils {
 	public static final String EMAIL = "email";
 	public static final String PASSWORD = "password";
 	public static final String RETYPE_PASSWORD = "conformPass";
+	public static final String ROLE = "role";
+	public static final String SEARCH = "searchValue";
 	// End: Parameter names
 
 	// Start: Servlet Route
@@ -74,6 +81,7 @@ public class StringUtils {
 	public static final String SERVLET_URL_UPDATE_TOOL = "/updatetool";
 	public static final String SERVLET_URL_USER_CATALOG = "/cataloguser";
 	public static final String SERVLET_URL_USER_SEARCH = "/searchuser";
+	public static final String SERVLET_URL_CATALOG_SEARCH = "/searchcatalog";
 	// End: Servlet Route
 
 	// Start: Validation Messages
@@ -107,12 +115,15 @@ public class StringUtils {
 	public static final String PAGE_URL_REGISTER = "/pages/register.jsp";
 	public static final String PAGE_URL_PASSWORD = "/pages/forgotPassword.jsp";
 	public static final String PAGE_URL_PROFILE = "/pages/profile.jsp";
+
 	public static final String PAGE_URL_ADMIN_DASH = "/pages/admin/admin.jsp";
 	public static final String PAGE_URL_ADMIN_CATALOG = "/pages/admin/catalogDetails.jsp";
 	public static final String PAGE_URL_ADMIN_CATALOG_EDIT = "/pages/admin/editCatalog.jsp";
 	public static final String PAGE_URL_SEARCH_USER = "/pages/admin/searchuser.jsp";
 	public static final String PAGE_URL_USER_DETAILS = "/pages/admin/userDetails.jsp";
 	public static final String PAGE_URL_FORGOT_PASS = "/pages/forgotPassword.jsp";
+	public static final String PAGE_URL_PROFILE_SECTION2 = "/pages/profileSection2.jsp";
+	public static final String PAGE_URL_SEARCH_CATALOG = "/pages/searchcatalog.jsp";
 
 	// Start: Normal Text
 	public static final String SUCCESS = "success";

@@ -14,8 +14,10 @@ import javax.servlet.http.Part;
 import controller.database.DBController;
 import model.Catalog;
 import model.Category;
+import model.PasswordEncryptionWithAes;
 import model.UserModel;
 import utils.StringUtils;
+import utils.StringValidation;
 
 /**
  * Servlet implementation class ModifyUserServlet
@@ -55,8 +57,9 @@ public class ModifyUserServlet extends HttpServlet {
 
 		String updateId = request.getParameter(StringUtils.UPDATE_ID);
 		String deleteId = request.getParameter(StringUtils.DELETE_ID);
-		String username = request.getParameter(StringUtils.USERNAME);
-
+		String username = request.getParameter("userName");
+		String userID = request.getParameter(StringUtils.USERID);
+		System.out.println(updateId);
 		if (updateId != null && !updateId.isEmpty()) {
 			doPut(request, response);
 		}
@@ -65,6 +68,9 @@ public class ModifyUserServlet extends HttpServlet {
 		}
 		if (username != null && !username.isEmpty()) {
 			resetPassword(request, response);
+		}
+		if (userID != null && !userID.isEmpty()) {
+			changeRole(request, response);
 		}
 
 	}
@@ -109,6 +115,7 @@ public class ModifyUserServlet extends HttpServlet {
 
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("calling doput");
 		try {
 			int userID = Integer.parseInt(req.getParameter(StringUtils.UPDATE_ID));
 			String firstName = req.getParameter(StringUtils.FIRST_NAME);
@@ -119,8 +126,9 @@ public class ModifyUserServlet extends HttpServlet {
 
 			boolean usernameExists = dbController.checkUsernameIfExists(username);
 			if (usernameExists) {
+				System.out.println("username exist");
 				req.setAttribute(StringUtils.MESSAGE_ERROR, "Username already exists! Please choose another");
-				req.getRequestDispatcher(StringUtils.PAGE_URL_REGISTER).forward(req, resp);
+				req.getRequestDispatcher(StringUtils.PAGE_URL_PROFILE).forward(req, resp);
 				return; // Stop processing the request
 			}
 
@@ -140,9 +148,11 @@ public class ModifyUserServlet extends HttpServlet {
 			boolean result = dbController.updateUser(user);
 			if (result) {
 				System.out.println("updated success");
-
+				req.setAttribute(StringUtils.MESSAGE_SUCCESS, "Update Successful Please ReLogin to see changes");
+				req.getRequestDispatcher(StringUtils.PAGE_URL_PROFILE).forward(req, resp);
 			} else {
-
+				req.setAttribute(StringUtils.MESSAGE_ERROR, "Ensure your connectivity");
+				req.getRequestDispatcher(StringUtils.PAGE_URL_PROFILE).forward(req, resp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -153,7 +163,7 @@ public class ModifyUserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			System.out.println("calling resetPass");
-			String username = req.getParameter(StringUtils.USERNAME);
+			String username = req.getParameter("userName");
 			String password = req.getParameter(StringUtils.PASSWORD);
 			String retypepassword = req.getParameter(StringUtils.RETYPE_PASSWORD);
 
@@ -163,11 +173,60 @@ public class ModifyUserServlet extends HttpServlet {
 				req.getRequestDispatcher(StringUtils.PAGE_URL_FORGOT_PASS).forward(req, resp);
 				return; // Stop processing the request
 			}
+			if (!password.equals(retypepassword)) {
+				req.setAttribute(StringUtils.MESSAGE_ERROR, "Passwords do not match");
+				req.getRequestDispatcher(StringUtils.PAGE_URL_FORGOT_PASS).forward(req, resp);
+				return; // Stop processing the request
+			}
+			if (!StringValidation.isValidPassword(password)) {
+				req.setAttribute(StringUtils.MESSAGE_ERROR, "One upcaps,one digit and length 8");
+				req.getRequestDispatcher(StringUtils.PAGE_URL_FORGOT_PASS).forward(req, resp);
+				return;
+			}
+			// Update password using username
+			UserModel user = new UserModel();
+			user.setUsername(username);
+			user.setPassword(password);
+			int passwordUpdated = dbController.updateUserPassword(username, password);
+
+			if (passwordUpdated == 1) {
+				System.out.println("password changed");
+				req.setAttribute(StringUtils.MESSAGE_SUCCESS, "Password changed successful");
+				req.getRequestDispatcher(StringUtils.PAGE_URL_LOGIN).forward(req, resp);
+
+			} else if (passwordUpdated == 0) {
+				// Password update failed
+				req.setAttribute(StringUtils.MESSAGE_ERROR, "Failed to update password");
+				req.getRequestDispatcher(StringUtils.PAGE_URL_FORGOT_PASS).forward(req, resp);
+			} else {
+				// Internal error
+				req.setAttribute(StringUtils.MESSAGE_ERROR, "Internal error occurred");
+				req.getRequestDispatcher(StringUtils.PAGE_URL_FORGOT_PASS).forward(req, resp);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	protected void changeRole(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("call changerole");
+		String userID = req.getParameter(StringUtils.USERID);
+		String role = req.getParameter(StringUtils.ROLE);
+		UserModel user = new UserModel();
+		user.setUserID(Integer.parseInt(userID));
+		user.setUserType(role);
+
+		boolean result = dbController.updateUserRole(user);
+		if (result) {
+			System.out.println("updated success");
+			req.setAttribute(StringUtils.MESSAGE_SUCCESS, "You have upgraded the User");
+			req.getRequestDispatcher(StringUtils.PAGE_URL_USER_DETAILS).forward(req, resp);
+		} else {
+
+		}
+		System.out.println(role);
 	}
 
 }
