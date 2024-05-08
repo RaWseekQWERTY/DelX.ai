@@ -1,7 +1,12 @@
+<%@page import="utils.StringUtils"%>
+<%@page import="model.UserModel"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%
 String contextPath = request.getContextPath();
+UserModel user = (UserModel) session.getAttribute("username");
+String currentUser = (user != null) ? user.getUsername() : null;
 %>
 <!DOCTYPE html>
 <html>
@@ -32,9 +37,28 @@ String contextPath = request.getContextPath();
 			<div class="row">
 				<ul>
 					<li><a href="#">Contact us</a></li>
-					<li><a href="#">Catalog</a></li>
-					<li><a href="#">Home</a></li>
+					<li><a href="#"
+						onclick="document.getElementById('catalogForm').submit(); return false;">Catalog</a>
+						<form id="catalogForm"
+							action="${pageContext.request.contextPath}${StringUtils.SERVLET_URL_USER_CATALOG}"
+							method="get" style="display: none;"></form></li>
+					<li><a href="<%=contextPath + StringUtils.URL_HOME%>">Home</a></li>
+					<%
+					if (currentUser == null) {
+					%>
 					<li><a href="#">Terms & Conditions</a></li>
+					<%
+					}
+					if (currentUser != null && user.getUserType().equals("admin")) {
+					%>
+					<li><a href="#"
+						onclick="document.getElementById('adminForm').submit(); return false;">Admin</a>
+						<form id="adminForm"
+							action="${pageContext.request.contextPath}${StringUtils.SERVLET_ADMIN}"
+							method="get" style="display: none;"></form></li>
+					<%
+					}
+					%>
 				</ul>
 			</div>
 

@@ -1,3 +1,4 @@
+<%@page import="utils.StringUtils"%>
 <%@page import="controller.database.DBController"%>
 <%@ page import="java.util.List"%>
 <%@ page import="model.Category"%>
@@ -15,7 +16,7 @@ List<Category> categories = dbController.getAllCategories();
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>ADMIN || CATEGORY</title>
 <link rel="stylesheet" type="text/css"
 	href="<%=contextPath%>/stylesheets/category.css" />
 </head>
@@ -30,8 +31,11 @@ List<Category> categories = dbController.getAllCategories();
 						id="main_icon" class="icon"></span></a></li>
 			</ul>
 			<ul class="sidebar-nav" id="sidebar">
-				<li><a href="<%=contextPath%>/pages/admin/admin.jsp">Dash<span
-						class="dash"></span></a></li>
+				<li><a href="#"
+					onclick="document.getElementById('adminForm').submit(); return false;">Dash</a>
+					<form id="adminForm"
+						action="<%=contextPath + StringUtils.SERVLET_ADMIN%>"
+						method="get" style="display: none;"></form></li>
 				<li><a href="<%=contextPath%>/pages/admin/catalogDetails.jsp">Catalog<span
 						class="catalog"></span></a></li>
 				<li><a href="<%=contextPath%>/pages/admin/userDetails.jsp">Users<span
@@ -55,7 +59,7 @@ List<Category> categories = dbController.getAllCategories();
 								<th>CategoryID</th>
 								<th>CategoryName</th>
 								<th>CategoryDesc</th>
-								
+
 							</tr>
 						</thead>
 						<tbody>

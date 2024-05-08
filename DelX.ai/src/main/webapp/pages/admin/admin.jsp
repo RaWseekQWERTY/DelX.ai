@@ -49,8 +49,11 @@ if (user == null) {
 						id="main_icon" class="icon"></span></a></li>
 			</ul>
 			<ul class="sidebar-nav" id="sidebar">
-				<li><a href="<%=contextPath%>/pages/admin/admin.jsp">Dash<span
-						class="dash"></span></a></li>
+				<li><a href="#"
+					onclick="document.getElementById('adminForm').submit(); return false;">Dash</a>
+					<form id="adminForm"
+						action="${pageContext.request.contextPath}${StringUtils.SERVLET_ADMIN}"
+						method="get" style="display: none;"></form></li>
 				<li>
 					<form action="<%=contextPath + StringUtils.SERVLET_URL_ADD_TOOL%>"
 						method="get">
@@ -109,7 +112,7 @@ if (user == null) {
 						<img alt=""
 							src="https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg"
 							width="150px" height="120px"> <br> <span>USERS</span>
-						<br> <span>123</span>
+						<br> <span>${userList.size()}</span>
 					</div>
 					<div>
 						<span class="fas fa-users"></span>
@@ -120,7 +123,7 @@ if (user == null) {
 						<img alt=""
 							src="https://static.vecteezy.com/system/resources/previews/000/439/792/original/vector-folder-icon.jpg"
 							width="140px" height="120px"> <span>Categories</span><br>
-						<span>6</span>
+						<span>${categoryList.size()}</span>
 					</div>
 					<div>
 						<span class="fas fa-clipboard"></span>
@@ -131,7 +134,7 @@ if (user == null) {
 						<img alt=""
 							src="https://sbr-technologies.com/wp-content/uploads/2020/07/ai.jpg"
 							width="160px" height="120px"> <br> <span>Tools</span><br>
-						<span>20</span>
+						<span>${toolList.size()}</span>
 					</div>
 					<div>
 						<span class="fas fa-shopping-bag"></span>

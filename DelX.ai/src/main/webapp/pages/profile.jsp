@@ -130,10 +130,6 @@ String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
 
 				<div class="row">
 					<div class="col">
-						<label for="username">Username</label> <input type="text"
-							value="${username.username}" id="username" name="username" />
-					</div>
-					<div class="col">
 						<label for="gender">Gender</label> <select id="gender"
 							name="gender">
 							<option value="male">Male</option>

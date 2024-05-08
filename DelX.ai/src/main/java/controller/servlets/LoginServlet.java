@@ -59,13 +59,13 @@ public class LoginServlet extends HttpServlet {
 		// Extract username and password from the request parameters
 		String userName = request.getParameter(StringUtils.USERNAME);
 		String password = request.getParameter(StringUtils.PASSWORD);
-		 System.out.println("Username: " + userName);
+		System.out.println("Username: " + userName);
 		// Create a LoginModel object to hold user credentials
 		LoginModel loginModel = new LoginModel(userName, password);
 
 		// Call DBController to validate login credentials
 		int loginResult = dbController.getUserLoginInfo(loginModel);
-		  System.out.println("Login Result: " + loginResult);
+		System.out.println("Login Result: " + loginResult);
 
 		// Handle login results with appropriate messages and redirects
 		if (loginResult == 1) {
@@ -84,7 +84,7 @@ public class LoginServlet extends HttpServlet {
 
 				if ("admin".equals(user.getUserType())) {
 					// Redirect admin to admin.jsp
-					response.sendRedirect(request.getContextPath() + "/pages/admin/admin.jsp");
+					response.sendRedirect(request.getContextPath() + StringUtils.SERVLET_ADMIN);
 				} else if ("normal".equals(user.getUserType())) {
 					// Redirect normal user to home.jsp
 					response.sendRedirect(request.getContextPath() + StringUtils.URL_HOME);
@@ -95,12 +95,12 @@ public class LoginServlet extends HttpServlet {
 				}
 			} else {
 				// User not found, redirect to login page with error
-				  System.out.println("User details not found");
+				System.out.println("User details not found");
 				request.setAttribute(StringUtils.MESSAGE_ERROR, StringUtils.MESSAGE_ERROR_LOGIN);
 				request.getRequestDispatcher(StringUtils.PAGE_URL_LOGIN).forward(request, response);
 			}
 		} else if (loginResult == 0) {
-			  System.out.println("Username or password mismatch");
+			System.out.println("Username or password mismatch");
 			// Username or password mismatch
 			request.setAttribute(StringUtils.MESSAGE_ERROR, StringUtils.MESSAGE_ERROR_LOGIN);
 			request.getRequestDispatcher(StringUtils.PAGE_URL_LOGIN).forward(request, response);
@@ -110,7 +110,7 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute(StringUtils.MESSAGE_ERROR, StringUtils.MESSAGE_ERROR_CREATE_ACCOUNT);
 			request.getRequestDispatcher(StringUtils.PAGE_URL_LOGIN).forward(request, response);
 		} else {
-			 System.out.println("Internal server error");
+			System.out.println("Internal server error");
 			// Internal server error
 			request.setAttribute(StringUtils.MESSAGE_ERROR, StringUtils.MESSAGE_ERROR_SERVER);
 			request.getRequestDispatcher(StringUtils.PAGE_URL_LOGIN).forward(request, response);

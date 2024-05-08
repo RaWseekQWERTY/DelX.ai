@@ -14,6 +14,7 @@ import javax.servlet.http.Part;
 import controller.database.DBController;
 import model.Catalog;
 import model.Category;
+import model.LoginModel;
 import model.PasswordEncryptionWithAes;
 import model.UserModel;
 import utils.StringUtils;
@@ -59,6 +60,7 @@ public class ModifyUserServlet extends HttpServlet {
 		String deleteId = request.getParameter(StringUtils.DELETE_ID);
 		String username = request.getParameter("userName");
 		String userID = request.getParameter(StringUtils.USERID);
+		String email = request.getParameter(StringUtils.EMAIL);
 		System.out.println(updateId);
 		if (updateId != null && !updateId.isEmpty()) {
 			doPut(request, response);
@@ -71,6 +73,9 @@ public class ModifyUserServlet extends HttpServlet {
 		}
 		if (userID != null && !userID.isEmpty()) {
 			changeRole(request, response);
+		}
+		if (email != null && !email.isEmpty()) {
+			changeUsername(request, response);
 		}
 
 	}
@@ -120,23 +125,13 @@ public class ModifyUserServlet extends HttpServlet {
 			int userID = Integer.parseInt(req.getParameter(StringUtils.UPDATE_ID));
 			String firstName = req.getParameter(StringUtils.FIRST_NAME);
 			String lastName = req.getParameter(StringUtils.LAST_NAME);
-			String username = req.getParameter(StringUtils.USERNAME);
 			String gender = req.getParameter(StringUtils.GENDER);
 			Part imagePart = req.getPart("pic");
-
-			boolean usernameExists = dbController.checkUsernameIfExists(username);
-			if (usernameExists) {
-				System.out.println("username exist");
-				req.setAttribute(StringUtils.MESSAGE_ERROR, "Username already exists! Please choose another");
-				req.getRequestDispatcher(StringUtils.PAGE_URL_PROFILE).forward(req, resp);
-				return; // Stop processing the request
-			}
 
 			UserModel user = new UserModel();
 			user.setUserID(userID);
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
-			user.setUsername(username);
 			user.setGender(gender);
 			user.setImageUrlFromPart(imagePart);
 			String fileName = user.getImageUrlFromPart();
@@ -224,9 +219,68 @@ public class ModifyUserServlet extends HttpServlet {
 			req.setAttribute(StringUtils.MESSAGE_SUCCESS, "You have upgraded the User");
 			req.getRequestDispatcher(StringUtils.PAGE_URL_USER_DETAILS).forward(req, resp);
 		} else {
-
+			req.setAttribute(StringUtils.MESSAGE_ERROR, "Something went wrong please try again");
+			req.getRequestDispatcher(StringUtils.PAGE_URL_USER_DETAILS).forward(req, resp);
 		}
-		System.out.println(role);
+	}
+
+	protected void changeUsername(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+			System.out.println("calling changeUsername");
+			String gmail = req.getParameter(StringUtils.EMAIL);
+			String newUsername = req.getParameter(StringUtils.USERNAME);
+			String encryptedPassword = req.getParameter(StringUtils.PASSWORD);
+			System.out.println(encryptedPassword);
+
+			boolean usernameExists = dbController.checkUsernameIfExists(newUsername);
+			if (usernameExists) {
+				req.setAttribute(StringUtils.MESSAGE_ERROR, "Username already exists! Please choose another");
+				req.getRequestDispatcher(StringUtils.PAGE_URL_PROFILE).forward(req, resp);
+				return; // Stop processing the request
+			}
+
+			// Get the username from the database for decryption
+			String usernameFromDB = dbController.getUsernameFromEmail(gmail);
+
+			// Decrypt the password retrieved from the form using the username from the
+			// database
+			String decryptedPassword = PasswordEncryptionWithAes.decrypt(encryptedPassword, usernameFromDB);
+			System.out.println("Decrypted Password: " + decryptedPassword);
+
+			
+
+			// Authenticate the user by checking the provided password
+			LoginModel loginModel = new LoginModel(usernameFromDB, decryptedPassword);
+			int loginResult = dbController.getUserLoginInfo(loginModel);
+
+			if (loginResult == 1) {
+				// Encrypt the password with the new username
+				String newEncryptedPassword = PasswordEncryptionWithAes.encrypt(newUsername, decryptedPassword);
+
+				// Update username and password
+				boolean usernameUpdated = dbController.updateUserNameAndPassword(gmail, newUsername,
+						newEncryptedPassword);
+
+				if (usernameUpdated) {
+					req.setAttribute(StringUtils.MESSAGE_SUCCESS, "Username changed successfully. Please re-login");
+					req.getRequestDispatcher(StringUtils.PAGE_URL_PROFILE).forward(req, resp);
+				} else {
+					req.setAttribute(StringUtils.MESSAGE_ERROR, "Failed to update username");
+					req.getRequestDispatcher(StringUtils.PAGE_URL_PROFILE).forward(req, resp);
+				}
+			} else if (loginResult == 0) {
+				req.setAttribute(StringUtils.MESSAGE_ERROR, "Incorrect password");
+				req.getRequestDispatcher(StringUtils.PAGE_URL_PROFILE).forward(req, resp);
+			} else {
+				req.setAttribute(StringUtils.MESSAGE_ERROR, "Internal error occurred");
+				req.getRequestDispatcher(StringUtils.PAGE_URL_PROFILE).forward(req, resp);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			req.setAttribute(StringUtils.MESSAGE_ERROR, "Internal error occurred");
+			req.getRequestDispatcher(StringUtils.PAGE_URL_PROFILE).forward(req, resp);
+		}
 	}
 
 }

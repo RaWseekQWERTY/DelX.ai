@@ -23,9 +23,12 @@ public class StringUtils {
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String QUERY_GETALL_USERS = "SELECT * FROM user_detail";
 	public static final String QUERY_USER_BY_USERNAME = "SELECT * FROM user_detail WHERE user_name = ?";
-	public static final String QUERY_UPDATE_USER = "UPDATE user_detail set firstName=?,lastName=?,user_name=?,gender=?, avatar=?"
+	public static final String QUERY_UPDATE_USER = "UPDATE user_detail set firstName=?,lastName=?,gender=?, avatar=?"
 			+ "WHERE userID=?";
 	public static final String QUERY_UPDATE_USERROLE = "UPDATE user_detail set userType=? WHERE userID=?";
+	public static final String QUERY_UPDATE_USERNAME = "UPDATE user_detail set user_name=?, password=? WHERE gmail=?";
+
+	public static final String QUERY_GET_ENCRYPTED_PASSWORD = "SELECT password FROM user_detail WHERE gmail = ?";
 
 	public static final String QUERY_DELETE_USER = "DELETE FROM user_detail WHERE userID = ?";
 	public static final String QUERY_GET_USER_BY_SEARCH = "SELECT * FROM user_detail where firstName like ? or lastName like ? or user_name like ?";
@@ -74,6 +77,7 @@ public class StringUtils {
 	public static final String SERVLET_URL_LOGIN = "/login";
 	public static final String SERVLET_URL_REGISTER = "/registeruser";
 	public static final String SERVLET_URL_LOGOUT = "/logout";
+	public static final String SERVLET_ADMIN = "/admindash";
 	public static final String SERVLET_URL_ADD_TOOL = "/addtool";
 	public static final String SERVLET_URL_CATALOG = "/catalog";
 	public static final String SERVLET_URL_MODIFY_TOOL = "/modifytools";
@@ -82,6 +86,7 @@ public class StringUtils {
 	public static final String SERVLET_URL_USER_CATALOG = "/cataloguser";
 	public static final String SERVLET_URL_USER_SEARCH = "/searchuser";
 	public static final String SERVLET_URL_CATALOG_SEARCH = "/searchcatalog";
+	public static final String SERVLET_CHANGE_PASSWORD = "/changepassword";
 	// End: Servlet Route
 
 	// Start: Validation Messages

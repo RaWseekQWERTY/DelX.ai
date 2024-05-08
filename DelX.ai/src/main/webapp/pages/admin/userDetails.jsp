@@ -38,8 +38,11 @@ request.setAttribute(StringUtils.LIST_USERS, user);
 						id="main_icon" class="icon"></span></a></li>
 			</ul>
 			<ul class="sidebar-nav" id="sidebar">
-				<li><a href="<%=contextPath%>/pages/admin/admin.jsp">Dash<span
-						class="dash"></span></a></li>
+				<li><a href="#"
+					onclick="document.getElementById('adminForm').submit(); return false;">Dash</a>
+					<form id="adminForm"
+						action="${pageContext.request.contextPath}${StringUtils.SERVLET_ADMIN}"
+						method="get" style="display: none;"></form></li>
 				<li><a href="<%=contextPath%>/pages/admin/catalogDetails.jsp">Catalog<span
 						class="catalog"></span></a></li>
 				<li><a href="<%=contextPath%>/pages/admin/userDetails.jsp">Users<span

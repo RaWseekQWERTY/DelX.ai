@@ -35,8 +35,11 @@ List<Category> categories = dbController.getAllCategories();
 						id="main_icon" class="icon"></span></a></li>
 			</ul>
 			<ul class="sidebar-nav" id="sidebar">
-				<li><a href="<%=contextPath%>/pages/admin/admin.jsp">Dash<span
-						class="dash"></span></a></li>
+				<li><a href="#"
+					onclick="document.getElementById('adminForm').submit(); return false;">Dash</a>
+					<form id="adminForm"
+						action="${pageContext.request.contextPath}${StringUtils.SERVLET_ADMIN}"
+						method="get" style="display: none;"></form></li>
 				<li><a href="<%=contextPath%>/pages/admin/catalogDetails.jsp">Catalog<span
 						class="catalog"></span></a></li>
 				<li><a href="<%=contextPath%>/pages/admin/userDetails.jsp">Users<span
@@ -156,8 +159,7 @@ List<Category> categories = dbController.getAllCategories();
 								<td><img
 									src="${pageContext.request.contextPath}/resources/catalog/<%=tool.getImageUrlFromPart() %>"
 									width="20px" height="20px" alt="picture"></td>
-								<td>
-								<a class="edit-btn"
+								<td><a class="edit-btn"
 									href="#popup2?id=<%=tool.getCatalogID()%>">Edit</a>
 
 									<form id="deleteForm-<%=tool.getCatalogID()%>" method="post"
@@ -322,29 +324,29 @@ List<Category> categories = dbController.getAllCategories();
 						</div>
 					</div>
 				</div>
-</div>
-
-
 			</div>
-		</div>
 
-		<script>
-			document.getElementById("menu-toggle").addEventListener("click",
-					function(e) {
-						e.preventDefault();
-						var wrapper = document.getElementById("wrapper");
-						if (wrapper.classList.contains("active")) {
-							wrapper.classList.remove("active");
-						} else {
-							wrapper.classList.add("active");
-						}
-					});
-			function confirmDelete(toolId, toolName) {
-				if (confirm("Are you sure you want to delete this Tool: "
-						+ toolName + "?")) {
-					document.getElementById("deleteForm-" + toolId).submit();
-				}
+
+		</div>
+	</div>
+
+	<script>
+		document.getElementById("menu-toggle").addEventListener("click",
+				function(e) {
+					e.preventDefault();
+					var wrapper = document.getElementById("wrapper");
+					if (wrapper.classList.contains("active")) {
+						wrapper.classList.remove("active");
+					} else {
+						wrapper.classList.add("active");
+					}
+				});
+		function confirmDelete(toolId, toolName) {
+			if (confirm("Are you sure you want to delete this Tool: "
+					+ toolName + "?")) {
+				document.getElementById("deleteForm-" + toolId).submit();
 			}
-		</script>
+		}
+	</script>
 </body>
 </html>

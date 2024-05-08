@@ -70,20 +70,40 @@ userSession.getAttribute(StringUtils.USERNAME);
 					<details>
 						<summary>Change Username</summary>
 						<div class="faq__content">
-							<form action="" class="edit-form">
-								<input type="text" name="" id="" placeholder="Username">
-								<button>Save Changes</button>
+							<form name="form"
+								action="<%=contextPath + StringUtils.SERVLET_URL_MODIFY_USER%>"
+								method="post" enctype="multipart/form-data" class="edit-form">
+								<input type="hidden" name="${StringUtils.EMAIL}"
+									value="${username.email}"> <input type="hidden"
+									name="${StringUtils.PASSWORD}" value="${username.password}">
+								<input type="text" name="${StringUtils.USERNAME}" id=""
+									placeholder="Username" value="${username.username}">
+								<button type="submit">Save Changes</button>
 							</form>
 						</div>
 					</details>
 					<details>
 						<summary>Change Password</summary>
 						<div class="faq__content">
-							<form action="" class="edit-form">
-								<input type="text" name="" id="" placeholder="Old Password">
-								<input type="text" name="" id="" placeholder="new password">
+							<form
+								action="<%=contextPath + StringUtils.SERVLET_CHANGE_PASSWORD%>"
+								class="edit-form" method="post">
+								<input type="hidden" name="${StringUtils.USERNAME}"
+									value="${username.username}"> <input type="hidden"
+									name="${StringUtils.EMAIL}" value="${username.email}">
+								<input type="hidden" name="${StringUtils.PASSWORD}"
+									value="${username.password}">
+									<i
+					class="toggle-password fa fa-eye-slash"></i> <input type="password"
+					placeholder="Old Password" id="password"
+					name="oldPassword" required>
+									
+									 <i
+					class="toggle-confirm-password fa fa-eye-slash"></i> <input
+					type="password" placeholder="Confirm Password" id="confirmPassword"
+					name="newPassword" required>
 
-								<button>Save Changes</button>
+								<button type="submit">Save Changes</button>
 							</form>
 						</div>
 					</details>
@@ -115,6 +135,38 @@ userSession.getAttribute(StringUtils.USERNAME);
             });
           });
         });
+ 
+		document.addEventListener("DOMContentLoaded", function() {
+			var togglePassword = document.querySelector(".toggle-password");
+			var passwordInput = document.getElementById("password");
+			var toggleConfirmPassword = document
+					.querySelector(".toggle-confirm-password");
+			var confirmPasswordInput = document
+					.getElementById("confirmPassword");
+
+			togglePassword.addEventListener("click", function() {
+				togglePassword.classList.toggle("fa-eye");
+				togglePassword.classList.toggle("fa-eye-slash");
+
+				if (passwordInput.type === "password") {
+					passwordInput.type = "text";
+				} else {
+					passwordInput.type = "password";
+				}
+			});
+
+			toggleConfirmPassword.addEventListener("click", function() {
+				toggleConfirmPassword.classList.toggle("fa-eye");
+				toggleConfirmPassword.classList.toggle("fa-eye-slash");
+
+				if (confirmPasswordInput.type === "password") {
+					confirmPasswordInput.type = "text";
+				} else {
+					confirmPasswordInput.type = "password";
+				}
+			});
+		});
+	
 	</script>
 
 </body>

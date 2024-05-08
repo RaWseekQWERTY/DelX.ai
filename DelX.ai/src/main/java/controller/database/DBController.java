@@ -37,9 +37,9 @@ public class DBController {
 	}
 
 	/**
-	 * This method attempts to register a new student in the database.
+	 * This method attempts to register a new user in the database.
 	 * 
-	 * @param student A `StudentModel` object containing the student's information.
+	 * @param user A `UserModel` object containing the user's information.
 	 * @return An integer value indicating the registration status: - 1:
 	 *         Registration successful - 0: Registration failed (no rows affected) -
 	 *         -1: Internal error (e.g., ClassNotFound or SQLException)
@@ -88,7 +88,7 @@ public class DBController {
 		ResultSet rs = null;
 		int catId = -1;
 		try {
-			// Prepare a statement using the predefined query for adding a category
+			// Prepare a statement using the query
 			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_ADD_CATEGORY,
 					Statement.RETURN_GENERATED_KEYS);
 			// Set the category information in the prepared statement
@@ -122,7 +122,7 @@ public class DBController {
 
 	public int addTools(Catalog tools) {
 		try {
-			// Prepare a statement using the predefined query for insterting tool details
+			// Prepare a statement using the predefined query
 			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_ADD_TOOLS);
 
 			// set tool information in prepare statement
@@ -135,9 +135,9 @@ public class DBController {
 			int result = stmt.executeUpdate();
 			// Check if the update was successful (i.e., at least one row affected)
 			if (result > 0) {
-				return 1; // Registration successful
+				return 1; // add successful
 			} else {
-				return 0; // Registration failed (no rows affected)
+				return 0; // add failed (no rows affected)
 			}
 
 		} catch (Exception e) {
@@ -150,7 +150,6 @@ public class DBController {
 
 	// READ operations
 	public int getUserLoginInfo(LoginModel loginModel) {
-		// Try-catch block to handle potential SQL or ClassNotFound exceptions
 		try {
 			// Prepare a statement using the predefined query for login check
 			PreparedStatement st = getConnection().prepareStatement(StringUtils.QUERY_LOGIN_USER_CHECK);
@@ -163,16 +162,15 @@ public class DBController {
 
 			// Check if there's a record returned from the query
 			if (result.next()) {
-				// Get the username from the database
+				// Get the username and encrypted password from the database
 				String userDb = result.getString(StringUtils.USER_NAME);
-
-				// Get the password from the database
 				String encryptedPwd = result.getString(StringUtils.PASSWORD);
 
+				// Decrypt the password
 				String decryptedPwd = PasswordEncryptionWithAes.decrypt(encryptedPwd, userDb);
 
-//				String decryptedPwd = PasswordEncryptionWithAes.decrypt(encryptedPwd, userDb);
-				// Check if the username and password match the credentials from the database
+				// Check if the username exists and the decrypted password matches the provided
+				// one
 				if (userDb != null && decryptedPwd != null && userDb.equals(loginModel.getUsername())
 						&& decryptedPwd.equals(loginModel.getPassword())) {
 					// Login successful, return 1
@@ -186,7 +184,6 @@ public class DBController {
 				return -1;
 			}
 
-			// Catch SQLException and ClassNotFoundException if they occur
 		} catch (SQLException | ClassNotFoundException ex) {
 			// Print the stack trace for debugging purposes
 			ex.printStackTrace();
@@ -544,10 +541,9 @@ public class DBController {
 			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_UPDATE_USER);
 			stmt.setString(1, user.getFirstName());
 			stmt.setString(2, user.getLastName());
-			stmt.setString(3, user.getUsername());
-			stmt.setString(4, user.getGender());
-			stmt.setString(5, user.getImageUrlFromPart());
-			stmt.setInt(6, user.getUserID());
+			stmt.setString(3, user.getGender());
+			stmt.setString(4, user.getImageUrlFromPart());
+			stmt.setInt(5, user.getUserID());
 
 			int executeResult = stmt.executeUpdate();
 			if (executeResult == 1) {
@@ -585,7 +581,7 @@ public class DBController {
 				return 0;
 			}
 		} catch (SQLException | ClassNotFoundException ex) {
-			// Print the stack trace for debugging purposes
+
 			ex.printStackTrace();
 			// Return -1 to indicate an error
 			return -1;
@@ -606,6 +602,44 @@ public class DBController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return result;
+		}
+	}
+
+	public String getUsernameFromEmail(String email) {
+		try {
+			Connection conn = getConnection(); // Assuming this method gets the database connection
+			PreparedStatement stmt = conn.prepareStatement("SELECT user_name FROM user_detail WHERE gmail = ?");
+			stmt.setString(1, email);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getString("user_name");
+			}
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null; // Return null if no username found for the given email
+	}
+
+	public boolean updateUserNameAndPassword(String gmail, String newUsername, String password) {
+		try {
+			// Prepare a statement for updating the username and password
+			PreparedStatement stmt = getConnection().prepareStatement(StringUtils.QUERY_UPDATE_USERNAME);
+
+			// Set parameters in the prepared statement
+			stmt.setString(1, newUsername);
+			stmt.setString(2, password);
+			stmt.setString(3, gmail);
+
+			// Execute the update
+			int updatedRows = stmt.executeUpdate();
+
+			// Check if the username and password were updated successfully
+			return updatedRows > 0;
+
+		} catch (SQLException | ClassNotFoundException ex) {
+			ex.printStackTrace();
+			// Return false to indicate an error
+			return false;
 		}
 	}
 
