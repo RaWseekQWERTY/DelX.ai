@@ -1,4 +1,4 @@
-package controller.servlets;
+	package controller.servlets;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,13 +45,5 @@ public class AdminServlet extends HttpServlet {
 		request.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_DASH).forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-	}
 
 }

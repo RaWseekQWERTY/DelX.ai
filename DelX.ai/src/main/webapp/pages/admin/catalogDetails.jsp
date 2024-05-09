@@ -10,16 +10,12 @@
 String contextPath = request.getContextPath();
 String errMsg = (String) request.getAttribute(StringUtils.MESSAGE_ERROR);
 String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
-DBController dbController = new DBController();
-List<Catalog> toolList = dbController.getAllTools();
-request.setAttribute(StringUtils.LIST_TOOLS, toolList);
-List<Category> categories = dbController.getAllCategories();
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>ADMIN || CATALOG</title>
 <link rel="stylesheet" type="text/css"
 	href="<%=contextPath%>/stylesheets/CatalogDetails.css" />
 </head>
@@ -40,10 +36,16 @@ List<Category> categories = dbController.getAllCategories();
 					<form id="adminForm"
 						action="${pageContext.request.contextPath}${StringUtils.SERVLET_ADMIN}"
 						method="get" style="display: none;"></form></li>
-				<li><a href="<%=contextPath%>/pages/admin/catalogDetails.jsp">Catalog<span
-						class="catalog"></span></a></li>
-				<li><a href="<%=contextPath%>/pages/admin/userDetails.jsp">Users<span
-						class="user"></span></a></li>
+				<li><a href="#"
+					onclick="document.getElementById('catalogForm').submit(); return false;">Catalog</a>
+					<form id="catalogForm"
+						action="${pageContext.request.contextPath}${StringUtils.SERVLET_ADMIN_CATALOG}"
+						method="get" style="display: none;"></form></li>
+				<li><a href="#"
+					onclick="document.getElementById('userForm').submit(); return false;">USER</a>
+					<form id="userForm"
+						action="${pageContext.request.contextPath}${StringUtils.SERVLET_USER_ADMIN}"
+						method="get" style="display: none;"></form></li>
 				<li><a href="<%=contextPath%>/pages/admin/categoryDetails.jsp">Category<span
 						class="cat"></span></a></li>
 			</ul>
@@ -139,121 +141,110 @@ List<Category> categories = dbController.getAllCategories();
 							</c:otherwise>
 						</c:choose> --%>
 
-							<%
-							if (toolList.isEmpty()) {
-							%>
-							<tr>
-								<td colspan="7" style="font-size: 16px; font-weight: 400;">No
-									Ai tools not found! Please, add a tool</td>
-							</tr>
-							<%
-							} else {
-							for (Catalog tool : toolList) {
-							%>
-							<tr>
-								<td><%=tool.getCatalogID()%></td>
-								<td><%=tool.getToolName()%></td>
-								<td><%=tool.getCategory().getCategoryName()%></td>
-								<td><%=tool.getToolDesc()%></td>
-								<td><%=tool.getToolAuthor()%></td>
-								<td><img
-									src="${pageContext.request.contextPath}/resources/catalog/<%=tool.getImageUrlFromPart() %>"
-									width="20px" height="20px" alt="picture"></td>
-								<td><a class="edit-btn"
-									href="#popup2?id=<%=tool.getCatalogID()%>">Edit</a>
+							<c:choose>
+								<c:when test="${empty toolList}">
+									<tr>
+										<td colspan="7" style="font-size: 16px; font-weight: 400;">No
+											Ai tools not found! Please, add a tool</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="tool" items="${toolList}">
+										<tr>
+											<td>${tool.catalogID}</td>
+											<td>${tool.toolName}</td>
+											<td>${tool.category.categoryName}</td>
+											<td>${tool.toolDesc}</td>
+											<td>${tool.toolAuthor}</td>
+											<td><img
+												src="${pageContext.request.contextPath}/resources/catalog/${tool.imageUrlFromPart}"
+												width="20px" height="20px" alt="picture"></td>
+											<td><a class="edit-btn"
+												href="#popup2?id=${tool.catalogID}">Edit</a>
 
-									<form id="deleteForm-<%=tool.getCatalogID()%>" method="post"
-										action="<%=contextPath + StringUtils.SERVLET_URL_MODIFY_TOOL%>">
-										<input type="hidden" name="<%=StringUtils.DELETE_ID%>"
-											value="<%=tool.getCatalogID()%>" />
-										<button type="button" class="actionbtn"
-											onclick="confirmDelete('<%=tool.getCatalogID()%>', '<%=tool.getToolName()%>')">Delete</button>
-									</form>
-									<div id="popup2?id=<%=tool.getCatalogID()%>" class="overlay">
-										<div class="popup">
-											<h2>EDIT</h2>
-											<a class="close" href="#">&times;</a>
-											<div class="content">
-												<div class="form_container">
-													<form name="form"
-														action="<%=contextPath + StringUtils.SERVLET_URL_MODIFY_TOOL%>"
-														method="post" enctype="multipart/form-data">
-														<input type="hidden" name="<%=StringUtils.UPDATE_ID%>"
-															value="<%=tool.getCatalogID()%>" />
-														<div class="form_wrap form_grp">
-															<div class="form_item">
-																<label>Tool Name</label> <input type="text"
-																	name="toolName" value="<%=tool.getToolName()%>"
-																	required>
+												<form id="deleteForm-${tool.catalogID}" method="post"
+													action="<%=contextPath + StringUtils.SERVLET_URL_MODIFY_TOOL%>">
+													<input type="hidden" name="deleteId"
+														value="${tool.catalogID}" />
+													<button type="button" class="actionbtn"
+														onclick="confirmDelete('${tool.catalogID}', '${tool.toolName}')">Delete</button>
+												</form>
 
+												<div id="popup2?id=${tool.catalogID}" class="overlay">
+													<div class="popup">
+														<h2>EDIT</h2>
+														<a class="close" href="#">&times;</a>
+														<div class="content">
+															<div class="form_container">
+																<form name="form"
+																	action="<%=contextPath + StringUtils.SERVLET_URL_MODIFY_TOOL%>"
+																	method="post" enctype="multipart/form-data">
+																	<input type="hidden" name="updateId"
+																		value="${tool.catalogID}" />
+																	<div class="form_wrap form_grp">
+																		<div class="form_item">
+																			<label>Tool Name</label> <input type="text"
+																				name="toolName" value="${tool.toolName}" required>
+																		</div>
+																	</div>
+																	<div class="form_wrap">
+																		<div class="form_item">
+																			<label>Tool Author</label> <input type="text"
+																				value="${tool.toolAuthor}" name="toolAuthor"
+																				required>
+																		</div>
+																	</div>
+
+																	<div class="form_wrap">
+																		<div class="form_item">
+																			<label>Tool Description</label>
+																			<textarea name="desc" rows="4" cols="50"
+																				style="resize: none;">${tool.toolDesc}</textarea>
+																		</div>
+																	</div>
+
+																	<!-- Category -->
+																	<div class="form_wrap">
+																		<div class="form_item">
+																			<label>Tool Category:</label> <select name="catId"
+																				id="">
+																				<c:forEach var="cat" items="${categories}">
+																					<c:choose>
+																						<c:when
+																							test="${tool.category.categoryID eq cat.categoryID}">
+																							<option selected="selected"
+																								value="${cat.categoryID}">${cat.categoryName}</option>
+																						</c:when>
+																						<c:otherwise>
+																							<option value="${cat.categoryID}">${cat.categoryName}</option>
+																						</c:otherwise>
+																					</c:choose>
+																				</c:forEach>
+																			</select>
+																		</div>
+																	</div>
+
+																	<div class="form_wrap">
+																		<div class="form_item">
+																			<label>Tool Image</label> <input type="file"
+																				name="toolpic"
+																				accept="image/png, image/gif, image/jpeg">
+																		</div>
+																	</div>
+
+
+																	<div class="btn">
+																		<input type="submit" value="Save changes">
+																	</div>
+																</form>
 															</div>
 														</div>
-														<div class="form_wrap">
-															<div class="form_item">
-																<label>Tool Author</label> <input type="text"
-																	value="<%=tool.getToolAuthor()%>" name="toolAuthor"
-																	required>
-															</div>
-														</div>
-														<div class="form_wrap">
-															<div class="form_item">
-																<label>Tool Description</label>
-																<textarea name="desc" rows="4" cols="50"
-																	style="resize: none;"><%=tool.getToolDesc()%></textarea>
-															</div>
-														</div>
-														<!-- Category -->
-
-														<div class="form_wrap">
-															<div class="form_item">
-																<label>Tool Category:</label> <select name="catId" id="">
-																	<%
-																	for (Category cat : categories) {
-																		boolean isSelected = (tool.getCategory().getCategoryID() == cat.getCategoryID());
-																		if (isSelected) {
-																	%>
-																	<option selected="selected"
-																		value="<%=cat.getCategoryID()%>">
-																		<%=cat.getCategoryName()%>
-																	</option>
-																	<%
-																	} else {
-																	%>
-																	<option value="<%=cat.getCategoryID()%>">
-																		<%=cat.getCategoryName()%>
-																	</option>
-																	<%
-																	}
-																	}
-																	%>
-																</select>
-
-
-															</div>
-														</div>
-														<div class="form_wrap">
-															<div class="form_item">
-																<label>Tool Image</label> <input type="file"
-																	name="toolpic"
-																	accept="image/png, image/gif, image/jpeg">
-															</div>
-														</div>
-
-
-														<div class="btn">
-															<input type="submit" value="Save changes">
-														</div>
-													</form>
-												</div>
-											</div>
-										</div>
-									</div></td>
-							</tr>
-							<%
-							}
-							}
-							%>
-
+													</div>
+												</div></td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 						</tbody>
 
 					</table>
@@ -292,22 +283,20 @@ List<Category> categories = dbController.getAllCategories();
 									<div class="form_wrap">
 										<div class="form_item">
 											<label>Tool Category:</label> <select name="catId" id="">
-												<%
-												if (categories == null || categories.isEmpty()) {
-												%>
-												<option value="none">none</option>
-												<%
-												} else {
-												for (Category cat : categories) {
-												%>
-												<option value="<%=cat.getCategoryID()%>"><%=cat.getCategoryName()%></option>
-												<%
-												}
-												}
-												%>
+												<c:choose>
+													<c:when test="${empty categories}">
+														<option value="none">none</option>
+													</c:when>
+													<c:otherwise>
+														<c:forEach var="cat" items="${categories}">
+															<option value="${cat.categoryID}">${cat.categoryName}</option>
+														</c:forEach>
+													</c:otherwise>
+												</c:choose>
 											</select>
 										</div>
 									</div>
+
 									<div class="form_wrap">
 										<div class="form_item">
 											<label>Tool Image</label> <input type="file" name="toolpic"

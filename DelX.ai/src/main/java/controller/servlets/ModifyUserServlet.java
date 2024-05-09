@@ -128,6 +128,13 @@ public class ModifyUserServlet extends HttpServlet {
 			String gender = req.getParameter(StringUtils.GENDER);
 			Part imagePart = req.getPart("pic");
 
+			// Validate Name
+			if (!StringValidation.containsOnlyLetters(firstName) || !StringValidation.containsOnlyLetters(lastName)) {
+				req.setAttribute(StringUtils.MESSAGE_ERROR, "Names should contain only letters!");
+				req.getRequestDispatcher(StringUtils.PAGE_URL_PROFILE).forward(req, resp);
+				return; // Stop processing the request
+			}
+
 			UserModel user = new UserModel();
 			user.setUserID(userID);
 			user.setFirstName(firstName);
@@ -217,7 +224,7 @@ public class ModifyUserServlet extends HttpServlet {
 		if (result) {
 			System.out.println("updated success");
 			req.setAttribute(StringUtils.MESSAGE_SUCCESS, "You have upgraded the User");
-			req.getRequestDispatcher(StringUtils.PAGE_URL_USER_DETAILS).forward(req, resp);
+			req.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_DASH).forward(req, resp);
 		} else {
 			req.setAttribute(StringUtils.MESSAGE_ERROR, "Something went wrong please try again");
 			req.getRequestDispatcher(StringUtils.PAGE_URL_USER_DETAILS).forward(req, resp);
@@ -247,8 +254,6 @@ public class ModifyUserServlet extends HttpServlet {
 			// database
 			String decryptedPassword = PasswordEncryptionWithAes.decrypt(encryptedPassword, usernameFromDB);
 			System.out.println("Decrypted Password: " + decryptedPassword);
-
-			
 
 			// Authenticate the user by checking the provided password
 			LoginModel loginModel = new LoginModel(usernameFromDB, decryptedPassword);

@@ -15,6 +15,7 @@ import javax.servlet.http.Part;
 import controller.database.DBController;
 import model.UserModel;
 import utils.StringUtils;
+import utils.StringValidation;
 
 /**
  * Name: rasik kayastha id:22067323
@@ -51,6 +52,7 @@ public class RegisterUserServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String firstName = request.getParameter(StringUtils.FIRST_NAME);
 		String lastName = request.getParameter(StringUtils.LAST_NAME);
+		String dobString = request.getParameter(StringUtils.BIRTHDAY);
 		LocalDate dob = LocalDate.parse(request.getParameter(StringUtils.BIRTHDAY));
 		String gender = request.getParameter(StringUtils.GENDER);
 		String email = request.getParameter(StringUtils.EMAIL);
@@ -58,6 +60,25 @@ public class RegisterUserServlet extends HttpServlet {
 		String password = request.getParameter(StringUtils.PASSWORD);
 		String userType = "normal";
 		Part imagePart = request.getPart("pic");
+
+		// Validate Name
+		if (!StringValidation.containsOnlyLetters(firstName) || !StringValidation.containsOnlyLetters(lastName)) {
+			request.setAttribute(StringUtils.MESSAGE_ERROR, "Names should contain only letters!");
+			request.getRequestDispatcher(StringUtils.PAGE_URL_REGISTER).forward(request, response);
+			return; // Stop processing the request
+		}
+		// Validate email
+		if (!StringValidation.isValidEmail(email)) {
+			request.setAttribute(StringUtils.MESSAGE_ERROR, "Invalid email address!");
+			request.getRequestDispatcher(StringUtils.PAGE_URL_REGISTER).forward(request, response);
+			return; // Stop processing the request
+		}
+		// Validate date of birth (dob)
+		if (!StringValidation.isValidDate(dobString)) {
+			request.setAttribute(StringUtils.MESSAGE_ERROR, "Invalid date of birth or date is in the future!");
+			request.getRequestDispatcher(StringUtils.PAGE_URL_REGISTER).forward(request, response);
+			return; // Stop processing the request
+		}
 
 		// Check if the username already exists
 		boolean usernameExists = dbController.checkUsernameIfExists(username);

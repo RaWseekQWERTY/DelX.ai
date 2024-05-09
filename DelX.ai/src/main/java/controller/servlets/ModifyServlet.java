@@ -76,7 +76,7 @@ public class ModifyServlet extends HttpServlet {
 			if (result == 1) {
 				System.out.println("Deleted Successfully");
 				req.setAttribute(StringUtils.MESSAGE_SUCCESS, "Deleted Successfully");
-				req.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_CATALOG).forward(req, resp);
+				req.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_DASH).forward(req, resp);
 
 			} else {
 				req.setAttribute(StringUtils.MESSAGE_ERROR, "No tools to Delete");
@@ -122,10 +122,10 @@ public class ModifyServlet extends HttpServlet {
 			if (result) {
 				System.out.println("updated success");
 				req.setAttribute(StringUtils.MESSAGE_SUCCESS, "Updated Successfully");
-				req.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_CATALOG).forward(req, resp);
+				req.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_DASH).forward(req, resp);
 			} else {
 				req.setAttribute(StringUtils.MESSAGE_ERROR, "Something went wrong");
-				req.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_CATALOG).forward(req, resp);
+				req.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_DASH).forward(req, resp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

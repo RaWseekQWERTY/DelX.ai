@@ -27,7 +27,7 @@ public class SearchCatalog extends HttpServlet {
 	 */
 	public SearchCatalog() {
 		dbController = new DBController();
-		// TODO Auto-generated constructor stub
+	
 	}
 
 	/**

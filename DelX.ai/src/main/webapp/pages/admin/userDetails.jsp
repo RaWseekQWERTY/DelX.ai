@@ -11,15 +11,12 @@
 String contextPath = request.getContextPath();
 String errMsg = (String) request.getAttribute(StringUtils.MESSAGE_ERROR);
 String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
-DBController dbController = new DBController();
-List<UserModel> user = dbController.getAllUsers();
-request.setAttribute(StringUtils.LIST_USERS, user);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>USER || DETAILS</title>
 <link rel="stylesheet" type="text/css"
 	href="<%=contextPath%>/stylesheets/userDetails.css" />
 <link
@@ -43,10 +40,16 @@ request.setAttribute(StringUtils.LIST_USERS, user);
 					<form id="adminForm"
 						action="${pageContext.request.contextPath}${StringUtils.SERVLET_ADMIN}"
 						method="get" style="display: none;"></form></li>
-				<li><a href="<%=contextPath%>/pages/admin/catalogDetails.jsp">Catalog<span
-						class="catalog"></span></a></li>
-				<li><a href="<%=contextPath%>/pages/admin/userDetails.jsp">Users<span
-						class="user"></span></a></li>
+				<li><a href="#"
+					onclick="document.getElementById('catalogForm').submit(); return false;">Catalog</a>
+					<form id="catalogForm"
+						action="${pageContext.request.contextPath}${StringUtils.SERVLET_ADMIN_CATALOG}"
+						method="get" style="display: none;"></form></li>
+				<li><a href="#"
+					onclick="document.getElementById('userForm').submit(); return false;">User</a>
+					<form id="userForm"
+						action="${pageContext.request.contextPath}${StringUtils.SERVLET_USER_ADMIN}"
+						method="get" style="display: none;"></form></li>
 				<li><a href="<%=contextPath%>/pages/admin/categoryDetails.jsp">Category<span
 						class="cat"></span></a></li>
 			</ul>
@@ -104,7 +107,7 @@ request.setAttribute(StringUtils.LIST_USERS, user);
 				</form>
 
 				<div class="table-wrapper">
-					<h3 style="color: white;">Tools Details:</h3>
+					<h3 style="color: white;">USER Details:</h3>
 					<table class="fl-table">
 						<thead>
 							<tr>

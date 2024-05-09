@@ -29,7 +29,7 @@ if (user == null) {
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>ADMIN || DASH</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="stylesheet" type="text/css"
@@ -54,16 +54,16 @@ if (user == null) {
 					<form id="adminForm"
 						action="${pageContext.request.contextPath}${StringUtils.SERVLET_ADMIN}"
 						method="get" style="display: none;"></form></li>
-				<li>
-					<form action="<%=contextPath + StringUtils.SERVLET_URL_ADD_TOOL%>"
-						method="get">
-						<a href="<%=contextPath + StringUtils.PAGE_URL_ADMIN_CATALOG%>">Catalog<span
-							class="catalog"></span></a>
-					</form>
-				</li>
-				<li><a
-					href="<%=contextPath + StringUtils.PAGE_URL_USER_DETAILS%>">Users<span
-						class="user"></span></a></li>
+				<li><a href="#"
+					onclick="document.getElementById('catalogForm').submit(); return false;">Catalog</a>
+					<form id="catalogForm"
+						action="${pageContext.request.contextPath}${StringUtils.SERVLET_ADMIN_CATALOG}"
+						method="get" style="display: none;"></form></li>
+				<li><a href="#"
+					onclick="document.getElementById('userForm').submit(); return false;">User</a>
+					<form id="userForm"
+						action="${pageContext.request.contextPath}${StringUtils.SERVLET_USER_ADMIN}"
+						method="get" style="display: none;"></form></li>
 				<li><a href="<%=contextPath%>/pages/admin/categoryDetails.jsp">Category<span
 						class="cat"></span></a></li>
 			</ul>

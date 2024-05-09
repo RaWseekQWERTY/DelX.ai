@@ -46,6 +46,7 @@ String contextPath = request.getContextPath();
 				<c:otherwise>
 					<c:forEach var="tool" items="${toolList}">
 						<div class="product-container">
+						<a href="#popup1?name=${tool.toolName}">
 							<div class="product">
 								<img
 									src="${pageContext.request.contextPath}/resources/catalog/${tool.imageUrlFromPart}"
@@ -57,6 +58,7 @@ String contextPath = request.getContextPath();
 									<p>${tool.toolAuthor}</p>
 								</section>
 							</div>
+							</a>
 						</div>
 						<div id="popup1?name=${tool.toolName}" class="overlay">
 							<div class="popup">

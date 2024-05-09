@@ -16,6 +16,7 @@ import controller.database.DBController;
 import model.Catalog;
 import model.Category;
 import utils.StringUtils;
+import utils.StringValidation;
 
 /**
  * Servlet implementation class ToolsAddServlet
@@ -66,6 +67,12 @@ public class ToolsAddServlet extends HttpServlet {
 			// add category
 			String title = request.getParameter("catTitle");
 			String description = request.getParameter("desc");
+			// Validate Name
+			if (!StringValidation.containsOnlyLetters(title)) {
+				request.setAttribute(StringUtils.MESSAGE_ERROR, "Names should contain only letters!");
+				request.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_DASH).forward(request, response);
+				return; // Stop processing the request
+			}
 
 			Category category = new Category(title, description);
 			int result = dbController.addCategory(category);
@@ -75,8 +82,11 @@ public class ToolsAddServlet extends HttpServlet {
 				request.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_DASH).forward(request, response);
 
 			} else if (result == 0) {
-
+				request.setAttribute(StringUtils.MESSAGE_ERROR, "Couldnn't add Category may already exist");
+				request.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_DASH).forward(request, response);
 			} else {
+				request.setAttribute(StringUtils.MESSAGE_ERROR, "Internal Server Error");
+				request.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_DASH).forward(request, response);
 
 			}
 		} else if (ops.trim().equals("addtools")) {
@@ -87,6 +97,12 @@ public class ToolsAddServlet extends HttpServlet {
 			Part imagePart = request.getPart("toolpic");
 			String categoryIdString = request.getParameter("catId");
 
+			// Validate Name
+			if (!StringValidation.containsOnlyLetters(toolAuthor)) {
+				request.setAttribute(StringUtils.MESSAGE_ERROR, "Names should contain only letters!");
+				request.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_DASH).forward(request, response);
+				return; // Stop processing the request
+			}
 			// Check if categoryIdString is "none"
 			if (categoryIdString.equals("none")) {
 				// Handle the case where no category is selected
@@ -117,9 +133,11 @@ public class ToolsAddServlet extends HttpServlet {
 				request.setAttribute(StringUtils.MESSAGE_SUCCESS, "Tools Added Successfully");
 				request.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_DASH).forward(request, response);
 			} else if (result == 0) {
-
+				request.setAttribute(StringUtils.MESSAGE_ERROR, "Couldn't add try again");
+				request.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_DASH).forward(request, response);
 			} else {
-
+				request.setAttribute(StringUtils.MESSAGE_ERROR, "Internal Server Error");
+				request.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_DASH).forward(request, response);
 			}
 		}
 		// doGet(request, response);

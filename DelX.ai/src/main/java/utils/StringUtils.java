@@ -78,6 +78,9 @@ public class StringUtils {
 	public static final String SERVLET_URL_REGISTER = "/registeruser";
 	public static final String SERVLET_URL_LOGOUT = "/logout";
 	public static final String SERVLET_ADMIN = "/admindash";
+	public static final String SERVLET_USER_ADMIN = "/useradmin";
+	public static final String SERVLET_ADMIN_CATALOG = "/tooladmin";
+	public static final String SERVLET_ADMIN_CATEGORY = "/admindash";
 	public static final String SERVLET_URL_ADD_TOOL = "/addtool";
 	public static final String SERVLET_URL_CATALOG = "/catalog";
 	public static final String SERVLET_URL_MODIFY_TOOL = "/modifytools";
@@ -111,7 +114,7 @@ public class StringUtils {
 	public static final String MESSAGE_SUCCESS = "successMessage";
 	public static final String MESSAGE_ERROR = "errorMessage";
 	// End: Validation Messages
-
+//Pages
 	public static final String PAGE_URL_HEADER = "/pages/header.jsp";
 	public static final String PAGE_URL_FOOTER = "/pages/footer.jsp";
 	public static final String URL_HOME = "/home.jsp";
@@ -129,6 +132,8 @@ public class StringUtils {
 	public static final String PAGE_URL_FORGOT_PASS = "/pages/forgotPassword.jsp";
 	public static final String PAGE_URL_PROFILE_SECTION2 = "/pages/profileSection2.jsp";
 	public static final String PAGE_URL_SEARCH_CATALOG = "/pages/searchcatalog.jsp";
+
+	// end pages
 
 	// Start: Normal Text
 	public static final String SUCCESS = "success";

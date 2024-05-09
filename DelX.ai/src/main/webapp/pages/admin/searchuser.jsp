@@ -16,7 +16,7 @@ String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>user search</title>
 <link rel="stylesheet" type="text/css"
 	href="<%=contextPath%>/stylesheets/userDetails.css" />
 <link
@@ -37,12 +37,21 @@ String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
 							alt="logo" width="30px" height="30px"></span></a></li>
 			</ul>
 			<ul class="sidebar-nav" id="sidebar">
-				<li><a href="<%=contextPath%>/pages/admin/admin.jsp">Dash<span
-						class="dash"></span></a></li>
-				<li><a href="<%=contextPath%>/pages/admin/catalogDetails.jsp">Catalog<span
-						class="catalog"></span></a></li>
-				<li><a href="<%=contextPath%>/pages/admin/userDetails.jsp">Users<span
-						class="user"></span></a></li>
+				<li><a href="#"
+					onclick="document.getElementById('adminForm').submit(); return false;">Dash</a>
+					<form id="adminForm"
+						action="${pageContext.request.contextPath}${StringUtils.SERVLET_ADMIN}"
+						method="get" style="display: none;"></form></li>
+				<li><a href="#"
+					onclick="document.getElementById('catalogForm').submit(); return false;">Catalog</a>
+					<form id="catalogForm"
+						action="${pageContext.request.contextPath}${StringUtils.SERVLET_ADMIN_CATALOG}"
+						method="get" style="display: none;"></form></li>
+				<li><a href="#"
+					onclick="document.getElementById('userForm').submit(); return false;">User</a>
+					<form id="userForm"
+						action="${pageContext.request.contextPath}${StringUtils.SERVLET_USER_ADMIN}"
+						method="get" style="display: none;"></form></li>
 				<li><a href="<%=contextPath%>/pages/admin/categoryDetails.jsp">Category<span
 						class="cat"></span></a></li>
 			</ul>
@@ -133,8 +142,39 @@ String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
 											src="${pageContext.request.contextPath}/resources/user/${user.imageUrlFromPart}"
 											width="120px" height="120px" alt="picture"></td>
 										<td>${user.userType}</td>
-										<td>Change</td>
+										<td><a href="#popup1?id=${user.userID }"> Change </a></td>
 									</tr>
+									<div id="popup1?id=${user.userID}" class="overlay">
+										<div class="popup">
+											<h2>Change Role</h2>
+											<a class="close" href="#">&times;</a>
+											<div class="content">
+												<div class="form_container">
+													<form name="form"
+														action="<%=contextPath + StringUtils.SERVLET_URL_MODIFY_USER%>"
+														method="post" enctype="multipart/form-data">
+														<input type="hidden" name="${StringUtils.USERID}"
+															value="${user.userID}">
+
+														<div class="form_wrap">
+															<div class="form_item">
+																<label>User Role:</label> <select name="role" id="">
+																	<option value="normal">normal</option>
+																	<option value="admin">admin</option>
+																</select>
+															</div>
+														</div>
+
+														<div class="btn">
+															<input type="submit" value="Save Changes">
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
 								</c:forEach>
 							</c:if>
 
@@ -142,33 +182,6 @@ String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
 
 					</table>
 				</div>
-				<div id="popup1" class="overlay">
-					<div class="popup">
-						<h2>Change User Type</h2>
-						<a class="close" href="#">&times;</a>
-						<div class="content">
-							<div class="form_container">
-								<form name="form" action="<%=contextPath%>/modifyuser"
-									method="post" enctype="multipart/form-data">
-									<input type="hidden" name="operations" value="addtools">
-									<div class="form_wrap">
-										<div class="form_item">
-											<label>Tool Category:</label> <select name="userType" id="">
-												<option value="admin">admin</option>
-												<option value="normal">normal</option>
-
-											</select>
-										</div>
-									</div>
-									<div class="btn">
-										<input type="submit" value="Save Changes">
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-
 
 			</div>
 		</div>

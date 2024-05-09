@@ -34,12 +34,18 @@ List<Category> categories = dbController.getAllCategories();
 				<li><a href="#"
 					onclick="document.getElementById('adminForm').submit(); return false;">Dash</a>
 					<form id="adminForm"
-						action="<%=contextPath + StringUtils.SERVLET_ADMIN%>"
+						action="<%=contextPath + StringUtils.SERVLET_ADMIN%>" method="get"
+						style="display: none;"></form></li>
+				<li><a href="#"
+					onclick="document.getElementById('catalogForm').submit(); return false;">Catalog</a>
+					<form id="catalogForm"
+						action="${pageContext.request.contextPath}${StringUtils.SERVLET_ADMIN_CATALOG}"
 						method="get" style="display: none;"></form></li>
-				<li><a href="<%=contextPath%>/pages/admin/catalogDetails.jsp">Catalog<span
-						class="catalog"></span></a></li>
-				<li><a href="<%=contextPath%>/pages/admin/userDetails.jsp">Users<span
-						class="user"></span></a></li>
+				<li><a href="#"
+					onclick="document.getElementById('userForm').submit(); return false;">USER</a>
+					<form id="userForm"
+						action="${pageContext.request.contextPath}${StringUtils.SERVLET_USER_ADMIN}"
+						method="get" style="display: none;"></form></li>
 				<li><a href="<%=contextPath%>/pages/admin/categoryDetails.jsp">Category<span
 						class="cat"></span></a></li>
 			</ul>
