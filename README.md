@@ -13,6 +13,7 @@ an ai subscription planner where a user may browse through various categories an
   * JSP Standard Tag Library (JSTL)
 
   # Architecture Used : MVC Pattern
+  ![image](https://github.com/RaWseekQWERTY/DelX.ai/assets/110769947/ec838059-7ec6-4d01-a55e-6b01ec08b6aa)
 
 
 
