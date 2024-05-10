@@ -154,7 +154,7 @@ String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
 											<td>${tool.catalogID}</td>
 											<td>${tool.toolName}</td>
 											<td>${tool.category.categoryName}</td>
-											<td>${tool.toolDesc}</td>
+											<td style ="max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${tool.toolDesc}</td>
 											<td>${tool.toolAuthor}</td>
 											<td><img
 												src="${pageContext.request.contextPath}/resources/catalog/${tool.imageUrlFromPart}"

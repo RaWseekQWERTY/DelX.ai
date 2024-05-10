@@ -142,7 +142,7 @@ public class ModifyUserServlet extends HttpServlet {
 			user.setGender(gender);
 			user.setImageUrlFromPart(imagePart);
 			String fileName = user.getImageUrlFromPart();
-			String savePath = StringUtils.IMAGE_DIR_SAVE_PATH;
+			String savePath = StringUtils.IMAGE_DIR_SAVE_PATH_USER;
 			if (fileName != null && !fileName.isEmpty()) { // Check if fileName is not null
 				imagePart.write(savePath + fileName);
 			}

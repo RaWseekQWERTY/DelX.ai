@@ -92,16 +92,13 @@ userSession.getAttribute(StringUtils.USERNAME);
 									value="${username.username}"> <input type="hidden"
 									name="${StringUtils.EMAIL}" value="${username.email}">
 								<input type="hidden" name="${StringUtils.PASSWORD}"
-									value="${username.password}">
-									<i
-					class="toggle-password fa fa-eye-slash"></i> <input type="password"
-					placeholder="Old Password" id="password"
-					name="oldPassword" required>
-									
-									 <i
-					class="toggle-confirm-password fa fa-eye-slash"></i> <input
-					type="password" placeholder="Confirm Password" id="confirmPassword"
-					name="newPassword" required>
+									value="${username.password}"> <i
+									class="toggle-password fa fa-eye-slash"></i> <input
+									type="password" placeholder="Old Password" id="password"
+									name="oldPassword" required> <i
+									class="toggle-confirm-password fa fa-eye-slash"></i> <input
+									type="password" placeholder="New Password" id="confirmPassword"
+									name="newPassword" required>
 
 								<button type="submit">Save Changes</button>
 							</form>

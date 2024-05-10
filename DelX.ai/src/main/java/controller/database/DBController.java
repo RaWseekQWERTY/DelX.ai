@@ -127,8 +127,8 @@ public class DBController {
 
 			// set tool information in prepare statement
 			stmt.setString(1, tools.getToolName());
-			stmt.setString(2, tools.getToolAuthor());
-			stmt.setString(3, tools.getToolDesc());
+			stmt.setString(3, tools.getToolAuthor());
+			stmt.setString(2, tools.getToolDesc());
 			stmt.setString(4, tools.getImageUrlFromPart());
 			stmt.setInt(5, tools.getCategory().getCategoryID());
 			// Execute the update statement and store the number of affected rows

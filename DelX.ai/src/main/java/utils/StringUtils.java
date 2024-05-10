@@ -132,6 +132,7 @@ public class StringUtils {
 	public static final String PAGE_URL_FORGOT_PASS = "/pages/forgotPassword.jsp";
 	public static final String PAGE_URL_PROFILE_SECTION2 = "/pages/profileSection2.jsp";
 	public static final String PAGE_URL_SEARCH_CATALOG = "/pages/searchcatalog.jsp";
+	public static final String PAGE_URL_CATEGORY = "/pages/admin/categoryDetails.jsp";
 
 	// end pages
 
