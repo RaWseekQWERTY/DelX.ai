@@ -19,3 +19,5 @@ an ai subscription planner where a user may browse through various categories an
 
 # ToDos:
 * implement other functions such as Subscriptions, payments, tech community, reviews and ratings
+* implemet JWT
+* Do the same using Sprint and hibernate
